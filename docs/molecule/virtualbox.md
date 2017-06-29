@@ -6,18 +6,18 @@ Environment
 OS: Fedora/Centos/RHEL
 
 
-## How to use virtualbox
+How to use virtualbox
+---------------------
 
+## Create a role without --driver (vagrant is default)
 
-Create a role without --driver (vagrant is default)
---------------------
 
 ~~~
 molecule init --role ansible-role
 ~~~
 
-Default molecule.yml
--------------------
+## Default molecule.yml
+
 
 ~~~
 dependency:
@@ -43,8 +43,8 @@ verifier:
   name: testinfra
 ~~~
 
-Add centos/7 box
----------------
+## Add centos/7 box
+
 ~~~
 ...
 platforms:
@@ -56,8 +56,8 @@ platforms:
 ...
 ~~~
 
-Execute molucule test
----------------------
+## Execute molucule test
+
 ~~~
 molecule test --platform centos   
 
@@ -83,10 +83,11 @@ Bringing machine 'test-role-vagrant' up with 'virtualbox' provider...
 ...
 ~~~
 
-## Tip
+Tip
+----
 
-SSH key insert: false
--------------------
+## SSH key insert: false
+
 ~~~
 vagrant:
   raw_config_args:
@@ -94,7 +95,8 @@ vagrant:
 ~~~
 
 
-## Reference
+Reference
+---------
 - [Vagrant Box Search](https://app.vagrantup.com/)
 
 Author Information
