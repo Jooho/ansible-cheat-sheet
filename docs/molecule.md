@@ -1,6 +1,6 @@
 Molecule
 --------
 
-- [How to install Molecule?](./molecule/install.md)
+- [How to install Molecule](./molecule/install.md)
 - [Molecule with VirtualBox](./molecule/virtualbox.md)
-- [Molecule with docker](./molecule/docker.md)
+- [Molecule with Docker](./molecule/docker.md)
