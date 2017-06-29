@@ -16,4 +16,5 @@
 - [ansible-playbook-openshift-custom-webconsole-logo](https://github.com/Jooho/openshift-toolkit/tree/master/ansible-playbook-openshift-custom-webconsole-logo)
 
 
-
+## Useful Docs
+- [Molecule](./docs/molecule.md)
