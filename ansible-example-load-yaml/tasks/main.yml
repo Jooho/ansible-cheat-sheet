@@ -1,0 +1,25 @@
+---
+# tasks file for ansible-example-load-yaml
+
+- name: " Load Yaml Data "
+  include_vars: "files/testdata.yaml"
+
+- name: "Show test data"
+  command: "cat ./files/testdata.yaml"
+
+- name: "Get value at 1st level"
+  debug: msg="{{first_value}}"
+
+- name: "Get list value at 1st level"
+  debug: msg="{{zones}}"
+
+- name: "Get first list value"
+  debug: msg="{{zones[0]}}"
+
+- name: "Get name value from first list value"
+  debug: msg="{{zones[0].name}}"
+
+- name: "Get list value from first list value"
+  debug: msg="hostname={{item.name}} host_ip={{item.ip}}"
+  with_items:
+    - "{{ zones[0].hosts }}"

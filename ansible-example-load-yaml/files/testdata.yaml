@@ -1,0 +1,17 @@
+---
+first_value: "The First Value"
+zones:
+  - name: named.example-com
+    hosts:
+    - name: master1
+      ip: 192.168.200.200
+    - name: master2
+      ip: 192.168.200.201
+
+  - name: named.cloudapps-example-com
+    hosts:
+      - name: "*"
+        ip:
+          - 192.168.200.201
+          - 192.168.200.202
+

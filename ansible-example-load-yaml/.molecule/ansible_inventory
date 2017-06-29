@@ -1,0 +1,2 @@
+[all]
+ansible-example-load-yaml ansible_connection=docker

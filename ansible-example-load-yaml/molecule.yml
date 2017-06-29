@@ -1,0 +1,14 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+docker:
+  containers:
+    - name: ansible-example-load-yaml
+      image:  centos
+      image_version: latest
+ansible:
+  verbose : ""
+verifier:
+  name: testinfra
