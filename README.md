@@ -1,7 +1,7 @@
 # Ansible Cheat Sheet
 
 ## Ansible Example List
-- [ansible-example-load-yaml](https://github.com/Jooho/ansible-cheat-sheet/ansible-example-load-yaml)
+- [ansible-example-load-yaml](./ansible-example-load-yaml)
 
 
 ## Ansible Role List
