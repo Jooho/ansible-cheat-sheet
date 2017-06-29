@@ -6,18 +6,17 @@ Environment
 OS: Fedora/Centos/RHEL
 
 
-## How to use docker
+How to use docker
+-----------------
 
-
-Create a role with --driver=docker
---------------------
+## Create a role with --driver=docker
 
 ~~~
 molecule init --role test-role-docker --driver=docker
 ~~~
 
-Default molecule.yml
--------------------
+## efault molecule.yml
+
 
 ~~~
 dependency:
@@ -35,8 +34,7 @@ verifier:
   name: testinfra
 ~~~
 
-Add centos Image
----------------
+## Add centos Image
 ~~~
 ...
 docker:
@@ -52,8 +50,7 @@ docker:
 ...
 ~~~
 
-Execute molucule test
----------------------
+## Execute molucule test
 
 The ansible script will execute on both containers.
 
