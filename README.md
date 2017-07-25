@@ -15,7 +15,7 @@
 ## Ansible Playbook List
 - [ansible-playbook-openshift-custom-login-page](./ansible-playbooks/ansible-playbook-openshift-custom-login-page)
 - [ansible-playbook-openshift-custom-webconsole-logo](./ansible-playbooks/ansible-playbook-openshift-custom-webconsole-logo)
-- [ansible-playbook-openshift-registry-ssl-expose](./ansible-plabybooks/openshift-registry-ssl-expose)
+- [ansible-playbook-openshift-registry-ssl-expose](./ansible-plabybooks/ansible-playbook-openshift-registry-ssl-expose)
 - [ansible-playbook-generate-self-signed-cert](./ansible-playbooks/ansible-playbook-generate-self-singed-cert)
 
 
