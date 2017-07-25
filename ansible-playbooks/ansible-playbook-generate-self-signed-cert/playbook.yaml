@@ -1,0 +1,7 @@
+- name: generate-self-signed-cert playbook
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    - { role: Jooho.generate-self-signed-cert }
+

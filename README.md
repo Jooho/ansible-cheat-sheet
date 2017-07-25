@@ -13,8 +13,10 @@
 
 
 ## Ansible Playbook List
-- [ansible-playbook-openshift-custom-login-page](https://github.com/Jooho/openshift-toolkit/tree/master/ansible-playbook-openshift-custom-login-page)
-- [ansible-playbook-openshift-custom-webconsole-logo](https://github.com/Jooho/openshift-toolkit/tree/master/ansible-playbook-openshift-custom-webconsole-logo)
+- [ansible-playbook-openshift-custom-login-page](./ansible-playbook/ansible-playbook-openshift-custom-login-page)
+- [ansible-playbook-openshift-custom-webconsole-logo](./ansible-playbook/ansible-playbook-openshift-custom-webconsole-logo)
+- [ansible-playbook-openshift-registry-ssl-expose](./ansible-plabybook/openshift-registry-ssl-expose)
+- [ansible-playbook-generate-self-signed-cert](./ansible-playbook/ansible-playbook-generate-self-singed-cert)
 
 
 ## Useful Docs

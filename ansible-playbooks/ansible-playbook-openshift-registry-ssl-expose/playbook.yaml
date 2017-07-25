@@ -1,0 +1,9 @@
+---
+ 
+ - name: Secure openshift integrated docker registry and expose its' svc
+   hosts: all
+   gather_facts: false
+
+   roles:
+     - { role: Jooho.openshift-registry-ssl-expose }
+
