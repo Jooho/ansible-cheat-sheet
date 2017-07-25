@@ -22,7 +22,7 @@ Roles Variables
 | Name                      | Default value                         |        Requird       | Description                                                                 |
 |---------------------------|---------------------------------------|----------------------|-----------------------------------------------------------------------------|
 | openshift_master_conf_dir | /etc/origin/master                    |         no           | Where openshift configuation dir is                                         |
-| master_url                | http://master1.example.com:8443       |         no           | API Server URL                                                              |
+| master_url                | master1.example.com:8443              |         no           | API Server URL                                                              |
 | login_html_dir            | /etc/origin/master                    |         no           | Where new login html page will locate                                       |
 | temp_dir                  | /tmp                                  |         no           | Temp directory                                                              |
 | input_img                 | sample-openshift-ori.png              |         no           | Original Image InputPath                                                    |
