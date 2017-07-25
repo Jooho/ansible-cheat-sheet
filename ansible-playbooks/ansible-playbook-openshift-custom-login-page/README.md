@@ -47,12 +47,13 @@ ansible-playbook ./playbook.yaml -e master_url=lb.example.com:8443
 ~~~
 
 - Use your own logo
+~~~
 ansible-playbook ./playbook.yaml -e master_url=lb.example.com:8443 -e input_img=/path/to/logo.png
 ~~~
 
 After Work
 ----------
-~~~
+```
 # Restart Openshift Master Server restart
 
 # Single Master
@@ -61,7 +62,7 @@ ansible masters -m shell -a "systemctl restart atomic-openshift-master"
 # Multiple Masters
 ansible masters -m shell -a "systemctl restart atomic-openshift-master-api"
 
-~~~
+```
 
 License
 -------
