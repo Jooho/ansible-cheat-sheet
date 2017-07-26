@@ -22,7 +22,7 @@ Roles Variables
 | Name                      | Default value                         |        Requird       | Description                                                                 |
 |---------------------------|---------------------------------------|----------------------|-----------------------------------------------------------------------------|
 | openshift_master_conf_dir | /etc/origin/master                    |         no           | Where openshift configuation dir is                                         |
-| master_url                | http://master1.example.com:8443       |         no           | API Server URL                                                              |
+| master_url                | master1.example.com:8443              |         no           | API Server URL                                                              |
 | login_html_dir            | /etc/origin/master                    |         no           | Where new login html page will locate                                       |
 | temp_dir                  | /tmp                                  |         no           | Temp directory                                                              |
 | input_img                 | sample-openshift-ori.png              |         no           | Original Image InputPath                                                    |
@@ -47,12 +47,13 @@ ansible-playbook ./playbook.yaml -e master_url=lb.example.com:8443
 ~~~
 
 - Use your own logo
+~~~
 ansible-playbook ./playbook.yaml -e master_url=lb.example.com:8443 -e input_img=/path/to/logo.png
 ~~~
 
 After Work
 ----------
-~~~
+```
 # Restart Openshift Master Server restart
 
 # Single Master
@@ -61,7 +62,7 @@ ansible masters -m shell -a "systemctl restart atomic-openshift-master"
 # Multiple Masters
 ansible masters -m shell -a "systemctl restart atomic-openshift-master-api"
 
-~~~
+```
 
 License
 -------
