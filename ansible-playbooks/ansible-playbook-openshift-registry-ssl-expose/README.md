@@ -19,12 +19,7 @@ Example Execute Command
 ~~~
 ansible-galaxy install -f Jooho.openshift-registry-ssl-expose
 
-ansible-playbook openshift-registry-ssl-expose.yml \
-  -e docker_registry_route_url='docker-registry.cloudapps.example.com' \ 
-  -e docker_registry_svc_name=docker-registry \ 
-  -e docker_registry_svc_ip=172.30.85.20  \ 
-  -e replace_cert=true \ 
-  -e restart_docker=true 
+ansible-playbook playbook.yaml  -e docker_registry_route_url='docker-registry.cloudapps.example.com' -e docker_registry_svc_name=docker-registry  -e docker_registry_svc_ip=172.30.210.68  -e replace_cert=true  -e restart_docker=true 
 ~~~
 
 Test Shell Script
