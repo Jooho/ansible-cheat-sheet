@@ -60,12 +60,12 @@ ansible-galaxy install -f -r requirements.yaml
 
 - Case 1 : Intermediate certI
 ~~~
-ansible-playbook ./playbook.yml -e cert_commonName=kibana.cloudapps.example.com -e cert_base_dir=/home/jooho/cert_base -b -e '{san_dns: [{ index: 1, dns: "kibana-ops.cloudapps.example.com" }]}' -vvvv
+ansible-playbook ./playbook.yaml -e cert_commonName=kibana.cloudapps.example.com -e cert_base_dir=/home/jooho/cert_base -b -e '{san_dns: [{ index: 1, dns: "kibana-ops.cloudapps.example.com" }]}' -vvvv
 ~~~
 
 - Case 2: No Intermediate cert
 ~~~
-ansible-playbook ./playbook.yml -e use_intermediate_cert=false -e cert_commonName=kibana.cloudapps.example.com -e cert_base_dir=/home/jooho/cert_base -b -e '{san_dns: [{ index: 1, dns: "kinaba-ops.cloudapps.example.com" }]}' -vvvv
+ansible-playbook ./playbook.yaml -e use_intermediate_cert=false -e cert_commonName=kibana.cloudapps.example.com -e cert_base_dir=/home/jooho/cert_base -b -e '{san_dns: [{ index: 1, dns: "kinaba-ops.cloudapps.example.com" }]}' -vvvv
 ~~~
 
 
