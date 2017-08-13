@@ -11,8 +11,14 @@ molecule init --role $ROLE_NAME --driver=docker
 docker:
   containers:
     - name: ansible-role-test-openldap-server
-      image: centos              <==== Update
+      image: centos                                               <==== Update
       image_version: latest
+      cap_add:                                                    <==== Update
+        - 'SYS_ADMIN'                                             <==== Update  (https://forums.docker.com/t/any-simple-and-safe-way-to-start-services-on-centos7-systemd/5695/10)
+      volume_mounts:                                              <==== Update  (systemd start issue)
+        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'                      <==== Update
+      privileged: True                                            <==== Update
+      command: /sbin/init                                         <==== Update
       ansible_groups:
         - group1
 
