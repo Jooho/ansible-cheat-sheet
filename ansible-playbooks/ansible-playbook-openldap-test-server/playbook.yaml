@@ -1,0 +1,11 @@
+---
+ 
+ - name: Install OpenLDAP Server and Put data on it.
+   hosts: che.example.com
+   gather_facts: yes
+ 
+   roles:
+     - { role: Jooho.generate-self-signed-cert, delegate_to: localhost, when: ssl }
+     - { role: Jooho.openldap-test-server, ssl_ca_cert: "{{cert_base_dir}}/certs/root-ca.cert.pem", ssl_cert: "{{cert_base_dir}}/{{cert_commonName}}/{{cert_commonName}}.cert.pem", ssl_private_key: "{{cert_base_dir}}/{{cert_commonName}}/{{cert_commonName}}.key.pem", when: ssl }
+     - { role: Jooho.openldap-test-server, when: not ssl}
+
