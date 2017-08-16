@@ -1,1 +1,2 @@
 ssl: true
+use_intermediate_cert: false

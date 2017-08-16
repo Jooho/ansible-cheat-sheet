@@ -22,7 +22,7 @@ Roles Variables
 |---------------------------|---------------------------------------|----------------------|-----------------------------------------------------------------------------|
 | ssl                       |  true                                 |         no           | Enable SSL for LDAP Server                                                  |
 |                           |                                       |                      | Generate cert/cacert/private key                                            |
-| use_intermediate_cert     |  true                                 |         no           | If set false, it will only create Root + Server cert (Refer [Jooho.generate-self-signed-cert](https://galaxy.ansible.com/Jooho/generate-self-signed-cert/) |
+| use_intermediate_cert     |  false                                |         no           | If set true, it will create Root + Intermediate + Server cert (Refer [Jooho.generate-self-signed-cert](https://galaxy.ansible.com/Jooho/generate-self-signed-cert/) |
 | cert_commonName           |  ldap.example.com                     |         no           | Hostname for ldap server ssl certificate                                    |
 | cert_base_dir             |  /root/cert_base                      |         no           | Base certificate folder                                                     |
 
@@ -42,7 +42,7 @@ ansible-playbook ./playbook.yaml -b
 
 - SSL LDAP Server with Intermediate Cert
 ```
-ansible-playbook ./playbook.yaml -b -e ssl=true -e use_intermediate_cert=false -e cert_commonName=ldap.example.com -e cert_base_dir=/home/jooho/cert_base/ldap -e '{san_ip: [{ index: 0, dns: "192.168.200.110" }]}'
+ansible-playbook ./playbook.yaml -b -e ssl=true -e use_intermediate_cert=true -e cert_commonName=ldap.example.com -e cert_base_dir=/home/jooho/cert_base/ldap -e '{san_ip: [{ index: 0, dns: "192.168.200.110" }]}'
 ```
 
 - SSL LDAP Server with Root Cert
