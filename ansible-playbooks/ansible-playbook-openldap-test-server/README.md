@@ -42,12 +42,12 @@ ansible-playbook ./playbook.yaml -b
 
 - SSL LDAP Server with Intermediate Cert
 ```
-ansible-playbook ./playbook.yaml -b -e ssl=true -e use_intermediate_cert=true -e cert_commonName=ldap.example.com -e cert_base_dir=/home/jooho/cert_base/ldap -e '{san_ip: [{ index: 0, dns: "192.168.200.110" }]}'
+ansible-playbook ./playbook.yaml -b -e ssl=true -e use_intermediate_cert=true -e cert_commonName=ldap.example.com -e cert_base_dir=/home/jooho/cert_base/ldap -e '{san_ip: [{ index: 0, ip: "192.168.200.110" }]}'
 ```
 
 - SSL LDAP Server with Root Cert
 ```
-ansible-playbook ./playbook.yaml -b -e ssl=true -e cert_commonName=che.example.com -e cert_base_dir=/home/jooho/cert_base/ldap -e '{san_ip: [{ index: 0, dns: "192.168.200.110" }]}'
+ansible-playbook ./playbook.yaml -b -e ssl=true -e cert_commonName=che.example.com -e cert_base_dir=/home/jooho/cert_base/ldap -e '{san_ip: [{ index: 0, ip: "192.168.200.110" }]}'
 ```
 
 Client Configuration
