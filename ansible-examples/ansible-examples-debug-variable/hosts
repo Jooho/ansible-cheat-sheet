@@ -1,0 +1,4 @@
+[nodes]
+node1 openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+node2 openshift_node_labels="{'region': 'app', 'zone': 'default'}"
+

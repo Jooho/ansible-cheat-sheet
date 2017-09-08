@@ -1,0 +1,22 @@
+- hosts: localhost
+  pre_tasks:
+    - name: Add nodes to host groups
+      add_host:
+        name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+        groups: nodes
+      with_items: "{{vms_info.results}}"
+
+  tasks:
+    - name: Print Node label List
+      debug: msg={{hostvars['node1'].openshift_node_labels}}
+
+    - name: Print Node label List
+      debug: msg={{hostvars[groups.nodes.0].openshift_node_labels}}
+   
+    - name: Print Node List
+      debug: msg={{hostvars[item].openshift_node_labels}}
+      with_items: "{{groups.nodes}}"
+   
+    - name: Print Node label List
+      debug: msg="{{hostvars[item].openshift_node_labels}}"
+      with_items: "{{groups['nodes']}}"
