@@ -1,0 +1,2 @@
+---
+- include: ocp-cluster/config.yaml

@@ -1,0 +1,113 @@
+---
+- name: Set timestamp 
+  set_fact:
+    timestamp: "{{ lookup('pipe', 'date +%Y%m') }}"
+
+  #TO-DO 
+  #cluster-tag need to be added 
+- name: Set VM name prefix
+  set_fact:
+    cluster_tag: "{{tag|default(timestamp)}}"
+    master_node_prefix: master
+    infra_node_prefix: infra
+    app_node_prefix: app
+    etcd_node_prefix: etcd
+    lb_node_prefix: lb
+
+- debug: msg="{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
+  with_sequence:
+   count={{master_node_vms}}
+
+- debug: var=rhev
+- name: Create Master VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{master_node_vms}}
+  register: created_master_vms_info
+
+- name: Create Infra VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{infra_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{infra_node_vms}}
+  register: created_infra_node_vms_info
+  when: infra_node_vms is defined 
+
+
+- name: Create App VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{app_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{app_node_vms}}
+  register: created_app_node_vms_info
+
+  
+- name: Create ETCD VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{etcd_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{etcd_node_vms}}
+  register: created_etcd_node_vms_info
+  when: etcd_node_vms is defined
+
+
+- name: Create LB VM
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{lb_node_prefix}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  register: created_lb_node_vm_info
+  when: master_node_vms|int > 1
+
+
+- include: ./generate-host-groups.yaml
+

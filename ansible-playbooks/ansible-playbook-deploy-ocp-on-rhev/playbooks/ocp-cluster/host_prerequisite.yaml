@@ -1,0 +1,74 @@
+---
+- name: Disable unneeded repositories
+  command: subscription-manager repos --disable='*'
+
+- name: Enable OpenShift repositories
+  command: subscription-manager repos --enable={{ item }}
+  with_items: ['rhel-7-server-rpms', 'rhel-7-server-extras-rpms', "rhel-7-server-ose-{{ocp.version}}-rpms", 'rhel-7-fast-datapath-rpms']
+
+# TO-DO
+# will use redhat_repository module 
+- name: Install the required rpms
+  package:
+    use: yum
+    name: "{{ item }}"
+    state: latest
+  with_items: ['iptables', 'iptables-services', 'NetworkManager', 'wget', 'git', 'net-tools', 'bind-utils',
+               'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct',
+               'atomic-openshift-utils', 'atomic-openshift-excluder', 'atomic-openshift-docker-excluder']
+
+- name: Run openshift excluder
+  command: atomic-openshift-excluder unexclude
+
+- name: Install docker
+  package:
+    use: yum
+    name: docker
+    state: latest
+
+- name: Configure docker-storage-setup configuration
+  copy:
+    content: |
+      DEV=/dev/vdb
+      VG=docker-vg
+      DATA_SIZE=95%VG
+      EXTRA_STORAGE_OPTIONS="--storage-opt dm.basesize=3G"
+    dest: /etc/sysconfig/docker-storage-setup
+
+- name: Run docker-storage-setup
+  command: docker-storage-setup
+
+- name: Start and enable docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+- name: Start NetworkManager and network
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+  with_items:
+  - NetworkManager
+  - network
+
+- name: Determine if firewalld is installed
+  yum:
+    name: "firewalld"
+    state: present
+  register: firewalld_installed
+
+- name: Stop firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: false
+  when:
+  - "{{ firewalld_installed.installed_versions | default([]) | length > 0 }}"
+
+- name: Start iptables
+  service:
+    name: iptables
+    state: started
+    enabled: true

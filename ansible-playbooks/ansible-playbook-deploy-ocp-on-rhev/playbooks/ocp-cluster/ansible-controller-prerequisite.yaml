@@ -1,0 +1,36 @@
+---
+- name: Disable unneeded repositories
+  command: subscription-manager repos --disable='*'
+
+- name: Enable OpenShift repositories
+  command: subscription-manager repos --enable={{ item }}
+  with_items: ['rhel-7-server-rpms', "rhel-7-server-ose-{{ocp.version}}-rpms"]
+
+- name: Install the required rpms
+  package:
+    use: yum
+    name: "{{ item }}"
+    state: latest
+  with_items: ['iptables', 'iptables-services', 'NetworkManager', 'wget', 'git', 'net-tools', 'bind-utils',
+               'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct',
+               'atomic-openshift-utils', 'atomic-openshift-excluder', 'atomic-openshift-docker-excluder']
+
+- name: Determine if firewalld is installed
+  yum:
+    name: "firewalld"
+    state: present
+  register: firewalld_installed
+
+- name: Stop firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: false
+  when:
+  - "{{ firewalld_installed.installed_versions | default([]) | length > 0 }}"
+
+- name: Start iptables
+  service:
+    name: iptables
+    state: stopped
+    enabled: false

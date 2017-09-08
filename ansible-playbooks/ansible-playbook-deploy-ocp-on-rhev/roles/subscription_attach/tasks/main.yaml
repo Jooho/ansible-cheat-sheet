@@ -1,0 +1,8 @@
+---
+- name: Register node to rhsm and attach pool
+  redhat_subscription:
+    username: "{{ subs.id }}"
+    password: "{{ subs.pw }}"
+    pool: "^{{ pool_name }}$"
+    state: present
+

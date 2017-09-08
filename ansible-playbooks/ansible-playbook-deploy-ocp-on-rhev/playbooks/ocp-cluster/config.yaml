@@ -1,0 +1,65 @@
+
+
+---
+- hosts: localhost
+  tasks:
+    - debug: msg="Success {{inventory_hostname}}"
+      when: inventory_hostname != ansible_controller_hostname 
+
+
+- hosts: localhost
+  roles:
+    - { role: create_vms }
+  post_tasks:
+    - name: Update groups 
+      include: ./generate-host-groups.yaml
+    - name: Check if localhost is ansible_controller_hostname
+      set_fact:
+        ansible_contoller_node: "{{groups.masters[0]}}"
+      when: inventory_hostname != ansible_contoller_hostname
+
+
+
+# Copy Public Key 
+- hosts: localhost
+  gather_facts: false
+  tasks:
+   - name: For each host, ssh-copy-id my ssh public keys to the host
+     shell: "sshpass -p {{base_image.pw}} ssh-copy-id -f -i {{ssh_public_key}} {{base_image.id}}@{{item}}; sleep 3"
+     with_items:
+       - "{{groups['all_nodes']}}"
+     tags:
+      - sshcopy
+
+# RHSM
+- hosts: masters {% if infra_node_vms is defined %}, infra {% endif %} {% if localhost_hostname.stdout not in masters %} ,localhost {% endif %}
+  gather_facts: false
+  roles: 
+    - role: subscription_attach
+      pool_name: "{{subs.broker_sub_pool}}"
+  tags: rhsm 
+
+
+- hosts: app_nodes
+  gather_facts: false
+  roles: 
+    - role: subscription_attach
+      pool_name: "{{subs.node_sub_pool}}"
+  tags: rhsm 
+
+
+# ansible controller prerequisite
+- hosts: localhosts
+  tasks:
+    - name: Install Host Requisites
+      include: ./ansible-controller-prerequisite.yaml
+      when: localhost_hostname.stdout not in masters
+
+# host_prerequisite
+- hosts: masters, infra_nodes, app_nodes
+  pre_tasks:
+    - name: Install Host Requisites
+      include: ./host_prerequisite.yaml
+
+# Run cluster installation playbook
+#- include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
