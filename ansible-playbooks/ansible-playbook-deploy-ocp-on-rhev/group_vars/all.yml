@@ -7,7 +7,7 @@ prefix_vm: jlee
 # if ansible_controller_hostname is set, it will check localhost hostname is the same. If not, it fails.
 # if ansible_controller_hsotanme is unset, one of master will be used as ansible controller.
 
-ssh_public_key: '/home/jooho/.ssh/id_rsa.pub'
+ssh_public_key: "{{lookup('env', 'SSH_PUBLIC_KEY')}}"
 ansible_controller_hostname: ansible.example.com
 
 # Base Image Info
@@ -31,8 +31,12 @@ rhev:
 subs:
   id: "{{lookup('env', 'RHSM_ID')}}"
   pw: "{{lookup('env', 'RHSM_PW')}}"
-  broker_sub_pool: "Red Hat OpenShift Container Platform Broker/Master Infrastructure"
-  node_sub_pool: "Red Hat OpenShift Container Platform, Standard, 2-Core"
+  broker_sub_pool_id: "{{lookup('env', 'BROKER_SUB_POOL_ID')}}"
+  node_sub_pool_id: "{{lookup('env', 'NODE_SUB_POOL_ID')}}"
+  broker_sub_pool: "Employee SKU"
+  node_sub_pool: "Employee SKU"
+#  broker_sub_pool: "Red Hat OpenShift Container Platform Broker/Master Infrastructure"
+#  node_sub_pool: "Red Hat OpenShift Container Platform, Standard, 2-Core"
 
 # OpenShift Info
 # package_version: 3.3.19
@@ -74,6 +78,14 @@ logging:
 
 # ETC
 loglevel: debug
+
+interim_dns:
+  install: true
+  forwarder_search: gsslab.rdu2.redhat.com
+  master_internal_api_hostname: masters.gsslab.rdu2.redhat.com
+  forwarder_dns:
+    - 10.11.5.4
+    - 10.11.5.3
 
 
 

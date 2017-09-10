@@ -1,8 +1,28 @@
 ---
-- name: Register node to rhsm and attach pool
+- debug: var=pool_id
+- name: Register node to rhsm and attach pool using name
   redhat_subscription:
     username: "{{ subs.id }}"
     password: "{{ subs.pw }}"
     pool: "^{{ pool_name }}$"
     state: present
-
+  when: pool_id=="false"
+  register: task_result
+  until: task_result|success
+  retries: 10
+  delay: 1
+  ignore_errors: yes
+- debug: var=task_result
+- name: Register node to rhsm and attach pool using id
+  redhat_subscription:
+    username: "{{ subs.id }}"
+    password: "{{ subs.pw }}"
+    pool_ids: "{{ pool_id }}"
+    state: present
+  when: not pool_id=="false"
+  register: task_result
+  until: task_result|success
+  retries: 10
+  delay: 1
+  ignore_errors: yes
+- debug: var=task_result

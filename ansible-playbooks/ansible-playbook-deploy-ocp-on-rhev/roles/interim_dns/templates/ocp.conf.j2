@@ -1,0 +1,18 @@
+port=53
+no-resolv
+domain-needed
+no-negcache
+max-cache-ttl=1
+{% if infra_node_vms is defined %}
+{% for item in groups.infra_nodes_ip %}
+address=/{{openshift_master_default_subdomain}}/{{item}}
+{% endfor %}
+{% else %}
+{% for item in groups.app_nodes_ip %}
+address=/{{openshift_master_default_subdomain}}/{{item}}
+{% endfor %}
+{% endif %}
+{% for item in interim_dns.forwarder_dns %}
+server=/{{interim_dns.forwarder_search}}/{{item}}
+{% endfor %}
+

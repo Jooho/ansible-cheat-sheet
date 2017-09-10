@@ -1,21 +1,21 @@
 ---
-- name: Disable unneeded repositories
+- name: Disable all repositories
   command: subscription-manager repos --disable='*'
 
 - name: Enable OpenShift repositories
-  command: subscription-manager repos --enable={{ item }}
-  with_items: ['rhel-7-server-rpms', 'rhel-7-server-extras-rpms', "rhel-7-server-ose-{{ocp.version}}-rpms", 'rhel-7-fast-datapath-rpms']
+  command: subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-7-server-ose-{{ocp.version}}-rpms --enable=rhel-7-fast-datapath-rpms
 
 # TO-DO
 # will use redhat_repository module 
 - name: Install the required rpms
-  package:
-    use: yum
-    name: "{{ item }}"
-    state: latest
-  with_items: ['iptables', 'iptables-services', 'NetworkManager', 'wget', 'git', 'net-tools', 'bind-utils',
-               'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct',
-               'atomic-openshift-utils', 'atomic-openshift-excluder', 'atomic-openshift-docker-excluder']
+  shell: yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct atomic-openshift-utils atomic-openshift-excluder atomic-openshift-docker-excluder
+#  package:
+#    use: yum
+#    name: "{{ item }}"
+#    state: latest
+#  with_items: ['iptables', 'iptables-services', 'NetworkManager', 'wget', 'git', 'net-tools', 'bind-utils',
+#               'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct',
+#               'atomic-openshift-utils', 'atomic-openshift-excluder', 'atomic-openshift-docker-excluder']
 
 - name: Run openshift excluder
   command: atomic-openshift-excluder unexclude

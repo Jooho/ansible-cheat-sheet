@@ -16,7 +16,7 @@
 
 - debug: msg="{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
   with_sequence:
-   count={{master_node_vms}}
+    count={{master_node_vms}}
 
 - debug: var=rhev
 - name: Create Master VMs
@@ -109,5 +109,4 @@
   when: master_node_vms|int > 1
 
 
-- include: ./generate-host-groups.yaml
 

@@ -1,0 +1,73 @@
+
+---
+- name: install dnsmasq package
+  yum: 
+    name: dnsmasq
+    state: present
+
+- name: Get IPs from Masters
+  shell: "host {{item}}|awk '{print $NF}'"
+  register: masters_ip
+  with_items: 
+    - "{{ groups.masters }}"
+
+- debug: var=masters_ip
+
+- name: Add IPs of Masters into Memory
+  add_host:
+    name: "{{item.stdout}}"
+    groups: master_nodes_ip
+  with_items: "{{masters_ip.results}}"
+
+
+- name: Get IPs from Infra Nodes
+  shell: "host {{item}}|awk '{print $NF}'"
+  register: infras_ip
+  with_items: 
+   - "{{ groups.infra_nodes }}"
+  when: infra_node_vms is defined
+
+- name: Add IPs of Masters into Memory
+  add_host:
+    name: "{{item.stdout}}"
+    groups: infra_nodes_ip
+  with_items: "{{ infras_ip.results}}"
+  when: infra_node_vms is defined
+
+- name: Get IPs from App Nodes
+  shell: "host {{item}}|awk '{print $NF}'"
+  register: apps_ip
+  with_items: 
+    - "{{ groups.app_nodes }}"
+  when: infra_node_vms is not defined
+  
+- name: Add IPs of Masters into Memory
+  add_host:
+    name: "{{item.stdout}}"
+    groups: app_nodes_ip
+  with_items: "{{ apps_ip.results }}"
+  when: infra_node_vms is not defined
+
+- name: Copy dnsmasq conf
+  template: src=ocp.conf.j2 dest=/etc/dnsmasq.d/ocp.conf
+
+- name: Check if Masters IP exist
+  command: grep {{item}} /etc/hosts
+  with_items:
+    - "{{ groups.master_nodes_ip }}"
+  register: ip_exist_in_hosts
+  ignore_errors: yes
+
+- name: Insert Masters IP into /etc/hosts for round robin
+  lineinfile:
+    path: /etc/hosts
+    line: "{{item.item}} {{interim_dns.master_internal_api_hostname}}"
+  with_items:
+    - "{{ ip_exist_in_hosts.results }}"
+  when: item.rc == 1
+
+- name: Restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
+

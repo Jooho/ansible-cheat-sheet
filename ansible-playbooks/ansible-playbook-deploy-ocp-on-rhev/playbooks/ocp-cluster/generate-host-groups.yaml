@@ -1,9 +1,8 @@
-
+---
 - name: Gather Master VMs info
   ovirt_vms_facts:
     pattern: "name={{item.vm.name}}"
     auth:
-      auth:
       username: "{{rhev.id}}"
       password: "{{rhev.pw}}"
       url: "{{rhev.api_url}}"
@@ -37,7 +36,6 @@
   ovirt_vms_facts:
     pattern: "name={{item.vm.name}}"
     auth:
-      auth:
       username: "{{rhev.id}}"
       password: "{{rhev.pw}}"
       url: "{{rhev.api_url}}"
@@ -62,7 +60,6 @@
   ovirt_vms_facts:
     pattern: "name={{item.vm.name}}"
     auth:
-      auth:
       username: "{{rhev.id}}"
       password: "{{rhev.pw}}"
       url: "{{rhev.api_url}}"
@@ -85,7 +82,6 @@
   ovirt_vms_facts:
     pattern: "name={{item.vm.name}}"
     auth:
-      auth:
       username: "{{rhev.id}}"
       password: "{{rhev.pw}}"
       url: "{{rhev.api_url}}"
@@ -112,7 +108,6 @@
   ovirt_vms_facts:
     pattern: "name={{created_lb_node_vm_info.vm.name}}"
     auth:
-      auth:
       username: "{{rhev.id}}"
       password: "{{rhev.pw}}"
       url: "{{rhev.api_url}}"
