@@ -1,27 +1,26 @@
 ---
-- name: Set timestamp 
-  set_fact:
-    timestamp: "{{ lookup('pipe', 'date +%Y%m') }}"
+#- name: Set timestamp, default_cluster_tag
+#  set_fact:
+#    timestamp: "{{ lookup('pipe', 'date +%Y%m') }}"
+#    default_cluster_tag: "{{ocp_version|regex_replace('\\.')}}"
 
-  #TO-DO 
-  #cluster-tag need to be added 
 - name: Set VM name prefix
   set_fact:
-    cluster_tag: "{{tag|default(timestamp)}}"
+#    cluster_tag: "{{tag|default(default_cluster_tag)}}"
     master_node_prefix: master
     infra_node_prefix: infra
     app_node_prefix: app
     etcd_node_prefix: etcd
     lb_node_prefix: lb
 
-- debug: msg="{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
+- debug: msg="{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
   with_sequence:
     count={{master_node_vms}}
 
 - debug: var=rhev
 - name: Create Master VMs
   ovirt_vms:
-    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
     template: "{{rhev.template}}"
     cluster: "{{rhev.cluster}}"
     auth:
@@ -38,7 +37,7 @@
 
 - name: Create Infra VMs
   ovirt_vms:
-    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{infra_node_prefix}}_{{item}}"
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{infra_node_prefix}}_{{item}}"
     template: "{{rhev.template}}"
     cluster: "{{rhev.cluster}}"
     auth:
@@ -57,7 +56,7 @@
 
 - name: Create App VMs
   ovirt_vms:
-    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{app_node_prefix}}_{{item}}"
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{app_node_prefix}}_{{item}}"
     template: "{{rhev.template}}"
     cluster: "{{rhev.cluster}}"
     auth:
@@ -75,7 +74,7 @@
   
 - name: Create ETCD VMs
   ovirt_vms:
-    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{etcd_node_prefix}}_{{item}}"
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{etcd_node_prefix}}_{{item}}"
     template: "{{rhev.template}}"
     cluster: "{{rhev.cluster}}"
     auth:
@@ -94,7 +93,7 @@
 
 - name: Create LB VM
   ovirt_vms:
-    name: "{{prefix_vm}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp.version|replace('.','U')}}_{{lb_node_prefix}}"
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{lb_node_prefix}}"
     template: "{{rhev.template}}"
     cluster: "{{rhev.cluster}}"
     auth:

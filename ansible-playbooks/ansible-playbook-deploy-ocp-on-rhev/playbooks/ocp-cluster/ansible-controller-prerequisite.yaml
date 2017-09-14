@@ -3,7 +3,7 @@
   command: subscription-manager repos --disable='*'
 
 - name: Enable OpenShift repositories
-  command: subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-ose-{{ocp.version}}-rpms 
+  command: subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-ose-{{ocp_version}}-rpms 
 
 - name: Install the required rpms
   shell: yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct atomic-openshift-utils 

@@ -8,8 +8,11 @@
       url: "{{rhev.api_url}}"
       ca_file: "{{rhev.ca_file}}"
   with_items: "{{created_master_vms_info.results}}"
-  delay: 30
   register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
 
 - name: Print Masters FQDN
   debug: msg="{{item.ansible_facts.ovirt_vms[0].fqdn}}"
@@ -23,7 +26,7 @@
     name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
     groups: all_nodes, masters {% if etcd_node_vms is not defined %}, etcd {% endif %}, nodes, broker_sub_nodes
     openshift_node_labels:
-      region: mgmt
+      'region': 'mgmt'
   with_items: "{{vms_info.results}}"
 
 - name: Print ETCD List 
@@ -31,7 +34,7 @@
   with_items: groups['etcd']
   when: loglevel is defined and loglevel == "debug"
 
-
+- debug: var=created_infra_node_vms_info
 - name: Gather Infra VMs info
   ovirt_vms_facts:
     pattern: "name={{item.vm.name}}"
@@ -42,8 +45,11 @@
       ca_file: "{{rhev.ca_file}}"
   with_items: "{{created_infra_node_vms_info.results}}"
   when: infra_node_vms is defined
-  delay: 30
   register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined 
+  ignore_errors: yes
+  retries: 60
+  delay: 10
 
 - name: Add infra instances to host group
   add_host:
@@ -65,15 +71,19 @@
       url: "{{rhev.api_url}}"
       ca_file: "{{rhev.ca_file}}"
   with_items: "{{created_app_node_vms_info.results}}"
-  delay: 30
   register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+
 
 - name: Add App instances to host group
   add_host:
     name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
     groups: all_nodes, nodes, app_nodes, node_sub_nodes
     openshift_node_labels:
-      region: "{% if infra_node_vms is not defined %} infra  {% else %} app {% endif %}"
+      region: "{% if infra_node_vms is not defined %}infra  {% else %}app {% endif %}"
       zone: default
   with_items: "{{vms_info.results}}"
 
@@ -87,9 +97,13 @@
       url: "{{rhev.api_url}}"
       ca_file: "{{rhev.ca_file}}"
   with_items: "{{created_etcd_node_vms_info.results}}"
-  delay: 30
   register: etcd_vms_info
   when: etcd_node_vms is defined
+  until: etcd_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+
 
 - name: Add ETCD instances to host group
   add_host:
@@ -112,10 +126,14 @@
       password: "{{rhev.pw}}"
       url: "{{rhev.api_url}}"
       ca_file: "{{rhev.ca_file}}"
-  delay: 30
   register: lb_vms_info
   when: master_node_vms|int > 1
+  until: lb_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
 
+- debug: var=lb_vms_info
 - name: Add LB instances to host group
   add_host:
     name: "{{lb_vms_info.ansible_facts.ovirt_vms[0].fqdn}}"
@@ -123,13 +141,13 @@
   when: master_node_vms|int > 1
 
 
-- name: Print Node label List 
-  debug: msg={{hostvars['dhcp182-109.gsslab.rdu2.redhat.com'].openshift_node_labels}}
-  when: loglevel is defined and loglevel == "debug"
+#- name: Print Node label List 
+#  debug: msg={{hostvars['dhcp182-109.gsslab.rdu2.redhat.com'].openshift_node_labels}}
+#  when: loglevel is defined and loglevel == "debug"
 
 
 - name: Print Node label List 
-  debug: msg={{hostvars[groups.nodes.0].openshift_node_labels}}
+  debug: msg={{hostvars[groups.infra_nodes.0].openshift_node_labels}}
   when: loglevel is defined and loglevel == "debug"
 
 - name: Print Node List 

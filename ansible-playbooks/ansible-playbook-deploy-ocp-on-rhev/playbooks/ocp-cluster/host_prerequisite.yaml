@@ -3,7 +3,7 @@
   command: subscription-manager repos --disable='*'
 
 - name: Enable OpenShift repositories
-  command: subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-7-server-ose-{{ocp.version}}-rpms --enable=rhel-7-fast-datapath-rpms
+  command: subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-7-server-ose-{{ocp_version}}-rpms --enable=rhel-7-fast-datapath-rpms
 
 # TO-DO
 # will use redhat_repository module 
@@ -21,15 +21,15 @@
   command: atomic-openshift-excluder unexclude
 
 - name: Install docker
-  package:
-    use: yum
+  yum:
     name: docker
-    state: latest
+    state: present
+    update_cache: yes
 
 - name: Configure docker-storage-setup configuration
   copy:
     content: |
-      DEV=/dev/vdb
+      DEVS=/dev/vdb
       VG=docker-vg
       DATA_SIZE=95%VG
       EXTRA_STORAGE_OPTIONS="--storage-opt dm.basesize=3G"
@@ -43,6 +43,29 @@
     name: docker
     enabled: yes
     state: started
+
+# If interim dns is installed, DNS nameserver should be updated
+- name: Check if iterim dns ip exist in /etc/resolv.conf
+  command: "grep {{hostvars['localhost']['ansible_controller_ip']}} /etc/resolv.conf"
+  register: interim_dns_ip_exist
+  ignore_errors: yes
+  when: interim_dns.install
+
+- name: Add interim dns ip to all nodes
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    line: "PEERDNS=no"
+  with_items:
+    - "{{ interim_dns_ip_exist }}"
+  when: interim_dns.install and item.rc == 1
+
+- name: Add interim dns ip to all nodes
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    line: "DNS1={{hostvars['localhost']['ansible_controller_ip']}}"
+  with_items:
+    - "{{ interim_dns_ip_exist }}"
+  when: interim_dns.install and item.rc == 1
 
 - name: Start NetworkManager and network
   service:

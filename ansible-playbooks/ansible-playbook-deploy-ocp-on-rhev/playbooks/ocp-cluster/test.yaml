@@ -1,5 +1,21 @@
 ---
+- hosts: all
+  tasks:
+    - name: Check if iterim dns ip exist in /etc/resolv.conf
+      command: "grep 10.10.181.112 /etc/resolv.conf"
+      register: interim_dns_ip_exist
+      ignore_errors: yes
+
+    - name: Add interim dns ip to all nodes
+      lineinfile:
+        path: /etc/resolv.conf
+        line: "nameserver 10.10.181.112 "
+        insertafter: "search"
+      with_items:
+        - "{{ interim_dns_ip_exist }}"
+      when: item.rc == 1
+
 - hosts: localhost
   roles:
-    - role: interim_dns
+    - role: generate_hosts_file
        

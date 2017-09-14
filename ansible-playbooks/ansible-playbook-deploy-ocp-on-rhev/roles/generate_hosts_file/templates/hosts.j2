@@ -1,0 +1,30 @@
+[OSEv3:children]
+masters
+etcd
+nodes
+{% if (master_node_vms|int) > 1 %}lb {% endif %}
+
+
+[OSEv3:vars]
+
+
+
+[masters]
+{% for item in groups.masters -%}
+{{item}}
+{% endfor %}
+
+[etcd]
+{% for item in groups.masters -%}
+{{item}}
+{% endfor %}
+
+[nodes]
+{% for item in groups.nodes -%}
+{{item}} openshift_node_labels="{{hostvars[item].openshift_node_labels|to_json|regex_replace('"','\'')}}"
+{% endfor %}
+
+{% if (groups.masters | length) >1 %} 
+[lb]
+{{groups.lb.0}}
+{% endif %}

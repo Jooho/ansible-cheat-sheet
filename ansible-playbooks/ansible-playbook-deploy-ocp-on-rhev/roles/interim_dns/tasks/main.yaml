@@ -1,15 +1,31 @@
-
 ---
 - name: install dnsmasq package
   yum: 
     name: dnsmasq
     state: present
 
+- name: Clean OCP Configuration
+  file: 
+    path: /etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
+    state: absent
+  when: interim_dns.rewrite_conf is defined and interim_dns.rewrite_conf 
+
+- name: Clean Master Internal Hostname in /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    state: absent
+    regexp: "{{ocp_master_cluster_hostname}}"
+  when: interim_dns.rewrite_conf is defined and interim_dns.rewrite_conf 
+
 - name: Get IPs from Masters
   shell: "host {{item}}|awk '{print $NF}'"
   register: masters_ip
   with_items: 
     - "{{ groups.masters }}"
+  until: masters_ip.stdout != ''
+  ignore_errors: yes
+  delay: 3
+  retries: 10
 
 - debug: var=masters_ip
 
@@ -26,8 +42,12 @@
   with_items: 
    - "{{ groups.infra_nodes }}"
   when: infra_node_vms is defined
+  until: infras_ip.stdout != ''
+  ignore_errors: yes
+  delay: 3
+  retries: 10
 
-- name: Add IPs of Masters into Memory
+- name: Add IPs of Infra into Memory
   add_host:
     name: "{{item.stdout}}"
     groups: infra_nodes_ip
@@ -40,16 +60,23 @@
   with_items: 
     - "{{ groups.app_nodes }}"
   when: infra_node_vms is not defined
+  until: apps_ip.stdout != ''
+  ignore_errors: yes
+  delay: 3
+  retries: 10
   
-- name: Add IPs of Masters into Memory
+- name: Add IPs of App into Memory
   add_host:
     name: "{{item.stdout}}"
     groups: app_nodes_ip
   with_items: "{{ apps_ip.results }}"
   when: infra_node_vms is not defined
 
-- name: Copy dnsmasq conf
-  template: src=ocp.conf.j2 dest=/etc/dnsmasq.d/ocp.conf
+- name: Copy dnsmasq conf - forwarder.conf
+  template: src=forwarder.conf.j2 dest=/etc/dnsmasq.d/forwarder.conf
+
+- name: Copy dnsmasq conf - ocp_conf
+  template: src=ocp.conf.j2 dest=/etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
 
 - name: Check if Masters IP exist
   command: grep {{item}} /etc/hosts
@@ -61,7 +88,7 @@
 - name: Insert Masters IP into /etc/hosts for round robin
   lineinfile:
     path: /etc/hosts
-    line: "{{item.item}} {{interim_dns.master_internal_api_hostname}}"
+    line: "{{item.item}} {{ocp_master_cluster_hostname}}"
   with_items:
     - "{{ ip_exist_in_hosts.results }}"
   when: item.rc == 1

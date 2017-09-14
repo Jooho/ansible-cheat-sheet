@@ -1,0 +1,6 @@
+port=53
+domain-needed
+no-negcache
+max-cache-ttl=1
+dhcp-option=6,{{interim_dns.forwarder_dns |join(',')}}
+

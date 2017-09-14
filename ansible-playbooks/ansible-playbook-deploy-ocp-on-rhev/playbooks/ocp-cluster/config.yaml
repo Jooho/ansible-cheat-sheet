@@ -10,9 +10,12 @@
   post_tasks:
     - name: Update groups
       include: ./generate-host-groups.yaml
+    - include_role:
+        name: generate_hosts_file
     - name: Install interim dns 
       include_role:
         name: interim_dns
+      when: interim_dns.install
 
 
 # Copy Public Key 
@@ -27,7 +30,7 @@
       - sshcopy
 
 # RHSM
-- hosts: masters {% if infra_node_vms is defined %}, infra {% endif %} 
+- hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined %},infra_nodes{% endif %} 
   gather_facts: false
   roles: 
     - role: subscription_attach
@@ -44,30 +47,36 @@
       pool_id: "{{subs.node_sub_pool_id|default(false)}}"
   tags: rhsm 
 
+# ansible_controller_prerequisite
+- hosts: localhost
+  tasks:
+    - name: Inall Ansible Controller Requisites
+      include: ./ansible-controller-prerequisite.yaml
 
 # host_prerequisite
-- hosts: masters, infra_nodes, app_nodes
+- hosts: masters, infra_nodes, app_nodes {% if (master_node_vms|int > 1) %}, lb {% endif %}
   tasks:
     - name: Install Host Requisites
       include: ./host_prerequisite.yaml
 
-    - name: Inall Ansible Controller Requisites
-      include: ./ansible-controller-prerequisite.yaml
-      delegate_to: localhost
-
-    - name: Check if iterim dns ip exist in /etc/resolv.conf
-      command: "grep {{hostvars['localhost']['ansible_controller_ip']}} /etc/resolv.conf"
-      register: interim_dns_ip_exist
-      ignore_errors: yes
-
-    - name: Add interim dns ip to all nodes
-      lineinfile:
-        path: /etc/resolv.conf
-        line: "{{item}} {{interim_dns.master_internal_api_hostname}}"
-      with_items:
-        - "{{ interim_dns_ip_exist }}"
-      when: item.rc == 1
+#    - name: Check if iterim dns ip exist in /etc/resolv.conf
+#      command: "grep {{hostvars['localhost']['ansible_controller_ip']}} /etc/resolv.conf"
+#      register: interim_dns_ip_exist
+#      ignore_errors: yes
+#
+#    - name: Add interim dns ip to all nodes
+#      lineinfile:
+#        path: /etc/resolv.conf
+#        line: "nameserver {{hostvars['localhost']['ansible_controller_ip']}}"
+#        insertafter: "search"
+#      with_items:
+#        - "{{ interim_dns_ip_exist }}"
+#      when: item.rc == 1
  
-  
+- hosts: localhost  
+  tasks: 
+    - name: Refresh inventory to ensure new instaces exist in inventory
+      meta: refresh_inventory
+
 # Run cluster installation playbook
-- include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
+#- include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
