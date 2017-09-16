@@ -1,0 +1,17 @@
+---
+
+- name: Create RHEV VM and Set Up all Hosts for OCP Installation
+  include: ./rhev/ocp_cluster.yaml
+  when: deploy_type == 'ocp_cluster'
+
+- name: Create RHEV VM and Set Up new Host for OCP Scaling up
+  include: ./rhev/ocp_scale.yaml
+  when: deploy_type == 'infra' or deploy_type == 'app'
+
+- name: Install ocp cluster
+  include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
+  when: deploy_type == 'cluster'
+
+- name: Scaling ocp cluster
+  include: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-node/scaleup.yml
+  when: deploy_type == 'infra' or deploy_type == 'app'

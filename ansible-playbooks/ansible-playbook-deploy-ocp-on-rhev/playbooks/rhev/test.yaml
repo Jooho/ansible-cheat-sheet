@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  tasks:
+    - ovirt_tags:
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        name: 33-0912_master_node_vms
+        state: present
+        vms:
+          - jlee_34-0912_RHEL7U3_OCP3U4_master_1
+          - jlee_34-0912_RHEL7U3_OCP3U4_master_2
+    - name: Gather Master VMs info
+      ovirt_tags_facts:
+        name: 33*
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+
+    
+    - debug:
+        var: tags 

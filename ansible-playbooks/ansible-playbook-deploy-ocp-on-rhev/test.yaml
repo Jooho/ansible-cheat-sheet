@@ -1,0 +1,14 @@
+- hosts: localhost
+  tasks:
+    - set_fact:
+        cluster_tag: 34-0912 
+    - name: Load OCP configuration
+      command: "cat /tmp/new_hosts_{{cluster_tag}}"
+      register: "new_node_conf"
+    
+    - name: Add new VMs to hosts file
+      blockinfile:
+        path: "/etc/ansible/hosts_{{cluster_tag}}"
+        block: |
+          "{{new_node_conf.stdout}}"
+

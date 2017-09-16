@@ -1,9 +1,22 @@
 ---
-- name: Disable all repositories
+- set_fact:
+    need_repo_list:
+       - rhel-7-server-rpms
+       - rhel-7-server-ose-{{ocp_version}}-rpms
+       - rhel-7-server-extras-rpms
+       - rhel-7-fast-datapath-rpms
+- shell: subscription-manager repos --list-enabled  |grep 'Repo ID'|awk  '{print $3}'
+  register: enabled_repo_list
+
+- name: Disable unneeded repositories
   command: subscription-manager repos --disable='*'
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
 
 - name: Enable OpenShift repositories
-  command: subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-7-server-ose-{{ocp_version}}-rpms --enable=rhel-7-fast-datapath-rpms
+  command: subscription-manager repos --enable="{{item}}" 
+  with_items:
+    - "{{ need_repo_list }}"
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
 
 # TO-DO
 # will use redhat_repository module 
@@ -88,7 +101,7 @@
     state: stopped
     enabled: false
   when:
-  - "{{ firewalld_installed.installed_versions | default([]) | length > 0 }}"
+  - firewalld_installed.installed_versions | default([]) | length > 0 
 
 - name: Start iptables
   service:

@@ -1,0 +1,13 @@
+---
+
+- name: Set up ansible controller
+  include: ./ansible-controller.yaml
+  when: node_type == 'ansible-controller'
+
+- name: Set up ocp host
+  include: ./ocp-host.yaml
+  when: node_type == 'ocp-host'
+
+- name: Set up ocp lb host
+  include: ./ocp-lb.yaml
+  when: node_type == 'ocp-lb'

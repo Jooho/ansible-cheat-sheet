@@ -1,0 +1,52 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - include: ./validate.yaml
+    - set_fact:
+        ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
+        new_vms: "{{ new_infra_node_vms | default(new_app_node_vms) }}"
+    - name: Gather Infra/App VMs info
+      ovirt_vms_facts:
+        pattern: "{{prefix_vm}}*{{cluster_tag}}*{{deploy_type}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+  tasks:
+    - name: Create New RHEV VM
+      include: ./tasks/create-vms.yaml
+
+    - name: Refresh inventory to ensure new instaces exist in inventory
+      meta: refresh_inventory
+
+    - name: Update groups
+      include: ./tasks/generate-host-groups.yaml
+
+    - name: generate host file
+      include_role:
+        name: generate_hosts_file
+
+    - name: Install interim dns
+      include_role:
+        name: interim_dns
+      when: interim_dns.install
+
+- name: Copy public key to all nodes
+  include: ../common/openshift-cluster/ssh-copy-id.yaml
+
+- name: RHSM register subscription
+  include: ../common/openshift-cluster/rhsm-register.yaml
+
+- name: Install OCP Host Pre-Requisites
+  hosts: new_nodes
+  roles:
+    - { role: openshift-prerequisites, node_type: ocp-host }
+
+
+

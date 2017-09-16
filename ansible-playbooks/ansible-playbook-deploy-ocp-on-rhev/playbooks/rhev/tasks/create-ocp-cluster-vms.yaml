@@ -4,20 +4,16 @@
 #    timestamp: "{{ lookup('pipe', 'date +%Y%m') }}"
 #    default_cluster_tag: "{{ocp_version|regex_replace('\\.')}}"
 
-- name: Set VM name prefix
-  set_fact:
-#    cluster_tag: "{{tag|default(default_cluster_tag)}}"
-    master_node_prefix: master
-    infra_node_prefix: infra
-    app_node_prefix: app
-    etcd_node_prefix: etcd
-    lb_node_prefix: lb
-
 - debug: msg="{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
   with_sequence:
     count={{master_node_vms}}
+  when: master_node_vms is defined and master_node_vms > 0
+#  when: inventory_hostname == groups.lb[0]
 
-- debug: var=rhev
+  #when: (infra_node_vms is not defined and app_node_vms is defined) or (app_node_vms is defined and app_node_vms > 0)
+ 
+#- fail: msg="test"
+
 - name: Create Master VMs
   ovirt_vms:
     name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
@@ -34,6 +30,7 @@
   with_sequence:
     count={{master_node_vms}}
   register: created_master_vms_info
+  when: master_node_vms is defined and master_node_vms > 0
 
 - name: Create Infra VMs
   ovirt_vms:
@@ -51,7 +48,7 @@
   with_sequence:
     count={{infra_node_vms}}
   register: created_infra_node_vms_info
-  when: infra_node_vms is defined 
+  when: infra_node_vms is defined and infra_node_vms > 0
 
 
 - name: Create App VMs
@@ -70,6 +67,7 @@
   with_sequence:
     count={{app_node_vms}}
   register: created_app_node_vms_info
+  when: app_node_vms is defined and app_node_vms > 0
 
   
 - name: Create ETCD VMs
@@ -88,7 +86,7 @@
   with_sequence:
     count={{etcd_node_vms}}
   register: created_etcd_node_vms_info
-  when: etcd_node_vms is defined
+  when: etcd_node_vms is defined and etcd_node_vms > 0
 
 
 - name: Create LB VM

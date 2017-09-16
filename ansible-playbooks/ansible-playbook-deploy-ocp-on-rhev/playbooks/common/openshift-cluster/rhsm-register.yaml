@@ -1,0 +1,28 @@
+---
+- hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %}
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.broker_sub_pool}}"
+      pool_id: "{{subs.broker_sub_pool_id|default(false)}}"
+      when: deploy_type == 'ocp_cluster'
+
+- hosts: app_nodes
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.node_sub_pool}}"
+      pool_id: "{{subs.node_sub_pool_id|default(false)}}"
+      when: deploy_type == 'ocp_cluster'
+
+- hosts: localhost {% if deploy_type == 'infra' or deploy_type == 'app' %}, new_nodes {% endif %}
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.broker_sub_pool}}"
+      pool_id: "{{subs.broker_sub_pool_id|default(false)}}"
+      when: deploy_type == 'infra'
+
+    - role: subscription_attach
+      pool_name: "{{subs.node_sub_pool}}"
+      pool_id: "{{subs.node_sub_pool_id|default(false)}}"
+      when: deploy_type == 'app'

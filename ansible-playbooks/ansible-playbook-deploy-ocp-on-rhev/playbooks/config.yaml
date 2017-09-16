@@ -1,2 +1,3 @@
 ---
-- include: ocp-cluster/config.yaml
+- include: ./rhev-dispatcher.yaml
+  when: provider=='rhev'
