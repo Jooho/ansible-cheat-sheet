@@ -29,8 +29,24 @@
     wait: True
   with_sequence:
     count={{master_node_vms}}
-  register: created_master_vms_info
+  register: created_master_node_vms_info
   when: master_node_vms is defined and master_node_vms > 0
+
+- name: Add Tag for Master VMs
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "{{cluster_tag}}_master_node_vms"
+    state: attached
+    vms: "{{ item.vm.name }}"
+  with_items:
+    - "{{ created_master_node_vms_info.results }}"
+  when: master_node_vms is defined and master_node_vms > 0
+  
+
 
 - name: Create Infra VMs
   ovirt_vms:
@@ -49,6 +65,21 @@
     count={{infra_node_vms}}
   register: created_infra_node_vms_info
   when: infra_node_vms is defined and infra_node_vms > 0
+
+- name: Add Tag for Infra VMs
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "{{cluster_tag}}_infra_node_vms"
+    state: attached
+    vms: "{{ item.vm.name }}"
+  with_items:
+    - "{{ created_infra_node_vms_info.results }}"
+  when: infra_node_vms is defined and infra_node_vms > 0
+
 
 
 - name: Create App VMs
@@ -69,6 +100,21 @@
   register: created_app_node_vms_info
   when: app_node_vms is defined and app_node_vms > 0
 
+- name: Add Tag for App VMs
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "{{cluster_tag}}_app_node_vms"
+    state: attached
+    vms: "{{ item.vm.name }}"
+  with_items:
+    - "{{ created_app_node_vms_info.results }}"
+  when: app_node_vms is defined and app_node_vms > 0
+
+
   
 - name: Create ETCD VMs
   ovirt_vms:
@@ -88,6 +134,20 @@
   register: created_etcd_node_vms_info
   when: etcd_node_vms is defined and etcd_node_vms > 0
 
+- name: Add Tag for ETCD VMs
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "{{cluster_tag}}_etcd_node_vms"
+    state: attached
+    vms: "{{ item.vm.name }}"
+  with_items:
+    - "{{ created_etcd_node_vms_info.results }}"
+  when: etcd_node_vms is defined and etcd_node_vms > 0
+
 
 - name: Create LB VM
   ovirt_vms:
@@ -105,5 +165,15 @@
   register: created_lb_node_vm_info
   when: master_node_vms|int > 1
 
-
-
+- debug: var=created_lb_node_vm_info
+- name: Add Tag for LB VMs
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "{{cluster_tag}}_lb_node_vms"
+    state: attached
+    vms: "{{ created_lb_node_vm_info.vm.name }}"
+  when: master_node_vms|int > 1

@@ -4,7 +4,6 @@
   command: "subscription-manager list --consumed"
   register: comsumed_subs
 
-
 - debug: var=pool_id
 - name: Register node to rhsm and attach pool using name
   redhat_subscription:

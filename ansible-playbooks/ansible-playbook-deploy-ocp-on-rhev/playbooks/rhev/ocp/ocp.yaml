@@ -3,15 +3,19 @@
   pre_tasks:
     - set_fact:
         ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
-  tasks:
-    - include: ./validate.yaml
+    - name: Check validation for ocp cluster
+      include: ./validate.yaml
+
     - debug: var=ansible_controller_ip
 
     - name: Create RHEV VM 
-      include: ./tasks/create-ocp-cluster-vms.yaml
+      include: ./ocp-create-vms.yaml
+
+    - name: Refresh inventory to ensure new instaces exist in inventory
+      meta: refresh_inventory
 
     - name: Update groups
-      include: ./tasks/generate-host-groups.yaml
+      include: ../tasks/generate-host-groups.yaml
 
     - name: generate host file
       include_role:
@@ -22,11 +26,25 @@
         name: interim_dns
       when: interim_dns.install
 
-- name: Copy public key to all nodes
-  include: ../common/openshift-cluster/ssh-copy-id.yaml
+  roles:
+    - role: ssh-id-copy
+      ssh_id_copy_target: 'cluster'
 
-- name: RHSM register subscription
-  include: ../common/openshift-cluster/rhsm-register.yaml
+# RHSM register subscription
+- hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %}
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.broker_sub_pool}}"
+      pool_id: "{{subs.broker_sub_pool_id|default(false)}}"
+
+- hosts: app_nodes
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.node_sub_pool}}"
+      pool_id: "{{subs.node_sub_pool_id|default(false)}}"
+
 
 # ansible_controller_prerequisite
 - name: Inall Ansible Controller Pre-Requisites
@@ -40,25 +58,6 @@
     - { role: openshift-prerequisites, node_type: ocp-host, when: groups.lb is defined and inventory_hostname != groups.lb.0 }
     - { role: openshift-prerequisites, node_type: ocp-lb, when: groups.lb is defined and inventory_hostname == groups.lb.0 }
 
-
-#    - name: Check if iterim dns ip exist in /etc/resolv.conf
-#      command: "grep {{hostvars['localhost']['ansible_controller_ip']}} /etc/resolv.conf"
-#      register: interim_dns_ip_exist
-#      ignore_errors: yes
-#
-#    - name: Add interim dns ip to all nodes
-#      lineinfile:
-#        path: /etc/resolv.conf
-#        line: "nameserver {{hostvars['localhost']['ansible_controller_ip']}}"
-#        insertafter: "search"
-#      with_items:
-#        - "{{ interim_dns_ip_exist }}"
-#      when: item.rc == 1
- 
-#- hosts: localhost  
-#  tasks: 
-#    - name: Refresh inventory to ensure new instaces exist in inventory
-#      meta: refresh_inventory
 
 # Run cluster installation playbook
 - include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml

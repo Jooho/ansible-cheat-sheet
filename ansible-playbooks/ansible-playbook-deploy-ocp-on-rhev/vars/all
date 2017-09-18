@@ -70,14 +70,6 @@ lb_node_prefix: lb
 # If etcd_vms is specified, etcd will be installed separately.
 # etcd_vms:3
 
-# OpenShift parameters
-metrics: 
-  enable: true
-  hawkular_hostname: hawkular."{{ocp_cluster_subdomain}}"
-
-logging:
-  enable: true
-  kibana_hostname: kibana."{{ocp_cluster_subdomain}}"
 
 # Extra VMs
 # ldap: 

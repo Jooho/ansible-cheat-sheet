@@ -1,0 +1,2736 @@
+Using /etc/ansible/ansible.cfg as config file
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/validate.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ansible-controller.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-host.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-lb.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ansible-controller.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-host.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-lb.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ansible-controller.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-host.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-lb.yaml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/etcd/tasks/etcdctl.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_master/tasks/serviceaccount.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_master/tasks/certificates.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_master/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_master/tasks/set_loopback_context.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_master_cluster/tasks/configure.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/certificates.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_serviceaccounts/tasks/legacy_add_scc_to_user.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_serviceaccounts/tasks/legacy_add_scc_to_user.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_hosted/tasks/router/router.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_hosted/tasks/registry/registry.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_metrics/tasks/install.yml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-vms.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/validate.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ansible-controller.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-host.yaml
+statically included: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/./ocp-lb.yaml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/certificates.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/etcd/tasks/etcdctl.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_master/tasks/serviceaccount.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_master/tasks/certificates.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_master/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_master/tasks/set_loopback_context.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_master_cluster/tasks/configure.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/certificates.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_serviceaccounts/tasks/legacy_add_scc_to_user.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_serviceaccounts/tasks/legacy_add_scc_to_user.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_hosted/tasks/router/router.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_hosted/tasks/registry/registry.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_metrics/tasks/install.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_rpm.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_version/tasks/set_version_containerized.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/docker/tasks/udev_workaround.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/openstack.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/aws.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_cloud_provider/tasks/gce.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node_dnsmasq/tasks/./no-network-manager.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/systemd_units.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/nfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/glusterfs.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/ceph.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/openshift_node/tasks/storage_plugins/iscsi.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/firewalld.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/os_firewall/tasks/firewall/iptables.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/certificates.yml
+statically included: /usr/share/ansible/openshift-ansible/roles/nuage_node/tasks/iptables.yml
+Loading callback plugin default of type stdout, v2.0 from /usr/lib/python2.7/site-packages/ansible/plugins/callback/__init__.pyc
+Loading callback plugin version_requirement of type old, v1.0 from /usr/lib/python2.7/site-packages/ansible/plugins/callback/__init__.pyc
+
+PLAYBOOK: config.yaml *********************************************************************************************************************************************************************************************
+107 plays in playbooks/config.yaml
+
+PLAY [localhost] **************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
+Using module file /usr/lib/python2.7/site-packages/ansible/modules/system/setup.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605747.83-67049183624954 `" && echo ansible-tmp-1505605747.83-67049183624954="` echo /root/.ansible/tmp/ansible-tmp-1505605747.83-67049183624954 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmpgDuOuT TO /root/.ansible/tmp/ansible-tmp-1505605747.83-67049183624954/setup.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605747.83-67049183624954/ /root/.ansible/tmp/ansible-tmp-1505605747.83-67049183624954/setup.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605747.83-67049183624954/setup.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605747.83-67049183624954/" > /dev/null 2>&1 && sleep 0'
+ok: [localhost]
+
+TASK [set_fact] ***************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/ocp_cluster.yaml:4
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+
+TASK [debug] ******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/validate.yaml:2
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/validate.yaml:3
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [debug] ******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/ocp_cluster.yaml:8
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [debug] ******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:7
+skipping: [localhost] => (item=1)  => {
+    "changed": false, 
+    "item": "1", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+skipping: [localhost] => (item=2)  => {
+    "changed": false, 
+    "item": "2", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Create Master VMs] ******************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:17
+skipping: [localhost] => (item=1)  => {
+    "changed": false, 
+    "item": "1", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+skipping: [localhost] => (item=2)  => {
+    "changed": false, 
+    "item": "2", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add Tag for Master VMs] *************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:35
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": "1", 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'2', 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": "2", 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Create Infra VMs] *******************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:52
+skipping: [localhost] => (item=1)  => {
+    "changed": false, 
+    "item": "1", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add Tag for Infra VMs] **************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:70
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": "1", 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Create App VMs] *********************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:86
+skipping: [localhost] => (item=1)  => {
+    "changed": false, 
+    "item": "1", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add Tag for App VMs] ****************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:104
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": "1", 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Create ETCD VMs] ********************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:120
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add Tag for ETCD VMs] ***************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:138
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Create LB VM] ***********************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:155
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [debug] ******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:171
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add Tag for LB VMs] *****************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-ocp-cluster-vms.yaml:172
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: inventory successfully refreshed
+
+TASK [Add masters to host groups] *********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:2
+skipping: [localhost] => (item=jlee_34-0912_RHEL7U3_OCP3U4_master_1)  => {
+    "changed": false, 
+    "item": "jlee_34-0912_RHEL7U3_OCP3U4_master_1", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+skipping: [localhost] => (item=jlee_34-0912_RHEL7U3_OCP3U4_master_2)  => {
+    "changed": false, 
+    "item": "jlee_34-0912_RHEL7U3_OCP3U4_master_2", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Print ETCD List] ********************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:13
+skipping: [localhost] => (item=groups['masters'])  => {
+    "changed": false, 
+    "item": "groups['masters']", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Gather Infra VMs info] **************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:18
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": "1", 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add infra instances to host group] **************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:35
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': {'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False}, 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": {
+            "changed": false, 
+            "item": "1", 
+            "skip_reason": "Conditional result was False", 
+            "skipped": true
+        }, 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Gather App VMs info] ****************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:46
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": "1", 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add App instances to host group] ****************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:64
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': {'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False}, 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": {
+            "changed": false, 
+            "item": "1", 
+            "skip_reason": "Conditional result was False", 
+            "skipped": true
+        }, 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Gather ETCD VMs info] ***************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:76
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add ETCD instances to host group] ***************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:93
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Print ETCD List] ********************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:100
+skipping: [localhost] => (item=groups['etcd'])  => {
+    "changed": false, 
+    "item": "groups['etcd']", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Gather LB VM info] ******************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:105
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add LB instances to host group] *****************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:120
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Scaling - Gather New Infra VMs info] ************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:130
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add infra instances to host group] **************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:148
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Scaling - Gather new App VMs info] **************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:158
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add App instances to host group] ****************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:176
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Generate hosts file] ******************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:3
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Copy OCP conf /tmp/.] *****************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:7
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Load OCP configuration] ***************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:11
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Add ocp cluster parameters into hosts file] *******************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:16
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Overwrite default hosts file] *********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:23
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Create a new VMs information] *********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:27
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Load OCP configuration] ***************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:31
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [generate_hosts_file : Add new VMs to hosts file] ************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/generate_hosts_file/tasks/main.yaml:36
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : install dnsmasq package] **********************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:2
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Clean OCP Configuration] **********************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:7
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Clean Master Internal Hostname in /etc/hosts] *************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:13
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Get IPs from Masters] *************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:20
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Add IPs of Masters into Memory] ***************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:31
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Get IPs from Infra Nodes] *********************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:38
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Add IPs of Infra into Memory] *****************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:49
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Get IPs from App Nodes for Infra (when infra nodes does not exist)] ***************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:56
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Add IPs of App for Infra into Memory (when infra nodes does not exist)] ***********************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:67
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Get IPs from App Nodes] ***********************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:74
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Add IPs of App into Memory] *******************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:85
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Copy dnsmasq conf - forwarder.conf] ***********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:92
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Copy dnsmasq conf - ocp_conf] *****************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:95
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Add new infra node - ocp_conf] ****************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:99
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [interim_dns : Restart dnsmasq] ******************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/interim_dns/tasks/main.yaml:121
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [localhost] **************************************************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [debug] ******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/common/openshift-cluster/ssh-copy-id.yaml:7
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Delete hosts from known_hosts] ******************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/common/openshift-cluster/ssh-copy-id.yaml:10
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [For each host, ssh-copy-id my ssh public keys to the host] **************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/common/openshift-cluster/ssh-copy-id.yaml:18
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [localhost] **************************************************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [Delete hosts from known_hosts] ******************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/common/openshift-cluster/ssh-copy-id.yaml:31
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [For each host, ssh-copy-id my ssh public keys to the host] **************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/common/openshift-cluster/ssh-copy-id.yaml:39
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [masters,lb,infra_nodes] *************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [app_nodes] **************************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [localhost , new_nodes] **************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
+Using module file /usr/lib/python2.7/site-packages/ansible/modules/system/setup.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605757.92-141141544027779 `" && echo ansible-tmp-1505605757.92-141141544027779="` echo /root/.ansible/tmp/ansible-tmp-1505605757.92-141141544027779 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmpt_PULS TO /root/.ansible/tmp/ansible-tmp-1505605757.92-141141544027779/setup.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605757.92-141141544027779/ /root/.ansible/tmp/ansible-tmp-1505605757.92-141141544027779/setup.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605757.92-141141544027779/setup.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605757.92-141141544027779/" > /dev/null 2>&1 && sleep 0'
+ok: [localhost]
+META: ran handlers
+
+TASK [subscription_attach : check if it is already registered with same subscription] *****************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:3
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : debug] ********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:8
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : Register node to rhsm and attach pool using name] *************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:9
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : debug] ********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:22
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : Register node to rhsm and attach pool using id] ***************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:23
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : debug] ********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:35
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : check if it is already registered with same subscription] *****************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:3
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : debug] ********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:8
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : Register node to rhsm and attach pool using name] *************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:9
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : debug] ********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:22
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : Register node to rhsm and attach pool using id] ***************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:23
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [subscription_attach : debug] ********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/subscription_attach/tasks/main.yaml:35
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [Inall Ansible Controller Pre-Requisites] ********************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
+Using module file /usr/lib/python2.7/site-packages/ansible/modules/system/setup.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605759.11-88736469553878 `" && echo ansible-tmp-1505605759.11-88736469553878="` echo /root/.ansible/tmp/ansible-tmp-1505605759.11-88736469553878 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmpd6XACV TO /root/.ansible/tmp/ansible-tmp-1505605759.11-88736469553878/setup.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605759.11-88736469553878/ /root/.ansible/tmp/ansible-tmp-1505605759.11-88736469553878/setup.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605759.11-88736469553878/setup.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605759.11-88736469553878/" > /dev/null 2>&1 && sleep 0'
+ok: [localhost]
+META: ran handlers
+
+TASK [openshift-prerequisites : set_fact] *************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:2
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : command] **************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:6
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Disable unneeded repositories] ****************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:9
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Enable OpenShift repositories] ****************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:13
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Install the required rpms] ********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:20
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Determine if firewalld is installed] **********************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:31
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Stop firewalld] *******************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:37
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Start iptables] *******************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ansible-controller.yaml:43
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : set_fact] *************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:2
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : command] **************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:8
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Disable unneeded repositories] ****************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:11
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Enable OpenShift repositories] ****************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:15
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Install the required rpms] ********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:23
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Run openshift excluder] ***********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:33
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Install docker] *******************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:36
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Configure docker-storage-setup configuration] *************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:42
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Run docker-storage-setup] *********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:51
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Start and enable docker] **********************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:54
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Check if iterim dns ip exist in /etc/resolv.conf] *********************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:61
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Add interim dns ip to all nodes] **************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:67
+skipping: [localhost] => (item={'skip_reason': u'Conditional result was False', 'skipped': True, 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Add interim dns ip to all nodes] **************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:75
+skipping: [localhost] => (item={'skip_reason': u'Conditional result was False', 'skipped': True, 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Start NetworkManager and network] *************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:83
+skipping: [localhost] => (item=NetworkManager)  => {
+    "changed": false, 
+    "item": "NetworkManager", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+skipping: [localhost] => (item=network)  => {
+    "changed": false, 
+    "item": "network", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Determine if firewalld is installed] **********************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:92
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Stop firewalld] *******************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:98
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Start iptables] *******************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-host.yaml:106
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : set_fact] *************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-lb.yaml:2
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : command] **************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-lb.yaml:6
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Disable unneeded repositories] ****************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-lb.yaml:9
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [openshift-prerequisites : Enable OpenShift repositories] ****************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/roles/openshift-prerequisites/tasks/ocp-lb.yaml:13
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [Install OCP Host Pre-Requisites] ****************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Create initial host groups for localhost] *******************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [include_vars] ***********************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/initialize_groups.yml:10
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Evaluate group l_oo_all_hosts] ******************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/initialize_groups.yml:11
+META: ran handlers
+META: ran handlers
+
+PLAY [Create initial host groups for all hosts] *******************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Populate config host groups] ********************************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:8
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:12
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:16
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:20
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:24
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:28
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Evaluate oo_all_hosts] **************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:32
+
+TASK [Evaluate oo_masters] ****************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:41
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Evaluate oo_etcd_to_config] *********************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:50
+
+TASK [Evaluate oo_masters_to_config] ******************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:59
+
+TASK [Evaluate oo_nodes_to_config] ********************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:68
+
+TASK [Add master to oo_nodes_to_config] ***************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:78
+
+TASK [Evaluate oo_first_etcd] *************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:88
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Evaluate oo_first_master] ***********************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:96
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Evaluate oo_lb_to_config] ***********************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:105
+
+TASK [Evaluate oo_nfs_to_config] **********************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-cluster/evaluate_groups.yml:114
+META: ran handlers
+META: ran handlers
+
+PLAY [Ensure that all non-node hosts are accessible] **************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Initialize host facts] **************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Gather and set facts for node hosts] ************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [l_oo_all_hosts] *********************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Determine openshift_version to configure on first master] ***************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Set openshift_version for all hosts] ************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Set oo_option facts] ****************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Disable excluders] ******************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Configure etcd] *********************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Configure nfs] **********************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Configure load balancers] ***********************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Gather and set facts for master hosts] **********************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Create temp directory for syncing certs] ********************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [Create local temp directory for syncing certs] **************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-master/config.yml:89
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [Determine if session secrets must be generated] *************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Generate master session secrets] ****************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Configure masters] ******************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Delete temporary directory on localhost] ********************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [file] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-master/config.yml:160
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [Additional master configuration] ****************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Gather and set facts for node hosts] ************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Create temp directory for syncing certs] ********************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [Create local temp directory for syncing certs] **************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-node/config.yml:29
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [Evaluate node groups] ***************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
+Using module file /usr/lib/python2.7/site-packages/ansible/modules/system/setup.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605762.84-218096575544148 `" && echo ansible-tmp-1505605762.84-218096575544148="` echo /root/.ansible/tmp/ansible-tmp-1505605762.84-218096575544148 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmp6cC6ad TO /root/.ansible/tmp/ansible-tmp-1505605762.84-218096575544148/setup.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605762.84-218096575544148/ /root/.ansible/tmp/ansible-tmp-1505605762.84-218096575544148/setup.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605762.84-218096575544148/setup.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605762.84-218096575544148/" > /dev/null 2>&1 && sleep 0'
+ok: [localhost]
+META: ran handlers
+
+TASK [Evaluate oo_containerized_master_nodes] *********************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-node/config.yml:39
+META: ran handlers
+META: ran handlers
+
+PLAY [Configure containerized nodes] ******************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Configure nodes] ********************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Additional node config] *************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Delete temporary directory on localhost] ********************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [file] *******************************************************************************************************************************************************************************************************
+task path: /usr/share/ansible/openshift-ansible/playbooks/common/openshift-node/config.yml:109
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [Create persistent volumes] **********************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Create Hosted Resources] ************************************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [Re-enable excluder if it was previously enabled] ************************************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [localhost] **************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
+Using module file /usr/lib/python2.7/site-packages/ansible/modules/system/setup.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605763.85-228973942318628 `" && echo ansible-tmp-1505605763.85-228973942318628="` echo /root/.ansible/tmp/ansible-tmp-1505605763.85-228973942318628 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmpZgSisP TO /root/.ansible/tmp/ansible-tmp-1505605763.85-228973942318628/setup.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605763.85-228973942318628/ /root/.ansible/tmp/ansible-tmp-1505605763.85-228973942318628/setup.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605763.85-228973942318628/setup.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605763.85-228973942318628/" > /dev/null 2>&1 && sleep 0'
+ok: [localhost]
+
+TASK [debug] ******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/validate.yaml:2
+ok: [localhost] => {
+    "ansible_os_family": "RedHat"
+}
+
+TASK [fail] *******************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/validate.yaml:3
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [set_fact] ***************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/ocp_scale.yaml:5
+ok: [localhost] => {
+    "ansible_facts": {
+        "ansible_controller_ip": "10.10.181.112", 
+        "new_app_node_vms": "1", 
+        "new_infra_node_vms": "2", 
+        "new_vms": "2"
+    }, 
+    "changed": false
+}
+
+TASK [set_fact] ***************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/ocp_scale.yaml:10
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Gather Infra/App VMs info] **********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/ocp_scale.yaml:13
+Using module file /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/modules/ovirt_vms_facts.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605765.69-255831316377072 `" && echo ansible-tmp-1505605765.69-255831316377072="` echo /root/.ansible/tmp/ansible-tmp-1505605765.69-255831316377072 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmp47fYTs TO /root/.ansible/tmp/ansible-tmp-1505605765.69-255831316377072/ovirt_vms_facts.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605765.69-255831316377072/ /root/.ansible/tmp/ansible-tmp-1505605765.69-255831316377072/ovirt_vms_facts.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605765.69-255831316377072/ovirt_vms_facts.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605765.69-255831316377072/" > /dev/null 2>&1 && sleep 0'
+ok: [localhost] => {
+    "ansible_facts": {
+        "ovirt_vms": [
+            {
+                "affinity_labels": [], 
+                "applications": [], 
+                "bios": {
+                    "boot_menu": {
+                        "enabled": false
+                    }
+                }, 
+                "cdroms": [], 
+                "cluster": {
+                    "href": "/ovirt-engine/api/clusters/12d46916-1046-11e2-b4d2-00215e705dcc", 
+                    "id": "12d46916-1046-11e2-b4d2-00215e705dcc"
+                }, 
+                "cpu": {
+                    "architecture": "x86_64", 
+                    "topology": {
+                        "cores": 1, 
+                        "sockets": 4, 
+                        "threads": 1
+                    }
+                }, 
+                "cpu_profile": {
+                    "href": "/ovirt-engine/api/cpuprofiles/b674220c-0f92-4d20-b759-3378804dbfd0", 
+                    "id": "b674220c-0f92-4d20-b759-3378804dbfd0"
+                }, 
+                "cpu_shares": 0, 
+                "creation_time": "2017-09-16 16:48:41.020000-04:00", 
+                "delete_protected": false, 
+                "disk_attachments": [], 
+                "display": {
+                    "address": "10.10.176.1", 
+                    "allow_override": true, 
+                    "copy_paste_enabled": true, 
+                    "disconnect_action": "LOCK_SCREEN", 
+                    "file_transfer_enabled": true, 
+                    "monitors": 1, 
+                    "secure_port": 5945, 
+                    "single_qxl_pci": true, 
+                    "smartcard_enabled": false, 
+                    "type": "spice"
+                }, 
+                "fqdn": "dhcp182-209.gsslab.rdu2.redhat.com", 
+                "graphics_consoles": [], 
+                "guest_operating_system": {
+                    "architecture": "x86_64", 
+                    "codename": "Maipo", 
+                    "distribution": "Red Hat Enterprise Linux Server", 
+                    "family": "Linux", 
+                    "kernel": {
+                        "version": {
+                            "build": 0, 
+                            "full_version": "3.10.0-514.el7.x86_64", 
+                            "major": 3, 
+                            "minor": 10, 
+                            "revision": 514
+                        }
+                    }, 
+                    "version": {
+                        "full_version": "7.3", 
+                        "major": 7, 
+                        "minor": 3
+                    }
+                }, 
+                "guest_time_zone": {
+                    "name": "America/New_York", 
+                    "utc_offset": "-05:00"
+                }, 
+                "high_availability": {
+                    "enabled": false, 
+                    "priority": 1
+                }, 
+                "host": {
+                    "href": "/ovirt-engine/api/hosts/ce669fad-6ce2-4490-970e-c9d8376c54e5", 
+                    "id": "ce669fad-6ce2-4490-970e-c9d8376c54e5"
+                }, 
+                "host_devices": [], 
+                "href": "/ovirt-engine/api/vms/8ee95544-bff9-4ce0-82ea-e72ba06b1dd0", 
+                "id": "8ee95544-bff9-4ce0-82ea-e72ba06b1dd0", 
+                "io": {
+                    "threads": 0
+                }, 
+                "katello_errata": [], 
+                "large_icon": {
+                    "href": "/ovirt-engine/api/icons/fecf3bb3-8695-4be2-99dd-2ae9e589386d", 
+                    "id": "fecf3bb3-8695-4be2-99dd-2ae9e589386d"
+                }, 
+                "memory": 8589934592, 
+                "memory_policy": {
+                    "guaranteed": 8589934592
+                }, 
+                "migration": {
+                    "auto_converge": "inherit", 
+                    "compressed": "inherit"
+                }, 
+                "migration_downtime": -1, 
+                "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_1", 
+                "next_run_configuration_exists": false, 
+                "nics": [], 
+                "numa_nodes": [], 
+                "numa_tune_mode": "interleave", 
+                "origin": "rhev", 
+                "os": {
+                    "boot": {
+                        "devices": [
+                            "hd"
+                        ]
+                    }, 
+                    "type": "rhel_7x64"
+                }, 
+                "permissions": [], 
+                "placement_policy": {
+                    "affinity": "migratable"
+                }, 
+                "reported_devices": [], 
+                "run_once": false, 
+                "sessions": [], 
+                "small_icon": {
+                    "href": "/ovirt-engine/api/icons/c9d5763d-5817-40ea-9e06-39f1a6e98181", 
+                    "id": "c9d5763d-5817-40ea-9e06-39f1a6e98181"
+                }, 
+                "snapshots": [], 
+                "sso": {
+                    "methods": [
+                        {
+                            "id": "guest_agent"
+                        }
+                    ]
+                }, 
+                "start_paused": false, 
+                "start_time": "2017-09-16 16:49:16.127000-04:00", 
+                "stateless": false, 
+                "statistics": [], 
+                "status": "up", 
+                "stop_time": "2017-09-16 16:49:13.642000-04:00", 
+                "tags": [], 
+                "template": {
+                    "href": "/ovirt-engine/api/templates/465a7d12-e8d8-47df-a30b-0e44662238f4", 
+                    "id": "465a7d12-e8d8-47df-a30b-0e44662238f4"
+                }, 
+                "time_zone": {
+                    "name": "America/New_York"
+                }, 
+                "type": "server", 
+                "usb": {
+                    "enabled": false
+                }, 
+                "watchdogs": []
+            }
+        ]
+    }, 
+    "attempts": 1, 
+    "changed": false, 
+    "invocation": {
+        "module_args": {
+            "all_content": false, 
+            "case_sensitive": true, 
+            "fetch_nested": false, 
+            "max": null, 
+            "nested_attributes": [], 
+            "pattern": "jlee*34-0912*infra"
+        }
+    }
+}
+META: ran handlers
+
+TASK [set_fact] ***************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-vms.yaml:5
+ok: [localhost] => {
+    "ansible_facts": {
+        "prefix": "infra"
+    }, 
+    "changed": false
+}
+
+TASK [set_fact] ***************************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-vms.yaml:8
+skipping: [localhost] => {
+    "changed": false, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Create new VMs] *********************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-vms.yaml:13
+Using module file /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/modules/ovirt_vms.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605767.83-265398228884245 `" && echo ansible-tmp-1505605767.83-265398228884245="` echo /root/.ansible/tmp/ansible-tmp-1505605767.83-265398228884245 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmp67eMVP TO /root/.ansible/tmp/ansible-tmp-1505605767.83-265398228884245/ovirt_vms.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605767.83-265398228884245/ /root/.ansible/tmp/ansible-tmp-1505605767.83-265398228884245/ovirt_vms.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605767.83-265398228884245/ovirt_vms.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605767.83-265398228884245/" > /dev/null 2>&1 && sleep 0'
+changed: [localhost] => (item=1) => {
+    "changed": true, 
+    "diff": {
+        "after": {}, 
+        "before": {}
+    }, 
+    "id": "619113d0-c762-4d1e-b457-178d2ebb7cd4", 
+    "invocation": {
+        "module_args": {
+            "allow_partial_import": null, 
+            "boot_devices": null, 
+            "cd_iso": null, 
+            "clone": false, 
+            "clone_permissions": false, 
+            "cloud_init": null, 
+            "cloud_init_nics": null, 
+            "cluster": "Test", 
+            "comment": null, 
+            "cpu_cores": null, 
+            "cpu_shares": null, 
+            "cpu_sockets": null, 
+            "delete_protected": null, 
+            "description": null, 
+            "disk_format": "cow", 
+            "disks": [], 
+            "fetch_nested": false, 
+            "force": false, 
+            "high_availability": null, 
+            "host": null, 
+            "id": null, 
+            "initrd_path": null, 
+            "instance_type": null, 
+            "kernel_params": null, 
+            "kernel_path": null, 
+            "kvm": null, 
+            "lease": null, 
+            "memory": null, 
+            "memory_guaranteed": null, 
+            "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_2", 
+            "nested_attributes": [], 
+            "nics": [], 
+            "operating_system": "rhel_7x64", 
+            "poll_interval": 3, 
+            "serial_policy": null, 
+            "serial_policy_value": null, 
+            "state": "running", 
+            "stateless": null, 
+            "storage_domain": null, 
+            "sysprep": null, 
+            "template": "RHEL_7U3_for_OCP", 
+            "template_version": null, 
+            "timeout": 180, 
+            "timezone": null, 
+            "type": null, 
+            "use_latest_template_version": null, 
+            "vmware": null, 
+            "wait": true, 
+            "xen": null
+        }
+    }, 
+    "item": "1", 
+    "vm": {
+        "affinity_labels": [], 
+        "applications": [], 
+        "bios": {
+            "boot_menu": {
+                "enabled": false
+            }
+        }, 
+        "cdroms": [], 
+        "cluster": {
+            "href": "/ovirt-engine/api/clusters/12d46916-1046-11e2-b4d2-00215e705dcc", 
+            "id": "12d46916-1046-11e2-b4d2-00215e705dcc"
+        }, 
+        "cpu": {
+            "architecture": "x86_64", 
+            "topology": {
+                "cores": 1, 
+                "sockets": 4, 
+                "threads": 1
+            }
+        }, 
+        "cpu_profile": {
+            "href": "/ovirt-engine/api/cpuprofiles/b674220c-0f92-4d20-b759-3378804dbfd0", 
+            "id": "b674220c-0f92-4d20-b759-3378804dbfd0"
+        }, 
+        "cpu_shares": 0, 
+        "creation_time": "2017-09-16 19:49:28.932000-04:00", 
+        "delete_protected": false, 
+        "disk_attachments": [], 
+        "display": {
+            "allow_override": true, 
+            "copy_paste_enabled": true, 
+            "disconnect_action": "LOCK_SCREEN", 
+            "file_transfer_enabled": true, 
+            "monitors": 1, 
+            "single_qxl_pci": true, 
+            "smartcard_enabled": false, 
+            "type": "spice"
+        }, 
+        "graphics_consoles": [], 
+        "high_availability": {
+            "enabled": false, 
+            "priority": 1
+        }, 
+        "host_devices": [], 
+        "href": "/ovirt-engine/api/vms/619113d0-c762-4d1e-b457-178d2ebb7cd4", 
+        "id": "619113d0-c762-4d1e-b457-178d2ebb7cd4", 
+        "io": {
+            "threads": 0
+        }, 
+        "katello_errata": [], 
+        "large_icon": {
+            "href": "/ovirt-engine/api/icons/fecf3bb3-8695-4be2-99dd-2ae9e589386d", 
+            "id": "fecf3bb3-8695-4be2-99dd-2ae9e589386d"
+        }, 
+        "memory": 8589934592, 
+        "memory_policy": {
+            "ballooning": true, 
+            "guaranteed": 8589934592
+        }, 
+        "migration": {
+            "auto_converge": "inherit", 
+            "compressed": "inherit"
+        }, 
+        "migration_downtime": -1, 
+        "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_2", 
+        "next_run_configuration_exists": false, 
+        "nics": [], 
+        "numa_nodes": [], 
+        "numa_tune_mode": "interleave", 
+        "origin": "rhev", 
+        "os": {
+            "boot": {
+                "devices": [
+                    "hd"
+                ]
+            }, 
+            "type": "rhel_7x64"
+        }, 
+        "permissions": [], 
+        "placement_policy": {
+            "affinity": "migratable"
+        }, 
+        "reported_devices": [], 
+        "sessions": [], 
+        "small_icon": {
+            "href": "/ovirt-engine/api/icons/c9d5763d-5817-40ea-9e06-39f1a6e98181", 
+            "id": "c9d5763d-5817-40ea-9e06-39f1a6e98181"
+        }, 
+        "snapshots": [], 
+        "sso": {
+            "methods": [
+                {
+                    "id": "guest_agent"
+                }
+            ]
+        }, 
+        "start_paused": false, 
+        "stateless": false, 
+        "statistics": [], 
+        "status": "down", 
+        "stop_time": "2017-09-16 19:50:01.782000-04:00", 
+        "tags": [], 
+        "template": {
+            "href": "/ovirt-engine/api/templates/465a7d12-e8d8-47df-a30b-0e44662238f4", 
+            "id": "465a7d12-e8d8-47df-a30b-0e44662238f4"
+        }, 
+        "time_zone": {
+            "name": "America/New_York"
+        }, 
+        "type": "server", 
+        "usb": {
+            "enabled": false
+        }, 
+        "watchdogs": []
+    }
+}
+Using module file /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/modules/ovirt_vms.py
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605829.41-161181281332837 `" && echo ansible-tmp-1505605829.41-161181281332837="` echo /root/.ansible/tmp/ansible-tmp-1505605829.41-161181281332837 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmpo5ftxz TO /root/.ansible/tmp/ansible-tmp-1505605829.41-161181281332837/ovirt_vms.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605829.41-161181281332837/ /root/.ansible/tmp/ansible-tmp-1505605829.41-161181281332837/ovirt_vms.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605829.41-161181281332837/ovirt_vms.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605829.41-161181281332837/" > /dev/null 2>&1 && sleep 0'
+changed: [localhost] => (item=2) => {
+    "changed": true, 
+    "diff": {
+        "after": {}, 
+        "before": {}
+    }, 
+    "id": "43e04b12-80b6-405a-b9cb-ff8f5c1bad52", 
+    "invocation": {
+        "module_args": {
+            "allow_partial_import": null, 
+            "boot_devices": null, 
+            "cd_iso": null, 
+            "clone": false, 
+            "clone_permissions": false, 
+            "cloud_init": null, 
+            "cloud_init_nics": null, 
+            "cluster": "Test", 
+            "comment": null, 
+            "cpu_cores": null, 
+            "cpu_shares": null, 
+            "cpu_sockets": null, 
+            "delete_protected": null, 
+            "description": null, 
+            "disk_format": "cow", 
+            "disks": [], 
+            "fetch_nested": false, 
+            "force": false, 
+            "high_availability": null, 
+            "host": null, 
+            "id": null, 
+            "initrd_path": null, 
+            "instance_type": null, 
+            "kernel_params": null, 
+            "kernel_path": null, 
+            "kvm": null, 
+            "lease": null, 
+            "memory": null, 
+            "memory_guaranteed": null, 
+            "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_3", 
+            "nested_attributes": [], 
+            "nics": [], 
+            "operating_system": "rhel_7x64", 
+            "poll_interval": 3, 
+            "serial_policy": null, 
+            "serial_policy_value": null, 
+            "state": "running", 
+            "stateless": null, 
+            "storage_domain": null, 
+            "sysprep": null, 
+            "template": "RHEL_7U3_for_OCP", 
+            "template_version": null, 
+            "timeout": 180, 
+            "timezone": null, 
+            "type": null, 
+            "use_latest_template_version": null, 
+            "vmware": null, 
+            "wait": true, 
+            "xen": null
+        }
+    }, 
+    "item": "2", 
+    "vm": {
+        "affinity_labels": [], 
+        "applications": [], 
+        "bios": {
+            "boot_menu": {
+                "enabled": false
+            }
+        }, 
+        "cdroms": [], 
+        "cluster": {
+            "href": "/ovirt-engine/api/clusters/12d46916-1046-11e2-b4d2-00215e705dcc", 
+            "id": "12d46916-1046-11e2-b4d2-00215e705dcc"
+        }, 
+        "cpu": {
+            "architecture": "x86_64", 
+            "topology": {
+                "cores": 1, 
+                "sockets": 4, 
+                "threads": 1
+            }
+        }, 
+        "cpu_profile": {
+            "href": "/ovirt-engine/api/cpuprofiles/b674220c-0f92-4d20-b759-3378804dbfd0", 
+            "id": "b674220c-0f92-4d20-b759-3378804dbfd0"
+        }, 
+        "cpu_shares": 0, 
+        "creation_time": "2017-09-16 19:50:30.342000-04:00", 
+        "delete_protected": false, 
+        "disk_attachments": [], 
+        "display": {
+            "allow_override": true, 
+            "copy_paste_enabled": true, 
+            "disconnect_action": "LOCK_SCREEN", 
+            "file_transfer_enabled": true, 
+            "monitors": 1, 
+            "single_qxl_pci": true, 
+            "smartcard_enabled": false, 
+            "type": "spice"
+        }, 
+        "graphics_consoles": [], 
+        "high_availability": {
+            "enabled": false, 
+            "priority": 1
+        }, 
+        "host_devices": [], 
+        "href": "/ovirt-engine/api/vms/43e04b12-80b6-405a-b9cb-ff8f5c1bad52", 
+        "id": "43e04b12-80b6-405a-b9cb-ff8f5c1bad52", 
+        "io": {
+            "threads": 0
+        }, 
+        "katello_errata": [], 
+        "large_icon": {
+            "href": "/ovirt-engine/api/icons/fecf3bb3-8695-4be2-99dd-2ae9e589386d", 
+            "id": "fecf3bb3-8695-4be2-99dd-2ae9e589386d"
+        }, 
+        "memory": 8589934592, 
+        "memory_policy": {
+            "ballooning": true, 
+            "guaranteed": 8589934592
+        }, 
+        "migration": {
+            "auto_converge": "inherit", 
+            "compressed": "inherit"
+        }, 
+        "migration_downtime": -1, 
+        "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_3", 
+        "next_run_configuration_exists": false, 
+        "nics": [], 
+        "numa_nodes": [], 
+        "numa_tune_mode": "interleave", 
+        "origin": "rhev", 
+        "os": {
+            "boot": {
+                "devices": [
+                    "hd"
+                ]
+            }, 
+            "type": "rhel_7x64"
+        }, 
+        "permissions": [], 
+        "placement_policy": {
+            "affinity": "migratable"
+        }, 
+        "reported_devices": [], 
+        "sessions": [], 
+        "small_icon": {
+            "href": "/ovirt-engine/api/icons/c9d5763d-5817-40ea-9e06-39f1a6e98181", 
+            "id": "c9d5763d-5817-40ea-9e06-39f1a6e98181"
+        }, 
+        "snapshots": [], 
+        "sso": {
+            "methods": [
+                {
+                    "id": "guest_agent"
+                }
+            ]
+        }, 
+        "start_paused": false, 
+        "stateless": false, 
+        "statistics": [], 
+        "status": "down", 
+        "stop_time": "2017-09-16 19:51:03.663000-04:00", 
+        "tags": [], 
+        "template": {
+            "href": "/ovirt-engine/api/templates/465a7d12-e8d8-47df-a30b-0e44662238f4", 
+            "id": "465a7d12-e8d8-47df-a30b-0e44662238f4"
+        }, 
+        "time_zone": {
+            "name": "America/New_York"
+        }, 
+        "type": "server", 
+        "usb": {
+            "enabled": false
+        }, 
+        "watchdogs": []
+    }
+}
+
+TASK [Add Tag for new VMs] ****************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/create-vms.yaml:31
+Using module file /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/modules/ovirt_tags.py
+<127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: root
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605888.67-81036182278066 `" && echo ansible-tmp-1505605888.67-81036182278066="` echo /root/.ansible/tmp/ansible-tmp-1505605888.67-81036182278066 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmpvdaKff TO /root/.ansible/tmp/ansible-tmp-1505605888.67-81036182278066/ovirt_tags.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605888.67-81036182278066/ /root/.ansible/tmp/ansible-tmp-1505605888.67-81036182278066/ovirt_tags.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605888.67-81036182278066/ovirt_tags.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605888.67-81036182278066/" > /dev/null 2>&1 && sleep 0'
+changed: [localhost] => (item={'_ansible_parsed': True, u'changed': True, '_ansible_no_log': False, '_ansible_item_result': True, u'vm': {u'origin': u'rhev', u'disk_attachments': [], u'affinity_labels': [], u'placement_policy': {u'affinity': u'migratable'}, u'watchdogs': [], u'creation_time': u'2017-09-16 19:49:28.932000-04:00', u'snapshots': [], u'time_zone': {u'name': u'America/New_York'}, u'large_icon': {u'href': u'/ovirt-engine/api/icons/fecf3bb3-8695-4be2-99dd-2ae9e589386d', u'id': u'fecf3bb3-8695-4be2-99dd-2ae9e589386d'}, u'href': u'/ovirt-engine/api/vms/619113d0-c762-4d1e-b457-178d2ebb7cd4', u'migration': {u'auto_converge': u'inherit', u'compressed': u'inherit'}, u'io': {u'threads': 0}, u'migration_downtime': -1, u'id': u'619113d0-c762-4d1e-b457-178d2ebb7cd4', u'high_availability': {u'priority': 1, u'enabled': False}, u'cdroms': [], u'statistics': [], u'usb': {u'enabled': False}, u'nics': [], u'tags': [], u'bios': {u'boot_menu': {u'enabled': False}}, u'stop_time': u'2017-09-16 19:50:01.782000-04:00', u'delete_protected': False, u'memory': 8589934592, u'type': u'server', u'reported_devices': [], u'status': u'down', u'next_run_configuration_exists': False, u'template': {u'href': u'/ovirt-engine/api/templates/465a7d12-e8d8-47df-a30b-0e44662238f4', u'id': u'465a7d12-e8d8-47df-a30b-0e44662238f4'}, u'sessions': [], u'katello_errata': [], u'applications': [], u'sso': {u'methods': [{u'id': u'guest_agent'}]}, u'memory_policy': {u'ballooning': True, u'guaranteed': 8589934592}, u'numa_nodes': [], u'permissions': [], u'stateless': False, u'name': u'jlee_34-0912_RHEL7U3_OCP3U4_infra_2', u'cluster': {u'href': u'/ovirt-engine/api/clusters/12d46916-1046-11e2-b4d2-00215e705dcc', u'id': u'12d46916-1046-11e2-b4d2-00215e705dcc'}, u'cpu_profile': {u'href': u'/ovirt-engine/api/cpuprofiles/b674220c-0f92-4d20-b759-3378804dbfd0', u'id': u'b674220c-0f92-4d20-b759-3378804dbfd0'}, u'graphics_consoles': [], u'numa_tune_mode': u'interleave', u'cpu': {u'architecture': u'x86_64', u'topology': {u'cores': 1, u'threads': 1, u'sockets': 4}}, u'start_paused': False, u'host_devices': [], u'small_icon': {u'href': u'/ovirt-engine/api/icons/c9d5763d-5817-40ea-9e06-39f1a6e98181', u'id': u'c9d5763d-5817-40ea-9e06-39f1a6e98181'}, u'os': {u'boot': {u'devices': [u'hd']}, u'type': u'rhel_7x64'}, u'display': {u'allow_override': True, u'disconnect_action': u'LOCK_SCREEN', u'single_qxl_pci': True, u'copy_paste_enabled': True, u'smartcard_enabled': False, u'file_transfer_enabled': True, u'type': u'spice', u'monitors': 1}, u'cpu_shares': 0}, 'item': u'1', u'invocation': {u'module_args': {u'comment': None, u'disks': [], u'force': False, u'cloud_init_nics': None, u'xen': None, u'template_version': None, u'cluster': u'Test', u'fetch_nested': False, u'timezone': None, u'id': None, u'cpu_sockets': None, u'high_availability': None, u'storage_domain': None, u'instance_type': None, u'nics': [], u'description': None, u'disk_format': u'cow', u'sysprep': None, u'cpu_cores': None, u'state': u'running', u'vmware': None, u'delete_protected': None, u'memory': None, u'cd_iso': None, u'clone_permissions': False, u'type': None, u'initrd_path': None, u'lease': None, u'template': u'RHEL_7U3_for_OCP', u'clone': False, u'kvm': None, u'boot_devices': None, u'nested_attributes': [], u'host': None, u'serial_policy': None, u'wait': True, u'use_latest_template_version': None, u'stateless': None, u'operating_system': u'rhel_7x64', u'serial_policy_value': None, u'name': u'jlee_34-0912_RHEL7U3_OCP3U4_infra_2', u'kernel_path': None, u'cloud_init': None, u'memory_guaranteed': None, u'poll_interval': 3, u'kernel_params': None, u'timeout': 180, u'allow_partial_import': None, u'cpu_shares': None}}, u'diff': {u'after': {}, u'before': {}}, u'id': u'619113d0-c762-4d1e-b457-178d2ebb7cd4'}) => {
+    "changed": true, 
+    "diff": {
+        "after": {}, 
+        "before": {}
+    }, 
+    "id": "3ce3c9fc-df70-4090-9b62-2bf4f02562d0", 
+    "invocation": {
+        "module_args": {
+            "description": null, 
+            "fetch_nested": false, 
+            "hosts": null, 
+            "name": "34-0912_infra_node_vms", 
+            "nested_attributes": [], 
+            "parent": null, 
+            "poll_interval": 3, 
+            "state": "attached", 
+            "timeout": 180, 
+            "vms": [
+                "jlee_34-0912_RHEL7U3_OCP3U4_infra_2"
+            ], 
+            "wait": true
+        }
+    }, 
+    "item": {
+        "changed": true, 
+        "diff": {
+            "after": {}, 
+            "before": {}
+        }, 
+        "id": "619113d0-c762-4d1e-b457-178d2ebb7cd4", 
+        "invocation": {
+            "module_args": {
+                "allow_partial_import": null, 
+                "boot_devices": null, 
+                "cd_iso": null, 
+                "clone": false, 
+                "clone_permissions": false, 
+                "cloud_init": null, 
+                "cloud_init_nics": null, 
+                "cluster": "Test", 
+                "comment": null, 
+                "cpu_cores": null, 
+                "cpu_shares": null, 
+                "cpu_sockets": null, 
+                "delete_protected": null, 
+                "description": null, 
+                "disk_format": "cow", 
+                "disks": [], 
+                "fetch_nested": false, 
+                "force": false, 
+                "high_availability": null, 
+                "host": null, 
+                "id": null, 
+                "initrd_path": null, 
+                "instance_type": null, 
+                "kernel_params": null, 
+                "kernel_path": null, 
+                "kvm": null, 
+                "lease": null, 
+                "memory": null, 
+                "memory_guaranteed": null, 
+                "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_2", 
+                "nested_attributes": [], 
+                "nics": [], 
+                "operating_system": "rhel_7x64", 
+                "poll_interval": 3, 
+                "serial_policy": null, 
+                "serial_policy_value": null, 
+                "state": "running", 
+                "stateless": null, 
+                "storage_domain": null, 
+                "sysprep": null, 
+                "template": "RHEL_7U3_for_OCP", 
+                "template_version": null, 
+                "timeout": 180, 
+                "timezone": null, 
+                "type": null, 
+                "use_latest_template_version": null, 
+                "vmware": null, 
+                "wait": true, 
+                "xen": null
+            }
+        }, 
+        "item": "1", 
+        "vm": {
+            "affinity_labels": [], 
+            "applications": [], 
+            "bios": {
+                "boot_menu": {
+                    "enabled": false
+                }
+            }, 
+            "cdroms": [], 
+            "cluster": {
+                "href": "/ovirt-engine/api/clusters/12d46916-1046-11e2-b4d2-00215e705dcc", 
+                "id": "12d46916-1046-11e2-b4d2-00215e705dcc"
+            }, 
+            "cpu": {
+                "architecture": "x86_64", 
+                "topology": {
+                    "cores": 1, 
+                    "sockets": 4, 
+                    "threads": 1
+                }
+            }, 
+            "cpu_profile": {
+                "href": "/ovirt-engine/api/cpuprofiles/b674220c-0f92-4d20-b759-3378804dbfd0", 
+                "id": "b674220c-0f92-4d20-b759-3378804dbfd0"
+            }, 
+            "cpu_shares": 0, 
+            "creation_time": "2017-09-16 19:49:28.932000-04:00", 
+            "delete_protected": false, 
+            "disk_attachments": [], 
+            "display": {
+                "allow_override": true, 
+                "copy_paste_enabled": true, 
+                "disconnect_action": "LOCK_SCREEN", 
+                "file_transfer_enabled": true, 
+                "monitors": 1, 
+                "single_qxl_pci": true, 
+                "smartcard_enabled": false, 
+                "type": "spice"
+            }, 
+            "graphics_consoles": [], 
+            "high_availability": {
+                "enabled": false, 
+                "priority": 1
+            }, 
+            "host_devices": [], 
+            "href": "/ovirt-engine/api/vms/619113d0-c762-4d1e-b457-178d2ebb7cd4", 
+            "id": "619113d0-c762-4d1e-b457-178d2ebb7cd4", 
+            "io": {
+                "threads": 0
+            }, 
+            "katello_errata": [], 
+            "large_icon": {
+                "href": "/ovirt-engine/api/icons/fecf3bb3-8695-4be2-99dd-2ae9e589386d", 
+                "id": "fecf3bb3-8695-4be2-99dd-2ae9e589386d"
+            }, 
+            "memory": 8589934592, 
+            "memory_policy": {
+                "ballooning": true, 
+                "guaranteed": 8589934592
+            }, 
+            "migration": {
+                "auto_converge": "inherit", 
+                "compressed": "inherit"
+            }, 
+            "migration_downtime": -1, 
+            "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_2", 
+            "next_run_configuration_exists": false, 
+            "nics": [], 
+            "numa_nodes": [], 
+            "numa_tune_mode": "interleave", 
+            "origin": "rhev", 
+            "os": {
+                "boot": {
+                    "devices": [
+                        "hd"
+                    ]
+                }, 
+                "type": "rhel_7x64"
+            }, 
+            "permissions": [], 
+            "placement_policy": {
+                "affinity": "migratable"
+            }, 
+            "reported_devices": [], 
+            "sessions": [], 
+            "small_icon": {
+                "href": "/ovirt-engine/api/icons/c9d5763d-5817-40ea-9e06-39f1a6e98181", 
+                "id": "c9d5763d-5817-40ea-9e06-39f1a6e98181"
+            }, 
+            "snapshots": [], 
+            "sso": {
+                "methods": [
+                    {
+                        "id": "guest_agent"
+                    }
+                ]
+            }, 
+            "start_paused": false, 
+            "stateless": false, 
+            "statistics": [], 
+            "status": "down", 
+            "stop_time": "2017-09-16 19:50:01.782000-04:00", 
+            "tags": [], 
+            "template": {
+                "href": "/ovirt-engine/api/templates/465a7d12-e8d8-47df-a30b-0e44662238f4", 
+                "id": "465a7d12-e8d8-47df-a30b-0e44662238f4"
+            }, 
+            "time_zone": {
+                "name": "America/New_York"
+            }, 
+            "type": "server", 
+            "usb": {
+                "enabled": false
+            }, 
+            "watchdogs": []
+        }
+    }, 
+    "tag": {
+        "href": "/ovirt-engine/api/tags/3ce3c9fc-df70-4090-9b62-2bf4f02562d0", 
+        "id": "3ce3c9fc-df70-4090-9b62-2bf4f02562d0", 
+        "name": "34-0912_infra_node_vms", 
+        "parent": {
+            "href": "/ovirt-engine/api/tags/00000000-0000-0000-0000-000000000000", 
+            "id": "00000000-0000-0000-0000-000000000000"
+        }
+    }
+}
+Using module file /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/modules/ovirt_tags.py
+<127.0.0.1> EXEC /bin/sh -c 'echo ~ && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp/ansible-tmp-1505605889.68-86092225781891 `" && echo ansible-tmp-1505605889.68-86092225781891="` echo /root/.ansible/tmp/ansible-tmp-1505605889.68-86092225781891 `" ) && sleep 0'
+<127.0.0.1> PUT /tmp/tmp8x3Z0Y TO /root/.ansible/tmp/ansible-tmp-1505605889.68-86092225781891/ovirt_tags.py
+<127.0.0.1> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1505605889.68-86092225781891/ /root/.ansible/tmp/ansible-tmp-1505605889.68-86092225781891/ovirt_tags.py && sleep 0'
+<127.0.0.1> EXEC /bin/sh -c '/usr/bin/python2 /root/.ansible/tmp/ansible-tmp-1505605889.68-86092225781891/ovirt_tags.py; rm -rf "/root/.ansible/tmp/ansible-tmp-1505605889.68-86092225781891/" > /dev/null 2>&1 && sleep 0'
+changed: [localhost] => (item={'_ansible_parsed': True, u'changed': True, '_ansible_no_log': False, '_ansible_item_result': True, u'vm': {u'origin': u'rhev', u'disk_attachments': [], u'affinity_labels': [], u'placement_policy': {u'affinity': u'migratable'}, u'watchdogs': [], u'creation_time': u'2017-09-16 19:50:30.342000-04:00', u'snapshots': [], u'time_zone': {u'name': u'America/New_York'}, u'large_icon': {u'href': u'/ovirt-engine/api/icons/fecf3bb3-8695-4be2-99dd-2ae9e589386d', u'id': u'fecf3bb3-8695-4be2-99dd-2ae9e589386d'}, u'href': u'/ovirt-engine/api/vms/43e04b12-80b6-405a-b9cb-ff8f5c1bad52', u'migration': {u'auto_converge': u'inherit', u'compressed': u'inherit'}, u'io': {u'threads': 0}, u'migration_downtime': -1, u'id': u'43e04b12-80b6-405a-b9cb-ff8f5c1bad52', u'high_availability': {u'priority': 1, u'enabled': False}, u'cdroms': [], u'statistics': [], u'usb': {u'enabled': False}, u'nics': [], u'tags': [], u'bios': {u'boot_menu': {u'enabled': False}}, u'stop_time': u'2017-09-16 19:51:03.663000-04:00', u'delete_protected': False, u'memory': 8589934592, u'type': u'server', u'reported_devices': [], u'status': u'down', u'next_run_configuration_exists': False, u'template': {u'href': u'/ovirt-engine/api/templates/465a7d12-e8d8-47df-a30b-0e44662238f4', u'id': u'465a7d12-e8d8-47df-a30b-0e44662238f4'}, u'sessions': [], u'katello_errata': [], u'applications': [], u'sso': {u'methods': [{u'id': u'guest_agent'}]}, u'memory_policy': {u'ballooning': True, u'guaranteed': 8589934592}, u'numa_nodes': [], u'permissions': [], u'stateless': False, u'name': u'jlee_34-0912_RHEL7U3_OCP3U4_infra_3', u'cluster': {u'href': u'/ovirt-engine/api/clusters/12d46916-1046-11e2-b4d2-00215e705dcc', u'id': u'12d46916-1046-11e2-b4d2-00215e705dcc'}, u'cpu_profile': {u'href': u'/ovirt-engine/api/cpuprofiles/b674220c-0f92-4d20-b759-3378804dbfd0', u'id': u'b674220c-0f92-4d20-b759-3378804dbfd0'}, u'graphics_consoles': [], u'numa_tune_mode': u'interleave', u'cpu': {u'architecture': u'x86_64', u'topology': {u'cores': 1, u'threads': 1, u'sockets': 4}}, u'start_paused': False, u'host_devices': [], u'small_icon': {u'href': u'/ovirt-engine/api/icons/c9d5763d-5817-40ea-9e06-39f1a6e98181', u'id': u'c9d5763d-5817-40ea-9e06-39f1a6e98181'}, u'os': {u'boot': {u'devices': [u'hd']}, u'type': u'rhel_7x64'}, u'display': {u'allow_override': True, u'disconnect_action': u'LOCK_SCREEN', u'single_qxl_pci': True, u'copy_paste_enabled': True, u'smartcard_enabled': False, u'file_transfer_enabled': True, u'type': u'spice', u'monitors': 1}, u'cpu_shares': 0}, 'item': u'2', u'invocation': {u'module_args': {u'comment': None, u'disks': [], u'force': False, u'cloud_init_nics': None, u'xen': None, u'template_version': None, u'cluster': u'Test', u'fetch_nested': False, u'timezone': None, u'id': None, u'cpu_sockets': None, u'high_availability': None, u'storage_domain': None, u'instance_type': None, u'nics': [], u'description': None, u'disk_format': u'cow', u'sysprep': None, u'cpu_cores': None, u'state': u'running', u'vmware': None, u'delete_protected': None, u'memory': None, u'cd_iso': None, u'clone_permissions': False, u'type': None, u'initrd_path': None, u'lease': None, u'template': u'RHEL_7U3_for_OCP', u'clone': False, u'kvm': None, u'boot_devices': None, u'nested_attributes': [], u'host': None, u'serial_policy': None, u'wait': True, u'use_latest_template_version': None, u'stateless': None, u'operating_system': u'rhel_7x64', u'serial_policy_value': None, u'name': u'jlee_34-0912_RHEL7U3_OCP3U4_infra_3', u'kernel_path': None, u'cloud_init': None, u'memory_guaranteed': None, u'poll_interval': 3, u'kernel_params': None, u'timeout': 180, u'allow_partial_import': None, u'cpu_shares': None}}, u'diff': {u'after': {}, u'before': {}}, u'id': u'43e04b12-80b6-405a-b9cb-ff8f5c1bad52'}) => {
+    "changed": true, 
+    "diff": {
+        "after": {}, 
+        "before": {}
+    }, 
+    "id": "3ce3c9fc-df70-4090-9b62-2bf4f02562d0", 
+    "invocation": {
+        "module_args": {
+            "description": null, 
+            "fetch_nested": false, 
+            "hosts": null, 
+            "name": "34-0912_infra_node_vms", 
+            "nested_attributes": [], 
+            "parent": null, 
+            "poll_interval": 3, 
+            "state": "attached", 
+            "timeout": 180, 
+            "vms": [
+                "jlee_34-0912_RHEL7U3_OCP3U4_infra_3"
+            ], 
+            "wait": true
+        }
+    }, 
+    "item": {
+        "changed": true, 
+        "diff": {
+            "after": {}, 
+            "before": {}
+        }, 
+        "id": "43e04b12-80b6-405a-b9cb-ff8f5c1bad52", 
+        "invocation": {
+            "module_args": {
+                "allow_partial_import": null, 
+                "boot_devices": null, 
+                "cd_iso": null, 
+                "clone": false, 
+                "clone_permissions": false, 
+                "cloud_init": null, 
+                "cloud_init_nics": null, 
+                "cluster": "Test", 
+                "comment": null, 
+                "cpu_cores": null, 
+                "cpu_shares": null, 
+                "cpu_sockets": null, 
+                "delete_protected": null, 
+                "description": null, 
+                "disk_format": "cow", 
+                "disks": [], 
+                "fetch_nested": false, 
+                "force": false, 
+                "high_availability": null, 
+                "host": null, 
+                "id": null, 
+                "initrd_path": null, 
+                "instance_type": null, 
+                "kernel_params": null, 
+                "kernel_path": null, 
+                "kvm": null, 
+                "lease": null, 
+                "memory": null, 
+                "memory_guaranteed": null, 
+                "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_3", 
+                "nested_attributes": [], 
+                "nics": [], 
+                "operating_system": "rhel_7x64", 
+                "poll_interval": 3, 
+                "serial_policy": null, 
+                "serial_policy_value": null, 
+                "state": "running", 
+                "stateless": null, 
+                "storage_domain": null, 
+                "sysprep": null, 
+                "template": "RHEL_7U3_for_OCP", 
+                "template_version": null, 
+                "timeout": 180, 
+                "timezone": null, 
+                "type": null, 
+                "use_latest_template_version": null, 
+                "vmware": null, 
+                "wait": true, 
+                "xen": null
+            }
+        }, 
+        "item": "2", 
+        "vm": {
+            "affinity_labels": [], 
+            "applications": [], 
+            "bios": {
+                "boot_menu": {
+                    "enabled": false
+                }
+            }, 
+            "cdroms": [], 
+            "cluster": {
+                "href": "/ovirt-engine/api/clusters/12d46916-1046-11e2-b4d2-00215e705dcc", 
+                "id": "12d46916-1046-11e2-b4d2-00215e705dcc"
+            }, 
+            "cpu": {
+                "architecture": "x86_64", 
+                "topology": {
+                    "cores": 1, 
+                    "sockets": 4, 
+                    "threads": 1
+                }
+            }, 
+            "cpu_profile": {
+                "href": "/ovirt-engine/api/cpuprofiles/b674220c-0f92-4d20-b759-3378804dbfd0", 
+                "id": "b674220c-0f92-4d20-b759-3378804dbfd0"
+            }, 
+            "cpu_shares": 0, 
+            "creation_time": "2017-09-16 19:50:30.342000-04:00", 
+            "delete_protected": false, 
+            "disk_attachments": [], 
+            "display": {
+                "allow_override": true, 
+                "copy_paste_enabled": true, 
+                "disconnect_action": "LOCK_SCREEN", 
+                "file_transfer_enabled": true, 
+                "monitors": 1, 
+                "single_qxl_pci": true, 
+                "smartcard_enabled": false, 
+                "type": "spice"
+            }, 
+            "graphics_consoles": [], 
+            "high_availability": {
+                "enabled": false, 
+                "priority": 1
+            }, 
+            "host_devices": [], 
+            "href": "/ovirt-engine/api/vms/43e04b12-80b6-405a-b9cb-ff8f5c1bad52", 
+            "id": "43e04b12-80b6-405a-b9cb-ff8f5c1bad52", 
+            "io": {
+                "threads": 0
+            }, 
+            "katello_errata": [], 
+            "large_icon": {
+                "href": "/ovirt-engine/api/icons/fecf3bb3-8695-4be2-99dd-2ae9e589386d", 
+                "id": "fecf3bb3-8695-4be2-99dd-2ae9e589386d"
+            }, 
+            "memory": 8589934592, 
+            "memory_policy": {
+                "ballooning": true, 
+                "guaranteed": 8589934592
+            }, 
+            "migration": {
+                "auto_converge": "inherit", 
+                "compressed": "inherit"
+            }, 
+            "migration_downtime": -1, 
+            "name": "jlee_34-0912_RHEL7U3_OCP3U4_infra_3", 
+            "next_run_configuration_exists": false, 
+            "nics": [], 
+            "numa_nodes": [], 
+            "numa_tune_mode": "interleave", 
+            "origin": "rhev", 
+            "os": {
+                "boot": {
+                    "devices": [
+                        "hd"
+                    ]
+                }, 
+                "type": "rhel_7x64"
+            }, 
+            "permissions": [], 
+            "placement_policy": {
+                "affinity": "migratable"
+            }, 
+            "reported_devices": [], 
+            "sessions": [], 
+            "small_icon": {
+                "href": "/ovirt-engine/api/icons/c9d5763d-5817-40ea-9e06-39f1a6e98181", 
+                "id": "c9d5763d-5817-40ea-9e06-39f1a6e98181"
+            }, 
+            "snapshots": [], 
+            "sso": {
+                "methods": [
+                    {
+                        "id": "guest_agent"
+                    }
+                ]
+            }, 
+            "start_paused": false, 
+            "stateless": false, 
+            "statistics": [], 
+            "status": "down", 
+            "stop_time": "2017-09-16 19:51:03.663000-04:00", 
+            "tags": [], 
+            "template": {
+                "href": "/ovirt-engine/api/templates/465a7d12-e8d8-47df-a30b-0e44662238f4", 
+                "id": "465a7d12-e8d8-47df-a30b-0e44662238f4"
+            }, 
+            "time_zone": {
+                "name": "America/New_York"
+            }, 
+            "type": "server", 
+            "usb": {
+                "enabled": false
+            }, 
+            "watchdogs": []
+        }
+    }, 
+    "tag": {
+        "href": "/ovirt-engine/api/tags/3ce3c9fc-df70-4090-9b62-2bf4f02562d0", 
+        "id": "3ce3c9fc-df70-4090-9b62-2bf4f02562d0", 
+        "name": "34-0912_infra_node_vms", 
+        "parent": {
+            "href": "/ovirt-engine/api/tags/00000000-0000-0000-0000-000000000000", 
+            "id": "00000000-0000-0000-0000-000000000000"
+        }
+    }
+}
+META: inventory successfully refreshed
+
+TASK [Add masters to host groups] *********************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:2
+creating host via 'add_host': hostname=dhcp182-37.gsslab.rdu2.redhat.com
+changed: [localhost] => (item=jlee_34-0912_RHEL7U3_OCP3U4_master_1) => {
+    "add_host": {
+        "groups": [
+            "all_nodes", 
+            "masters", 
+            "etcd", 
+            "broker_sub_nodes"
+        ], 
+        "host_name": "dhcp182-37.gsslab.rdu2.redhat.com", 
+        "host_vars": {
+            "openshift_node_labels": {
+                "region": "mgmt", 
+                "role": "master"
+            }
+        }
+    }, 
+    "changed": true, 
+    "item": "jlee_34-0912_RHEL7U3_OCP3U4_master_1"
+}
+creating host via 'add_host': hostname=dhcp181-122.gsslab.rdu2.redhat.com
+changed: [localhost] => (item=jlee_34-0912_RHEL7U3_OCP3U4_master_2) => {
+    "add_host": {
+        "groups": [
+            "all_nodes", 
+            "masters", 
+            "etcd", 
+            "broker_sub_nodes"
+        ], 
+        "host_name": "dhcp181-122.gsslab.rdu2.redhat.com", 
+        "host_vars": {
+            "openshift_node_labels": {
+                "region": "mgmt", 
+                "role": "master"
+            }
+        }
+    }, 
+    "changed": true, 
+    "item": "jlee_34-0912_RHEL7U3_OCP3U4_master_2"
+}
+
+TASK [Print ETCD List] ********************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:13
+skipping: [localhost] => (item=groups['masters'])  => {
+    "changed": false, 
+    "item": "groups['masters']", 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Gather Infra VMs info] **************************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:18
+skipping: [localhost] => (item={'skipped': True, '_ansible_no_log': False, 'skip_reason': u'Conditional result was False', '_ansible_item_result': True, 'item': u'1', 'changed': False})  => {
+    "changed": false, 
+    "item": {
+        "changed": false, 
+        "item": "1", 
+        "skip_reason": "Conditional result was False", 
+        "skipped": true
+    }, 
+    "skip_reason": "Conditional result was False", 
+    "skipped": true
+}
+
+TASK [Add infra instances to host group] **************************************************************************************************************************************************************************
+task path: /root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml:35
+fatal: [localhost]: FAILED! => {
+    "failed": true
+}
+
+MSG:
+
+the field 'args' has an invalid value, which appears to include a variable that is undefined. The error was: 'dict object' has no attribute 'ansible_facts'
+
+The error appears to have been in '/root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/rhev/tasks/generate-host-groups.yaml': line 35, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: Add infra instances to host group
+  ^ here
+
+
+NO MORE HOSTS LEFT ************************************************************************************************************************************************************************************************
+	to retry, use: --limit @/root/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/playbooks/config.retry
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+localhost                  : ok=12   changed=3    unreachable=0    failed=1   
+

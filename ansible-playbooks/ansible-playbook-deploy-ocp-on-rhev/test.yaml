@@ -1,5 +1,6 @@
 - hosts: localhost
   tasks:
+    - debug: msg="{{vm_filter}}"
     - set_fact:
         cluster_tag: 34-0912 
     - name: Load OCP configuration

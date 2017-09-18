@@ -1,0 +1,4 @@
+- Tag같은것이 있는지 확인 필요(같은 cluster이름이 있는지 확인)
+- DNS masters internal hostname 같은것이 있나?
+- ocp version이 맞는지 확인(ansible util)
+-

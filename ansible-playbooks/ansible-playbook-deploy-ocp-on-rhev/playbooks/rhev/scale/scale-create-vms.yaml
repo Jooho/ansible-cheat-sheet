@@ -1,0 +1,44 @@
+# Scaling
+
+- name: Set node prefix
+  block:
+    - set_fact: 
+        prefix: "{{infra_node_prefix}}"
+      when: scale_target == 'infra'
+    - set_fact: 
+        prefix: "{{app_node_prefix}}"
+      when: scale_target == 'app'
+
+
+- name: Create new VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{prefix}}_{{groups['tag_Name_'+ cluster_tag + '_' + prefix +'node_vms']|length|int + item|int}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count="{{new_vms}}"
+  register: created_new_node_vms_info
+
+
+- name: Add Tag for new VMs
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "new_{{cluster_tag}}_{{prefix}}_node_vms"
+    state: attached
+    vms: "{{ item.vm.name }}"
+  with_items:
+    - "{{ created_new_node_vms_info.results }}"
+
+

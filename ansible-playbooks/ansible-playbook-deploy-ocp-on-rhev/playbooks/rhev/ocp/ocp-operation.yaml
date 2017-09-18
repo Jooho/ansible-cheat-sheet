@@ -1,0 +1,106 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Update groups
+      include: ../tasks/generate-host-groups.yaml
+     
+- hosts: masters[0]
+  gather_facts: no
+  tasks:
+    - name: Ansible Controller Tasks
+      block:
+        - set_fact:
+            vm_operate: "stopped"
+          when: operate == 'stop'
+
+        - set_fact:
+            vm_operate: "running"
+          when: operate == 'start'
+
+        - set_fact:
+            vm_operate: "absent"
+          when: operate == 'teardown'
+
+        - set_fact:
+            vm_operate: "suspended"
+          when: operate == 'suspend'
+        - set_fact: 
+            target_cluster: "{{ target_cluster_tag|default(cluster_tag) }}"
+
+        - set_fact: 
+            target_nodes: "{{ target_node_filter|default('')}}"
+
+        - name: Gather Nodes VMs info
+          ovirt_vms_facts:
+            pattern: "{{prefix_vm}}*{{target_cluster}}*{{target_nodes}}"
+            auth:
+              username: "{{rhev.id}}"
+              password: "{{rhev.pw}}"
+              url: "{{rhev.api_url}}"
+              ca_file: "{{rhev.ca_file}}"
+          register: vms_info
+        - debug: var=vms_info
+      delegate_to: localhost
+    
+
+    - name: Start Operation
+      ovirt_vms:
+        name: "{{item.ansible_facts.ovirt_vms[0].name}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: "running"
+        wait: True
+      with_items:
+        - "{{vms_info}}"
+      when: operate == 'start'
+      delegate_to: localhost
+    
+
+    - name: Tear down Operation for OCP
+      block:
+        - name: Run oc command to mark scale down node as unschedulable
+          command: "oc adm cordon {{ item.ansible_facts.ovirt_vms[0].fqdn }}"
+          with_items:
+            - "{{vms_info}}"
+          ignore_errors: yes
+          
+        - name: Run oc command to remove all running pods from scale down node
+          command: "oc adm drain {{ item.ansible_facts.ovirt_vms[0].fqdn }} --force"
+          with_items:
+            - "{{vms_info}}"
+          ignore_errors: yes
+
+        - name: Wait 1m for pods to drain
+          pause:
+            minutes: 1
+           when: item.ansible_facts.ovirt_vms[0].fqdn in nodes
+
+        - name: Run oc command to remove node from cluster
+          command: "oc delete node {{ item.ansible_facts.ovirt_vms[0].fqdn }}"
+          with_items:
+            - "{{vms_info}}"
+          ignore_errors: yes
+      when: operate == 'teardown'
+
+    - name: Stop/Tear down Operation for RHEV
+      ovirt_vms:
+        name: "{{item.name}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: "{{vm_operate}}"
+      delegate_to: localhost
+      with_items:
+        - "{{vms_info.ansible_facts.ovirt_vms}}"
+      when: operate == 'stop' or operate == 'teardown'
+    
