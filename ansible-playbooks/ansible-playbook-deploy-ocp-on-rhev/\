@@ -1,31 +1,17 @@
 ---
-- name: check if the subscription is valid
-  shell: "subscription-manager status|grep 'Current'|wc -l"
-  register: subs_valid
 
-- name: Unregister Subs because subs is not valid
-  redhat_subscription:
-    username: "{{ subs.id }}"
-    password: "{{ subs.pw }}"
-    state: absent
-  when: not subs_valid.stdout|search('Current') and consumerid is not defined
+- name: check if it is already registered with same subscription
+  command: "subscription-manager list --consumed"
+  register: comsumed_subs
 
-#- name: Clean info for GB VM
-#  command: "subscription-manager clean"
-#  when: "subs_valid.stdout != '1' and consumerid is defined and not pool_name|bool and not pool_id|bool"
-
-#- name: check if it is already registered with same subscription
-#  command: "subscription-manager list --consumed"
-#  register: consumed_subs
-
+- debug: var=pool_id
 - name: Register node to rhsm and attach pool using name
   redhat_subscription:
     username: "{{ subs.id }}"
     password: "{{ subs.pw }}"
     pool: "^{{ pool_name }}$"
     state: present
-    force_register: yes
-  when: "consumerid is not defined and pool_id == 'false'"
+  when: pool_name|bool and not comsumed_subs.stdout|search(pool_name)
   register: task_result
   until: task_result|success
   retries: 10
@@ -39,8 +25,7 @@
     password: "{{ subs.pw }}"
     pool_ids: "{{ pool_id }}"
     state: present
-    force_register: yes
-  when: "consumerid is not defined and pool_id != 'false'"
+  when: pool_id|bool and not comsumed_subs.stdout|search(pool_id)
   register: task_result
   until: task_result|success
   retries: 10
@@ -48,15 +33,16 @@
   ignore_errors: yes
 - debug: var=task_result
 
+
 - name: Register node to rhsm and attach pool using consumerid
   redhat_subscription:
     username: "{{ subs.id }}"
     password: "{{ subs.pw }}"
     consumer_id: "{{ consumerid }}"
     state: present
-  when: "consumerid is defined"
+  when: consumerid|bool 
   register: task_result
   until: task_result|success
-  retries: 30
-  delay: 5
+  retries: 10
+  delay: 1
   ignore_errors: yes

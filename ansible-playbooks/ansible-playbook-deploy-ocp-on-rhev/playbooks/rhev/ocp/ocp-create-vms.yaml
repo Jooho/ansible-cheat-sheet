@@ -114,6 +114,20 @@
     - "{{ created_app_node_vms_info.results }}"
   when: app_node_vms is defined and app_node_vms > 0
 
+- name: Add Tag for App as an Infra VM
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "{{cluster_tag}}_infra_node_vms"
+    state: attached
+    vms: "{{ item.vm.name }}"
+  with_items:
+    - "{{ created_app_node_vms_info.results }}"
+  when: infra_node_vms is not defined 
+
 
   
 - name: Create ETCD VMs
@@ -165,7 +179,22 @@
   register: created_lb_node_vm_info
   when: master_node_vms|int > 1
 
-- debug: var=created_lb_node_vm_info
+
+- name: Gather LB VM info
+  ovirt_vms_facts:
+    pattern: "name={{created_lb_node_vm_info.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  register: lb_vms_info
+  when: master_node_vms|int > 1
+  until: lb_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+
 - name: Add Tag for LB VMs
   ovirt_tags:
     auth:
@@ -177,3 +206,4 @@
     state: attached
     vms: "{{ created_lb_node_vm_info.vm.name }}"
   when: master_node_vms|int > 1
+  

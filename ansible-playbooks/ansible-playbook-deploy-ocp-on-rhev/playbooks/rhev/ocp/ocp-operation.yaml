@@ -46,7 +46,7 @@
 
     - name: Start Operation
       ovirt_vms:
-        name: "{{item.ansible_facts.ovirt_vms[0].name}}"
+        name: "{{item.name}}"
         cluster: "{{rhev.cluster}}"
         auth:
           username: "{{rhev.id}}"
@@ -55,9 +55,8 @@
           ca_file: "{{rhev.ca_file}}"
         operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
         state: "running"
-        wait: True
       with_items:
-        - "{{vms_info}}"
+        - "{{vms_info.ansible_facts.ovirt_vms}}"
       when: operate == 'start'
       delegate_to: localhost
     
@@ -65,26 +64,27 @@
     - name: Tear down Operation for OCP
       block:
         - name: Run oc command to mark scale down node as unschedulable
-          command: "oc adm cordon {{ item.ansible_facts.ovirt_vms[0].fqdn }}"
+          command: "oc adm cordon {{ item.fqdn }}"
           with_items:
-            - "{{vms_info}}"
+            - "{{vms_info.ansible_facts.ovirt_vms}}"
           ignore_errors: yes
           
         - name: Run oc command to remove all running pods from scale down node
-          command: "oc adm drain {{ item.ansible_facts.ovirt_vms[0].fqdn }} --force"
+          command: "oc adm drain {{ item.fqdn }} --force"
           with_items:
-            - "{{vms_info}}"
+            - "{{vms_info.ansible_facts.ovirt_vms}}"
           ignore_errors: yes
 
         - name: Wait 1m for pods to drain
           pause:
             minutes: 1
-           when: item.ansible_facts.ovirt_vms[0].fqdn in nodes
-
-        - name: Run oc command to remove node from cluster
-          command: "oc delete node {{ item.ansible_facts.ovirt_vms[0].fqdn }}"
           with_items:
             - "{{vms_info}}"
+
+        - name: Run oc command to remove node from cluster
+          command: "oc delete node {{ item.fqdn }}"
+          with_items:
+            - "{{vms_info.ansible_facts.ovirt_vms}}"
           ignore_errors: yes
       when: operate == 'teardown'
 

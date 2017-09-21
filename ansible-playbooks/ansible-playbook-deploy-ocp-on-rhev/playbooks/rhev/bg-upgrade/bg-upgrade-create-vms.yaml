@@ -5,20 +5,30 @@
     - debug: msg="{{'tag_Name_' + cluster_tag + '_app_node_vms'}}"
     - set_fact:
         new_cluster_tag: green
+        old_cluster_tag: blue
         old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms']|length|int}}"
         old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms']|length|int}}"
       when: "'tag_Name_' + cluster_tag + '_app_node_vms' in groups"
     - set_fact:
         new_cluster_tag: green
+        old_cluster_tag: blue
         old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms_blue']|length|int}}"
         old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms_blue']|length|int}}"
       when: "'tag_Name_' + cluster_tag + '_app_node_vms_blue' in groups"
     - set_fact:
         new_cluster_tag: blue
+        old_cluster_tag: green
         old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms_green']|length|int}}"
         old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms_green']|length|int}}"
       when: "'tag_Name_' + cluster_tag + '_app_node_vms_green' in groups"
  
+    - set_fact:
+        new_cluster_tag: green
+      when: "cluster_color is defined and cluster_color == 'green'"
+    - set_fact:
+        new_cluster_tag: blue
+      when: "cluster_color is defined and cluster_color == 'blue'"
+
 - name: Deploy Blue Green Upgrade
   block:
     - name: Create Infra VMs
@@ -45,7 +55,7 @@
           password: "{{rhev.pw}}"
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
-        name: "tag_Name_{{cluster_tag}}_infra_node_vms_{{new_cluster_tag}}"
+        name: "{{cluster_tag}}_infra_node_vms_{{new_cluster_tag}}"
         state: attached
         vms: "{{ item.vm.name }}"
       with_items:
@@ -75,11 +85,11 @@
           password: "{{rhev.pw}}"
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
-        name: "tag_Name_{{cluster_tag}}_app_node_vms_{{new_cluster_tag}}"
+        name: "{{cluster_tag}}_app_node_vms_{{new_cluster_tag}}"
         state: attached
         vms: "{{ item.vm.name }}"
       with_items:
         - "{{ created_app_node_vms_info.results }}"
-  when: deploy_type == 'bg_upgrade' and bg_type == 'deploy'
+  when: deploy_type == 'bg_upgrade' and operate == 'deploy'
     
     

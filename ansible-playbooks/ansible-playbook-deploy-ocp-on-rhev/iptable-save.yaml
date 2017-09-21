@@ -1,0 +1,52 @@
+    
+- hosts: localhost
+  tasks:
+     - set_fact:
+         cluster_tag: 34-0912
+         scale_target: app
+#     - name: Delete New Nodes from New Node Tag after scaled out
+#       ovirt_tags:
+#         auth:
+#           username: "{{rhev.id}}"
+#           password: "{{rhev.pw}}"
+#           url: "{{rhev.api_url}}"
+#           ca_file: "{{rhev.ca_file}}"
+#         name: "new_34-0912_app_node_vms"
+#         state: detached
+#         wait: True
+#         vms: []
+#     - name: Remove New Tag(new_tag_Name_xxx) after scaled out
+#       ovirt_tags:
+#         auth:
+#           username: "{{rhev.id}}"
+#           password: "{{rhev.pw}}"
+#           url: "{{rhev.api_url}}"
+#           ca_file: "{{rhev.ca_file}}"
+#         name: "new_34-0912_app_node_vms"
+#         wait: True
+#         state: absent
+     - name: Update IPTABLE Rule for 8.8.8.8
+       block:
+         - iptables:
+             chain: INPUT
+             source: 8.8.8.8
+             jump: DROP
+         - iptables:
+             action: insert
+             chain: INPUT
+             protocol: tcp
+             match: tcp
+             destination_port: 1936
+             jump: ACCEPT
+           register: test
+      
+         - debug: var=test
+         - shell: " iptables-save |grep 8.8.8.8"
+           register: new_iptable_rule
+         
+         - lineinfile:
+             path: /etc/sysconfig/iptables
+             line: "{{new_iptable_rule.stdout}} "
+             insertbefore: "COMMIT"
+       become: yes
+             #line: "{{new_iptable_rule.chain}} {{new_iptable_rule}}"

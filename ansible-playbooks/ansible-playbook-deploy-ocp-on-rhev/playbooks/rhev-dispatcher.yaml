@@ -4,15 +4,23 @@
   include: ./rhev/ocp/ocp.yaml
   when: deploy_type == 'ocp' and operate == 'deploy'
 
-#- name: Create RHEV VM and Set Up new Host for OCP Scaling up and Scaling up ocp cluster
-#  include: ./rhev/ocp_scale.yaml
-#  when: deploy_type == 'infra' or deploy_type == 'app'
+- name: Scaling up - Create RHEV VM and Set Up new Host for OCP Scaling up and Scaling up ocp cluster
+  include: ./rhev/scale/scale-up.yaml
+  when: deploy_type == 'scale'  and operate == 'up'
+
+- name: Scaling down - Remove RHEV VM and OCP node 
+  include: ./rhev/scale/scale-down.yaml
+  when: deploy_type == 'scale' and operate == 'down'
+
+#- name: Operate RHEV or OCP
+#  include: ./rhev/ocp/ocp-operation.yaml
+#  when: (deploy_type == 'ocp' and operate != 'deploy') or (deploy_type == 'bg_upgrade' and operate != 'upgrade')
 #
-- name: Operate RHEV or OCP
-  include: ./rhev/ocp/ocp-operation.yaml
-  when: (deploy_type == 'ocp' and operate != 'deploy') or (deploy_type == 'bg_upgrade' and operate != 'upgrade')
 #
-#
-#- name: Blue Green Upgrade
-#  include: ./rhev/ocp_bg_upgrade.yaml
-#  when: deploy_type == 'bg_upgrade'
+- name: Blue Green Upgrade Master
+  include: ./rhev/bg-upgrade/bg-upgrade-master.yaml
+  when: deploy_type == 'bg_upgrade' and target == 'master'
+
+- name: Blue Green Upgrade Node
+  include: ./rhev/bg-upgrade/bg-upgrade-node.yaml
+  when: deploy_type == 'bg_upgrade' and target == 'node'

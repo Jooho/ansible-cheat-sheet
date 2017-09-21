@@ -38,8 +38,8 @@ subs:
   pw: "{{lookup('env', 'RHSM_PW')}}"
   broker_sub_pool_id: "{{lookup('env', 'BROKER_SUB_POOL_ID')}}"
   node_sub_pool_id: "{{lookup('env', 'NODE_SUB_POOL_ID')}}"
-  broker_sub_pool: "Employee SKU"
-  node_sub_pool: "Employee SKU"
+#  broker_sub_pool: "Employee SKU"
+#  node_sub_pool: "Employee SKU"
 #  broker_sub_pool: "Red Hat OpenShift Container Platform Broker/Master Infrastructure"
 #  node_sub_pool: "Red Hat OpenShift Container Platform, Standard, 2-Core"
 
@@ -57,9 +57,9 @@ ocp_master_cluster_hostname: "masters-{{cluster_tag}}.{{ocp_dns_domain}}"
 # infra_node_vms
 # if etcd_node_vms is not specified, etcd will be deploying on masters
 # etcd_node_vms
-master_node_vms: 2
-infra_node_vms: 1
-app_node_vms: 1
+master_node_vms: 3
+infra_node_vms: 3
+app_node_vms: 2
 master_node_prefix: master
 infra_node_prefix: infra
 app_node_prefix: app

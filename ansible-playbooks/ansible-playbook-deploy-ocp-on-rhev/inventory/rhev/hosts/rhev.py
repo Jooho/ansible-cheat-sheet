@@ -231,6 +231,7 @@ def get_data(connection, vm_name=None):
             # Add vm to tag group:
             tags_service = vm_service.tags_service()
             for tag in tags_service.list():
+#                print tag.name
                 data['tag_Name_%s' % tag.name].append(name)
 
             # Add vm to status group:

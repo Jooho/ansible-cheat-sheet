@@ -28,22 +28,22 @@
 
   roles:
     - role: ssh-id-copy
-      ssh_id_copy_target: 'cluster'
+      ssh_id_copy_target: cluster
 
 # RHSM register subscription
 - hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %}
   gather_facts: false
   roles:
     - role: subscription_attach
-      pool_name: "{{subs.broker_sub_pool}}"
-      pool_id: "{{subs.broker_sub_pool_id|default(false)}}"
+      pool_name: "{{subs.broker_sub_pool  | default(false)}}"
+      pool_id: "{{subs.broker_sub_pool_id | default(false)}}"
 
 - hosts: app_nodes
   gather_facts: false
   roles:
     - role: subscription_attach
-      pool_name: "{{subs.node_sub_pool}}"
-      pool_id: "{{subs.node_sub_pool_id|default(false)}}"
+      pool_name: "{{subs.node_sub_pool  | default(false)}}"
+      pool_id: "{{subs.node_sub_pool_id | default(false)}}"
 
 
 # ansible_controller_prerequisite
@@ -54,9 +54,11 @@
 
 - name: Install OCP Host Pre-Requisites
   hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %},{% if app_node_vms is defined and app_node_vms > 0%},app_nodes{% endif %}
+  pre_tasks:
+    - debug: var=group_names
   roles: 
-    - { role: openshift-prerequisites, node_type: ocp-host, when: groups.lb is defined and inventory_hostname != groups.lb.0 }
-    - { role: openshift-prerequisites, node_type: ocp-lb, when: groups.lb is defined and inventory_hostname == groups.lb.0 }
+    - { role: openshift-prerequisites, node_type: ocp-host, when: "inventory_hostname in groups['masters'] or inventory_hostname in groups['nodes'] or inventory_hostname in groups['etcd']"  }
+    - { role: openshift-prerequisites, node_type: ocp-lb, when: "'lb' in group_names and inventory_hostname in groups['lb']" }
 
 
 # Run cluster installation playbook
