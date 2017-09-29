@@ -71,10 +71,10 @@
   gather_facts: false
   tasks:
     - name: Labeling for existing master nodes
-      command: oc label node {{item}} type=master 
+      command: "oc label node {{item}} type=master "
       run_once: yes
       with_items:
-         - "{{ groups['master_nodes' }}"
+         - "{{ groups['master_nodes'] }}"
 
     - name: Labeling for existing node nodes
       command: oc label node --all type=node
