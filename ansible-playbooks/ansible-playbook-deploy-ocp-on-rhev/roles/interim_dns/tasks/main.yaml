@@ -100,12 +100,30 @@
 
 
 # Scaling up
-- name: Add new infra node - ocp_conf
-  lineinfile:
-    path: /etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
-    line: "address=/{{ocp_cluster_subdomain}}/{{item}}"
-  with_items:
-    - "{{ groups.infra_nodes_ip }}"
+- name: Scaling Up
+  block:
+    - name: Get IPs from New Infra Nodes
+      shell: "host {{item}}|awk '{print $NF}'"
+      register: new_infras_ip
+      with_items: 
+       - "{{ groups.new_infra_nodes }}"
+      until: new_infras_ip.stdout != ''
+      ignore_errors: yes
+      delay: 10
+      retries: 100
+    
+    - name: Add IPs of Infra into Memory
+      add_host:
+        name: "{{item.stdout}}"
+        groups: new_infra_nodes_ip
+      with_items: "{{ new_infras_ip.results}}"
+    
+    - name: Add new infra node - ocp_conf
+      lineinfile:
+        path: /etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
+        line: "address=/{{ocp_cluster_subdomain}}/{{item}}"
+      with_items:
+        - "{{ groups.new_infra_nodes_ip }}"
   when: deploy_type == 'scale' and operate == 'up' and scale_target == 'infra'
 
 

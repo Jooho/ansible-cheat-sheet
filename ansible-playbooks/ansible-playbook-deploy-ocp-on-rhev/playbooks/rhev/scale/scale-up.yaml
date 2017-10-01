@@ -2,15 +2,19 @@
 - hosts: localhost
   pre_tasks:
     - include: ./validate.yaml
+
     - set_fact:
         ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
         new_vms: "{{ instances | default(1) }}"
+
     - set_fact:    
         retry_scale: true
       when: "'tag_Name_new' + cluster_tag + '_infra_node_vms' in groups or 'tag_Name_new' + cluster_tag + '_app_node_vms' in groups"
+
     - set_fact:    
         retry_scale: false
       when: "not ('tag_Name_new' + cluster_tag + '_infra_node_vms' in groups or 'tag_Name_new' + cluster_tag + '_app_node_vms' in groups)"
+
 #    - name: Gather Infra/App VMs info
 #      ovirt_vms_facts:
 #        pattern: "{{prefix_vm}}*{{cluster_tag}}*{{deploy_type}}"
@@ -24,6 +28,7 @@
 #      ignore_errors: yes
 #      retries: 60
 #      delay: 10
+
     - name: Create New RHEV VM
       include: ./scale-create-vms.yaml
       when: not retry_scale|bool

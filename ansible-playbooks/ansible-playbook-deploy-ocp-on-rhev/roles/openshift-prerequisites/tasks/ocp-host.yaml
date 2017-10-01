@@ -33,13 +33,17 @@
   poll: 0
   when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
 
+- debug: var=subs_enable
 - name: Wait for Enable OpenShift repositories
-  async_status: jid="{{ subs_enable.ansible_job_id }}"
+  async_status: jid="{{ item.ansible_job_id }}"
   register: jobs
   until: jobs.finished
   retries: 180
   delay: 10
+  with_items:
+    - "{{ subs_enable.results }}"
   when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
 
 # TO-DO
 # will use redhat_repository module 

@@ -33,7 +33,7 @@
             target_nodes: "{{ target_node_filter|default('')}}"
 
         - set_fact: 
-            ocp_installed: "{{ ocp_install|bool|default(true)}}"
+            ocp_installed: "{{ ocp_install |default(true)}}"
 
         - name: Gather Nodes VMs info
           ovirt_vms_facts:
@@ -62,22 +62,22 @@
       with_items:
         - "{{vms_info.ansible_facts.ovirt_vms}}"
       when: operate == 'start'
-      register: ec2_operate
+      register: vm_operate_process
       async: 1800
       poll: 0
       delegate_to: localhost
     
 
-    - debug: var=ec2_operate
     - name: Wait for operation completion
-      async_status: jid="{{ item.ansible_job_id }} "
-      register: ec2_jobs
-      until: ec2_jobs.finished
+      async_status: jid="{{ item.ansible_job_id }}"
+      register: vm_jobs
+      until: vm_jobs.finished
       retries: 180
       delay: 10
       when: operate == 'start'
       with_items: 
-        - "{{ ec2_operate.results }}"
+        - "{{ vm_operate_process.results }}"
+      delegate_to: localhost
 
     - name: Tear down Operation for OCP
       block:
@@ -104,7 +104,7 @@
           with_items:
             - "{{vms_info.ansible_facts.ovirt_vms}}"
           ignore_errors: yes
-      when: operate == 'teardown' and ocp_installed
+      when: operate == 'teardown' and ocp_installed|bool
 
     - name: Stop/Tear down Operation for RHEV
       ovirt_vms:
@@ -118,21 +118,22 @@
         operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
         state: "{{vm_operate}}"
         wait: yes
-      register: ec2_operate
+      register: vm_operate_process
       delegate_to: localhost
       with_items:
         - "{{vms_info.ansible_facts.ovirt_vms}}"
       async: 1800
       poll: 0
       when: operate == 'stop' or operate == 'teardown'
-   
+    - debug: var=vm_operate 
     - name: Wait for operation completion
-      async_status: jid="{{ item.ansible_job_id }} "
-      register: ec2_jobs
-      until: ec2_jobs.finished or ec2_jobs.unreachable
+      async_status: jid="{{ item.ansible_job_id }}"
+      register: vm_jobs
+      until: vm_jobs.finished 
       retries: 180
       delay: 10
       with_items: 
-         - "{{ ec2_operate.results }}"
+         - "{{ vm_operate_process.results }}"
       when: operate == 'stop' or operate == 'teardown'
       ignore_errors: yes
+      delegate_to: localhost

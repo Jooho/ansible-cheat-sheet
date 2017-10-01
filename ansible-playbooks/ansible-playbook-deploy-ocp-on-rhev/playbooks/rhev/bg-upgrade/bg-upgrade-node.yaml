@@ -8,28 +8,28 @@
     - include: ./validate.yaml
     - debug: var=ansible_controller_ip
 
-#    - name: Create RHEV VM 
-#      include: ./bg-upgrade-create-vms.yaml
-#
-#    - name: Refresh inventory to ensure new instaces exist in inventory
-##      meta: refresh_inventory
+    - name: Create RHEV VM 
+      include: ./bg-upgrade-create-vms.yaml
+
+    - name: Refresh inventory to ensure new instaces exist in inventory
+      meta: refresh_inventory
 
     - name: Update groups
       include: ../tasks/generate-host-groups.yaml
 
-#    - name: generate host file
-#      include_role:
-#        name: generate_hosts_file
+    - name: generate host file
+      include_role:
+        name: generate_hosts_file
 
 #    - name: Install interim dns 
 #      include_role:
 #        name: interim_dns
 #      when: interim_dns.install
   
-#    - include_role: 
-#        name: ssh-id-copy
-#      vars:
-#        ssh_id_copy_target: cluster
+    - include_role: 
+        name: ssh-id-copy
+      vars:
+        ssh_id_copy_target: cluster
 
 - name: Gather Subscription consumerid from existing infra nodes
   hosts: infra_nodes
@@ -73,16 +73,19 @@
     - name: Labeling for existing master nodes
       command: "oc label node {{item}} type=master "
       run_once: yes
+      ignore_errors: yes
       with_items:
-         - "{{ groups['master_nodes'] }}"
+         - "{{ groups['masters'] }}"
 
-    - name: Labeling for existing node nodes
-      command: oc label node --all type=node
+    - name: Labeling for existing node nodes with GB color
+      command: oc label node --all type=node color="{{old_cluster_tag}}"
+      ignore_errors: yes
       run_once: yes
 
-    - name: Labeling GB color for existing node nodes
-      command: oc label node --all type="{{old_cluster_tag}}"
-      run_once: yes
+#    - name: Labeling GB color for existing node nodes
+#      command: oc label node --all color="{{old_cluster_tag}}"
+#      ignore_errors: yes
+#      run_once: yes
 
 # ansible_controller_prerequisite
 - name: Inall Ansible Controller Pre-Requisites
@@ -94,7 +97,7 @@
 - name: Install OCP Host Pre-Requisites
   hosts: new_nodes
   roles: 
-    - { role: openshift-prerequisites, node_type: ocp-gb-host }
+    - { role: openshift-prerequisites, node_type: ocp-host }
 
 
 # Deploy Blue Green VMs 

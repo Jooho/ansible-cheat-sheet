@@ -1,4 +1,141 @@
 ---
+- name: Watiting until fqdn is set
+  block:
+    - name: Gather Master VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items: "{{created_master_vms_info.results}}"
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+      when: (master_node_vms is defined and master_node_vms > 0 and deploy_type == 'ocp_cluster')
+    
+    - name: Gather Infra VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_infra_node_vms_info.results}}"
+      when: (infra_node_vms is defined and infra_node_vms > 0 and deploy_type=='ocp_cluster')
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+    
+    - name: Gather ETCD VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items: "{{created_etcd_node_vms_info.results}}"
+      register: etcd_vms_info
+      until: etcd_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+      when: etcd_node_vms is defined and etcd_node_vms > 0 and deploy_type == 'ocp_cluster'
+    
+    - name: Gather LB VM info
+      ovirt_vms_facts:
+        pattern: "name={{created_lb_node_vm_info.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      register: lb_vms_info
+      when: master_node_vms|int > 1 and deploy_type == 'ocp_cluster'
+      until: lb_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+    
+    - name: Scaling - Gather New Infra VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_new_node_vms_info.results}}"
+      when: (infra_node_vms is defined and infra_node_vms > 0) and (deploy_type=='infra')
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+    
+    - name: Scaling - Gather new App VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_new_node_vms_info.results}}"
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+      when: app_node_vms is defined and app_node_vms > 0 and deploy_type=='app'
+    
+    
+    - name: GB - Gather new GB Infra VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_infra_node_vms_info.results}}"
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+      when: deploy_type == 'bg_upgrade' and target == 'node'
+    
+    
+    - name: GB - Gather new GB App VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_app_node_vms_info.results}}"
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+      when: deploy_type == 'bg_upgrade' and target == 'node'
+     
+
 - name: Add masters to host groups
   add_host:
     name: "{{ hostvars[item].fqdn}}"
@@ -27,7 +164,7 @@
     groups: all_nodes, nodes, app_nodes, node_sub_nodes 
     openshift_node_labels:
       role: app
-      region: "{% if infra_node_vms is not defined %}infra  {% else %}app {% endif %}"
+      region: "{% if infra_node_vms is not defined %}infra{% else %}app{% endif %}"
       zone: default
   with_items: "{{groups['tag_Name_' + cluster_tag +'_app_node_vms']}}"
   when: app_node_vms is defined and app_node_vms > 0
@@ -65,7 +202,7 @@
 - name: Add New Infra instances to host group
   add_host:
     name: "{{ hostvars[item].fqdn}}"
-    groups: all_nodes, broker_sub_nodes, new_nodes
+    groups: all_nodes, broker_sub_nodes, new_nodes, new_infra_nodes
     openshift_node_labels:
       role: infra
       region: infra
@@ -89,7 +226,7 @@
 - name: Add New Infra instances for GB to host group 
   add_host:
     name: "{{ hostvars[item].fqdn}}"
-    groups: all_nodes{% if operate == 'deploy' %},new_nodes,infra_nodes_{{new_cluster_tag}}{% else %},infra_nodes_{{new_cluster_tag}}{% endif %}
+    groups: all_nodes{% if operate == 'upgrade' %},new_nodes,infra_nodes_{{new_cluster_tag}}{% else %},infra_nodes_{{new_cluster_tag}}{% endif %}
     openshift_node_labels:
       role: infra
       region: infra
@@ -103,7 +240,7 @@
 - name: Add New App instances for GB to host group
   add_host:
     name: "{{ hostvars[item].fqdn}}"
-    groups: all_nodes{% if operate == 'deploy' %},new_nodes,app_nodes_{{new_cluster_tag}}{% else %},app_nodes_{{new_cluster_tag}}{% endif %}
+    groups: all_nodes{% if operate == 'upgrade' %},new_nodes,app_nodes_{{new_cluster_tag}}{% else %},app_nodes_{{new_cluster_tag}}{% endif %}
     openshift_node_labels:
       role: app
       region: app
