@@ -1,0 +1,62 @@
+---
+- name: check if the subscription is valid
+  shell: "subscription-manager status|grep 'Current'|wc -l"
+  register: subs_valid
+
+- name: Unregister Subs because subs is not valid
+  redhat_subscription:
+    username: "{{ subs.id }}"
+    password: "{{ subs.pw }}"
+    state: absent
+  when: not subs_valid.stdout|search('Current') and consumerid is not defined
+
+#- name: Clean info for GB VM
+#  command: "subscription-manager clean"
+#  when: "subs_valid.stdout != '1' and consumerid is defined and not pool_name|bool and not pool_id|bool"
+
+#- name: check if it is already registered with same subscription
+#  command: "subscription-manager list --consumed"
+#  register: consumed_subs
+
+- name: Register node to rhsm and attach pool using name
+  redhat_subscription:
+    username: "{{ subs.id }}"
+    password: "{{ subs.pw }}"
+    pool: "^{{ pool_name }}$"
+    state: present
+    force_register: yes
+  when: "consumerid is not defined and pool_id == 'false'"
+  register: task_result
+  until: task_result|success
+  retries: 10
+  delay: 1
+  ignore_errors: yes
+
+- debug: var=task_result
+- name: Register node to rhsm and attach pool using id
+  redhat_subscription:
+    username: "{{ subs.id }}"
+    password: "{{ subs.pw }}"
+    pool_ids: "{{ pool_id }}"
+    state: present
+    force_register: yes
+  when: "consumerid is not defined and pool_id != 'false'"
+  register: task_result
+  until: task_result|success
+  retries: 10
+  delay: 1
+  ignore_errors: yes
+- debug: var=task_result
+
+- name: Register node to rhsm and attach pool using consumerid
+  redhat_subscription:
+    username: "{{ subs.id }}"
+    password: "{{ subs.pw }}"
+    consumer_id: "{{ consumerid }}"
+    state: present
+  when: "consumerid is defined"
+  register: task_result
+  until: task_result|success
+  retries: 30
+  delay: 5
+  ignore_errors: yes

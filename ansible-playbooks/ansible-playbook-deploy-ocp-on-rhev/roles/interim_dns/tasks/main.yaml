@@ -24,8 +24,8 @@
     - "{{ groups.masters }}"
   until: masters_ip.stdout != ''
   ignore_errors: yes
-  delay: 3
-  retries: 10
+  delay: 10
+  retries: 100
   when: master_node_vms is defined and master_node_vms|int > 0 and deploy_type == 'ocp'
 
 - name: Add IPs of Masters into Memory
@@ -40,19 +40,18 @@
   register: infras_ip
   with_items: 
    - "{{ groups.infra_nodes }}"
-   - "{{ groups.new_nodes }}"
   until: infras_ip.stdout != ''
   ignore_errors: yes
-  delay: 3
-  retries: 10
-  when: (infra_node_vms is defined and infra_node_vms|int > 0) and (deploy_type == 'ocp' or (deploy_type == 'scale' and operate == 'up' and scale_target == 'infra'))
+  delay: 10
+  retries: 100
+  when: infra_node_vms is defined and infra_node_vms|int > 0 and deploy_type == 'ocp'
 
 - name: Add IPs of Infra into Memory
   add_host:
     name: "{{item.stdout}}"
     groups: infra_nodes_ip
   with_items: "{{ infras_ip.results}}"
-  when: (infra_node_vms is defined and infra_node_vms|int > 0) and (deploy_type == 'ocp' or (deploy_type == 'scale' and operate == 'up' and scale_target == 'infra'))
+  when: infra_node_vms is defined and infra_node_vms|int > 0 and deploy_type == 'ocp'
 
 - name: Get IPs from App Nodes for Infra (when infra nodes does not exist)
   shell: "host {{item}}|awk '{print $NF}'"
@@ -61,16 +60,16 @@
     - "{{ groups.app_nodes }}"
   until: apps_ip.stdout != ''
   ignore_errors: yes
-  delay: 3
-  retries: 10
-  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0) and (deploy_type == "ocp" or (deploy_type == 'scale' and operate == 'up' and scale_target == 'infra'))
+  delay: 10
+  retries: 100
+  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp")
   
 - name: Add IPs of App for Infra into Memory (when infra nodes does not exist)
   add_host:
     name: "{{item.stdout}}"
     groups: infra_nodes_ip
   with_items: "{{ apps_ip.results }}"
-  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0) and (deploy_type == "ocp" or (deploy_type == 'scale' and operate == 'up' and scale_target == 'infra'))
+  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp")
 
 - name: Get IPs from App Nodes
   shell: "host {{item}}|awk '{print $NF}'"
@@ -79,16 +78,16 @@
     - "{{ groups.app_nodes }}"
   until: apps_ip.stdout != ''
   ignore_errors: yes
-  delay: 3
-  retries: 10
-  when: (app_node_vms is defined and app_node_vms|int > 0) and (deploy_type == "ocp" or (deploy_type == 'scale' and operate == 'up' and scale_target == 'app'))
+  delay: 10
+  retries: 100
+  when: app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp" 
   
 - name: Add IPs of App into Memory
   add_host:
     name: "{{item.stdout}}"
     groups: app_nodes_ip
   with_items: "{{ apps_ip.results }}"
-  when: (app_node_vms is defined and app_node_vms|int > 0) and (deploy_type == "ocp" or (deploy_type == 'scale' and operate == 'up' and scale_target == 'app'))
+  when: app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp" 
 
 - name: Copy dnsmasq conf - forwarder.conf
   template: src=forwarder.conf.j2 dest=/etc/dnsmasq.d/forwarder.conf
@@ -97,12 +96,34 @@
   template: src=ocp.conf.j2 dest=/etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
   when: deploy_type == "ocp"
 
-- name: Add new infra node - ocp_conf
-  lineinfile:
-    path: /etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
-    line: "address=/{{ocp_cluster_subdomain}}/{{item}}"
-  with_items:
-    - "{{ groups.infra_nodes_ip }}"
+
+
+
+# Scaling up
+- name: Scaling Up
+  block:
+    - name: Get IPs from New Infra Nodes
+      shell: "host {{item}}|awk '{print $NF}'"
+      register: new_infras_ip
+      with_items: 
+       - "{{ groups.new_infra_nodes }}"
+      until: new_infras_ip.stdout != ''
+      ignore_errors: yes
+      delay: 10
+      retries: 100
+    
+    - name: Add IPs of Infra into Memory
+      add_host:
+        name: "{{item.stdout}}"
+        groups: new_infra_nodes_ip
+      with_items: "{{ new_infras_ip.results}}"
+    
+    - name: Add new infra node - ocp_conf
+      lineinfile:
+        path: /etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
+        line: "address=/{{ocp_cluster_subdomain}}/{{item}}"
+      with_items:
+        - "{{ groups.new_infra_nodes_ip }}"
   when: deploy_type == 'scale' and operate == 'up' and scale_target == 'infra'
 
 
@@ -115,8 +136,8 @@
        - "{{ groups.scaledown_nodes_vms }}"
       until: infras_ip.stdout != ''
       ignore_errors: yes
-      delay: 3
-      retries: 10
+      delay: 10
+      retries: 100
 
     - name: Add IPs of Scaledown Infra into Memory
       add_host:

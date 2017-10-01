@@ -135,59 +135,59 @@
       when: deploy_type == 'scaledown'
  
 
-    # Blue Green Upgrade 
-    - name: Get target_cluster_groups
-      block:
-        - set_fact:
-            target_cluster_infra: 'tag_Name_' + cluster_tag +'_infra_node_vms
-            target_cluster_app: 'tag_Name_' + cluster_tag +'_app_node_vms
-          when: target_cluster is not defined
-
-        - set_fact:
-            target_cluster_infra: 'tag_Name_' + cluster_tag +'_infra_node_vms_blue
-            target_cluster_app: 'tag_Name_' + cluster_tag +'_app_node_vms_blue
-          when: target_cluster == 'blue'
- 
-        - set_fact:
-            target_cluster_infra: 'tag_Name_' + cluster_tag +'_infra_node_vms_green
-            target_cluster_app: 'tag_Name_' + cluster_tag +'_app_node_vms_green
-          when: deploy_type == 'bg_upgrade' and operate == 'teardown' and target_cluster == 'green'
-      when: deploy_type == 'bg_upgrade' 
- 
-    - name: Operate(start/stop) for Blue Green Cluster
-      ovirt_vms:
-        name: "{{item}}"
-        cluster: "{{rhev.cluster}}"
-        auth:
-          username: "{{rhev.id}}"
-          password: "{{rhev.pw}}"
-          url: "{{rhev.api_url}}"
-          ca_file: "{{rhev.ca_file}}"
-        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
-        state: "{{ vm_operate }}"
-        wait: True
-      with_items:
-        - "{{groups['tag_Name_' + cluster_tag +'_infra_node_vms_{{target|default(omit)}}']}}"
-        - "{{groups['tag_Name_' + cluster_tag +'_app_node_vms']}}"
-      when: deploy_type == 'bg_upgrade' and (operate == start' or operate == stop')
- 
-    # Teardown Down OCP Node 
-    - name: Operate(teardown) for Blue Green Cluster
-      block:
-        - name: Run oc command to mark scale down node as unschedulable
-          command: "oc adm cordon {{ groups.infra_nodes[0] }}"
-     
-        - name: Run oc command to remove all running pods from scale down node
-          command: "oc adm drain {{ groups.infra_nodes[0] }} --force"
-     
-        - name: Wait 1m for pods to drain
-          pause:
-            minutes: 1
-     
-        - name: Run oc command to remove node from cluster
-          command: "oc delete node {{ groups.infra_nodes[0] }}"
-      when: deploy_type == 'scaledown' and target_vm_type == 'infra' 
-      delegate_to: "{{ groups.masters.0 }}"   
-      when: deploy_type == 'bg_upgrade' and operate == 'teardown'
-   
-   
+ #   # Blue Green Upgrade 
+ #   - name: Get target_cluster_groups
+ #     block:
+ #       - set_fact:
+ #           target_cluster_infra: 'tag_Name_' + cluster_tag +'_infra_node_vms
+ #           target_cluster_app: 'tag_Name_' + cluster_tag +'_app_node_vms
+ #         when: target_cluster is not defined
+#
+#        - set_fact:
+#            target_cluster_infra: 'tag_Name_' + cluster_tag +'_infra_node_vms_blue
+#            target_cluster_app: 'tag_Name_' + cluster_tag +'_app_node_vms_blue
+#          when: target_cluster == 'blue'
+# 
+#        - set_fact:
+#            target_cluster_infra: 'tag_Name_' + cluster_tag +'_infra_node_vms_green
+#            target_cluster_app: 'tag_Name_' + cluster_tag +'_app_node_vms_green
+#          when: deploy_type == 'bg_upgrade' and operate == 'teardown' and target_cluster == 'green'
+#      when: deploy_type == 'bg_upgrade' 
+# 
+#    - name: Operate(start/stop) for Blue Green Cluster
+#      ovirt_vms:
+#        name: "{{item}}"
+#        cluster: "{{rhev.cluster}}"
+#        auth:
+#          username: "{{rhev.id}}"
+#          password: "{{rhev.pw}}"
+#          url: "{{rhev.api_url}}"
+#          ca_file: "{{rhev.ca_file}}"
+#        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+#        state: "{{ vm_operate }}"
+#        wait: True
+#      with_items:
+#        - "{{groups['tag_Name_' + cluster_tag +'_infra_node_vms_{{target|default(omit)}}']}}"
+#        - "{{groups['tag_Name_' + cluster_tag +'_app_node_vms']}}"
+#      when: deploy_type == 'bg_upgrade' and (operate == start' or operate == stop')
+# 
+#    # Teardown Down OCP Node 
+#    - name: Operate(teardown) for Blue Green Cluster
+#      block:
+#        - name: Run oc command to mark scale down node as unschedulable
+#          command: "oc adm cordon {{ groups.infra_nodes[0] }}"
+#     
+#        - name: Run oc command to remove all running pods from scale down node
+#          command: "oc adm drain {{ groups.infra_nodes[0] }} --force"
+#     
+#        - name: Wait 1m for pods to drain
+#          pause:
+#            minutes: 1
+#     
+#        - name: Run oc command to remove node from cluster
+#          command: "oc delete node {{ groups.infra_nodes[0] }}"
+#      when: deploy_type == 'scaledown' and target_vm_type == 'infra' 
+#      delegate_to: "{{ groups.masters.0 }}"   
+#      when: deploy_type == 'bg_upgrade' and operate == 'teardown'
+#   
+###   

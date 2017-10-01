@@ -10,18 +10,57 @@
 
 - name: Disable unneeded repositories
   command: subscription-manager repos --disable='*'
+  register: subs_disable
+  async: 1800
+  poll: 0
   when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
+- name: Wait for disable unneeded repositories
+  async_status: jid="{{ subs_disable.ansible_job_id }}"
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
 
 - name: Enable OpenShift repositories
   command: subscription-manager repos --enable="{{item}}" 
   with_items:
     - "{{ need_repo_list }}"
+  register: subs_enable
+  async: 1800
+  poll: 0
   when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
+- debug: var=subs_enable
+- name: Wait for Enable OpenShift repositories
+  async_status: jid="{{ item.ansible_job_id }}"
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  with_items:
+    - "{{ subs_enable.results }}"
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
 
 # TO-DO
 # will use redhat_repository module 
 - name: Install the required rpms
   shell: yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct atomic-openshift-utils atomic-openshift-excluder atomic-openshift-docker-excluder
+  register: rpm_install
+  async: 1800
+  poll: 0
+
+- name: Wait for Enable OpenShift repositories
+  async_status: jid="{{ rpm_install.ansible_job_id }}"
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+
+
 #  package:
 #    use: yum
 #    name: "{{ item }}"

@@ -29,6 +29,155 @@
     wait: True
   with_sequence:
     count={{master_node_vms}}
+  async: 1800
+  poll: 0
+  register: created_master_node_vms_info
+  when: master_node_vms is defined and master_node_vms > 0
+
+- name: Create Infra VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{infra_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{infra_node_vms}}
+  async: 1800
+  poll: 0
+  register: created_infra_node_vms_info
+  when: infra_node_vms is defined and infra_node_vms > 0
+
+- name: Create App VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{app_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{app_node_vms}}
+  async: 1800
+  poll: 0
+  register: created_app_node_vms_info
+  when: app_node_vms is defined and app_node_vms > 0
+
+- name: Create ETCD VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{etcd_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{etcd_node_vms}}
+  async: 1800
+  poll: 0
+  register: created_etcd_node_vms_info
+  when: etcd_node_vms is defined and etcd_node_vms > 0
+
+- name: Create LB VM
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{lb_node_prefix}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  async: 1800
+  poll: 0
+  register: created_lb_node_vm_info
+  when: master_node_vms|int > 1
+
+
+# Waiting Completion
+- name: Wait for Master VMs Creation
+  async_status: jid={{ item.ansible_job_id }}
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  with_items: 
+     - "{{ created_master_node_vms_info.results }}"
+  when: master_node_vms is defined and master_node_vms > 0
+
+- name: Wait for Infra VMs Creation
+  async_status: jid={{ item.ansible_job_id }}
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  with_items: 
+     - "{{ created_infra_node_vms_info.results }}"
+  when: infra_node_vms is defined and infra_node_vms > 0
+
+- name: Wait for App VMs Creation
+  async_status: jid={{ item.ansible_job_id }}
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  with_items: 
+     - "{{ created_app_node_vms_info.results }}"
+  when: app_node_vms is defined and app_node_vms > 0
+
+- name: Wait for ETCD VMs Creation
+  async_status: jid={{ item.ansible_job_id }}
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  with_items: 
+     - "{{ created_etcd_node_vms_info.results }}"
+  when: etcd_node_vms is defined and etcd_node_vms > 0
+
+- name: Wait for LB VMs Creation
+  async_status: jid={{ created_lb_node_vm_info.ansible_job_id }}
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  when: master_node_vms|int > 1
+
+# Gather information from VM
+- name: Create Master VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{master_node_prefix}}_{{item}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count={{master_node_vms}}
   register: created_master_node_vms_info
   when: master_node_vms is defined and master_node_vms > 0
 
