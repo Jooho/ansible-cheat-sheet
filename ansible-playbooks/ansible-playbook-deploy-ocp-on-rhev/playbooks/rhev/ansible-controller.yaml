@@ -19,7 +19,7 @@
          state: running
          wait: True
       register: created_ansible_controller_vm_info
-    - debug: var=created_ansible_controller_vm_info
+
     - name: Watiting until fqdn is set
       block:
         - name: Gather Ansible Controller VM info
@@ -58,11 +58,11 @@
          pool_name: "{{subs.broker_sub_pool  | default(false)}}"
          pool_id: "false"
 
-#    - name: Prerequisite for ansible controller
-#      include_role:
-#        name: openshift-prerequisites
-#      vars:
-#        node_type: ansible-controller 
+    - name: Prerequisite for ansible controller
+      include_role:
+        name: openshift-prerequisites
+      vars:
+        node_type: ansible-controller 
 
     
     - name: Install essential packages
@@ -86,7 +86,22 @@
         - python-devel
         - sshpass 
         - atomic-openshift-utils
-   
+ 
+    - name: Download get-pip.py for pip packaging util
+      get_url:
+         url: https://bootstrap.pypa.io/get-pip.py
+         dest: /tmp/get-pip.py
+         mode: 777
+    
+    - name: Install pip
+      command: "python /tmp/get-pip.py"
+  
+    - name: Install ovirt-engine-sdk-python
+      command: "{{ item }}"
+      with_items:
+        -  "pip install ovirt-engine-sdk-python "
+        -  "pip install ansible==2.3.1.0"
+  
     - name: Check out official ansible github repository
       git: 
         repo: "{{ item.url }}"
@@ -95,13 +110,14 @@
         - { url: 'https://github.com/ansible/ansible.git', folder_name: 'ansible' }
         - { url: 'https://github.com/Jooho/ansible-cheat-sheet.git', folder_name: 'ansible-cheat-sheet' }
 
+## 2.4 is releasd so it does not need anymore
 #    - name: Gather file info for modules
 #      command: "ls -al /root/git/ansible/lib/ansible/modules/cloud/ovirt/ovirt*"
 #      register: ovirt_module_files
 #
- #   - name: Copy some latest modules to ansible-cheat-sheet repo
- #     command: "cp {{ item }} /root/git/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/modules"
- #     with_items:
- #        - "{{ovirt_module_files.stdout_lines}}"
- #        - "/root/git/ansible/lib/ansible/modules/packaging/os/redhat_subscription.py"
+#   - name: Copy some latest modules to ansible-cheat-sheet repo
+#     command: "cp {{ item }} /root/git/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev/modules"
+#     with_items:
+#        - "{{ovirt_module_files.stdout_lines}}"
+#        - "/root/git/ansible/lib/ansible/modules/packaging/os/redhat_subscription.py"
   
