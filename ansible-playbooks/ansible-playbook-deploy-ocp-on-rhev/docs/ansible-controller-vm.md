@@ -1,32 +1,26 @@
 Ansible Controller VM
 ---------------------
 
-Ansible Controller VM need to install essential packages and also need to copy some mouldes that is not included in atomic-openshift-utils pkg.
+Ansible Controller VM need to install essential packages
 
-As for ansible controller VM, Openshift subscription is nessassary so first, you need to register system with the subscription.
+**Requirement**
+- ansible 2.4.0
+- ovirt-engine-sdk-python
 
 
+Commands for Requirement on local system
+```
+wget https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+chmod 777 /tmp/get-pip.py
+python /tmp/get-pip.py
+pip install ovirt-engine-sdk-python 
+pip install ansible==2.4
+```
+
+Ansible script for creating ansible controller vm.
+```
+ansible-playbook -i inventory/rhev/hosts/ovirt.py playbooks/rhev/ansible-controller.yaml -vvvv -e @vars/all -e ocp_version=3.6
 ```
 
 
-
-yum install -y python gcc libxml2-devel python-devel sshpass atomic-openshift-utils
-
-git clone git clone https://github.com/ansible/ansible.git
-
-wget https://bootstrap.pypa.io/get-pip.py
-
-python get-pip.py
-
-
-
-# for fedora 24 or centos7
-sudo yum install -y http://resources.ovirt.org/pub/yum-repo/ovirt-release41.rpm
-
-sudo yum config-manager --set-enabled ovirt-4.1   
-
-sudo yum install -y python-ovirt-engine-sdk4 or  dnf install python3-ovirt-engine-sdk4
-
-
-#The other
-sudo pip install ovirt-engine-sdk-python 
+The path of ansible : **/root/git/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev**

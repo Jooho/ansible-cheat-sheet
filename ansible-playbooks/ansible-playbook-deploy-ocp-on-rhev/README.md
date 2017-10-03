@@ -5,6 +5,7 @@ This script help deploy OpenShift on RHEV and also provide some more features fo
 
 
 ## Script Features
+- ansible controller
 - ocp cluster deploy
 - ocp cluster operation(start/stop/teardown)
 - scale out infra/app
@@ -16,8 +17,8 @@ This script help deploy OpenShift on RHEV and also provide some more features fo
 - Tested Features
 - [Essential Information](./docs/setup.md)
 - [Create base rhel image](./docs/base-rhel-image.md)
-- Create ocp base template
-- Set up ansible controller vm
+- [Create ocp base template](./docs/base-rhel-ocp-template.md)
+- [Set up ansible controller vm](./docs/ansible-controller-vm.md)
 - Deploy OpenShift cluster
 - Scale out infra/app nodes
 - Scale down infra/app nodes
