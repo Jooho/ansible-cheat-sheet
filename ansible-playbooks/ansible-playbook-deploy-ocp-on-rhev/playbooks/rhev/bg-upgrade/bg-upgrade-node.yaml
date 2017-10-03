@@ -51,8 +51,8 @@
       include_role:
          name: subscription_attach
       vars:
-         pool_name: false
-         pool_id: false
+         pool_name: 'false'
+         pool_id: 'false'
          consumerid: "{{ hostvars[groups['infra_nodes'][ansible_play_hosts.index(inventory_hostname)]]['exist_node_consumerid'].stdout }}"
     
 - hosts: app_nodes_green, app_nodes_blue
@@ -62,8 +62,8 @@
       include_role:
          name: subscription_attach
       vars:
-         pool_name: false
-         pool_id: false
+         pool_name: 'false'
+         pool_id: 'false'
          consumerid: "{{ hostvars[groups['app_nodes'][ansible_play_hosts.index(inventory_hostname)]]['exist_node_consumerid'].stdout }}"
 
 # Labeling for existing nodes
@@ -77,8 +77,11 @@
       with_items:
          - "{{ groups['masters'] }}"
 
+- hosts: nodes
+  gather_facts: false
+  tasks:
     - name: Labeling for existing node nodes with GB color
-      command: oc label node --all type=node color="{{old_cluster_tag}}"
+      command: "oc label node {{item}} type=node color={{old_cluster_tag}}"
       ignore_errors: yes
       run_once: yes
 

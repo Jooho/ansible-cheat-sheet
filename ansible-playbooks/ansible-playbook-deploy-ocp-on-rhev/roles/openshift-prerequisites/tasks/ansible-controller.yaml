@@ -20,8 +20,10 @@
 - name: Uninstall the atomic-openshift-utils
   yum : state=absent name=atomic-openshift-utils
 
-- name: Install the required rpms
-  shell: yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct atomic-openshift-utils 
+- name: Install new version of atomic-openshift-utils 
+  yum : state=latest name=atomic-openshift-utils
+
+  #shell: yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct atomic-openshift-utils 
 
 #  package:
 #    use: yum
@@ -48,3 +50,7 @@
     name: iptables
     state: stopped
     enabled: false
+
+- name: Diable Selinux
+  selinux:
+    state: disabled

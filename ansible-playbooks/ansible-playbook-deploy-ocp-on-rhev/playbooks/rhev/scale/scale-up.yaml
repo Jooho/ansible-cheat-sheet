@@ -60,12 +60,12 @@
   gather_facts: false
   roles:
     - role: subscription_attach
-      pool_name: "{{subs.broker_sub_pool}}"
-      pool_id: "{{subs.broker_sub_pool_id|default(false)}}"
+      pool_name: "{{subs.broker_sub_pool |default('false')}}"
+      pool_id: "{{subs.broker_sub_pool_id|default('false')}}"
       when: inventory_hostname in groups['broker_sub_nodes'] 
 
     - role: subscription_attach
-      pool_name: "{{subs.node_sub_pool}}"
+      pool_name: "{{subs.node_sub_pool |default(false)}}"
       pool_id: "{{subs.node_sub_pool_id|default(false)}}"
       when: inventory_hostname in groups['node_sub_nodes'] 
      

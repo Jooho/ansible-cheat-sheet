@@ -226,7 +226,7 @@
 - name: Add New Infra instances for GB to host group 
   add_host:
     name: "{{ hostvars[item].fqdn}}"
-    groups: all_nodes{% if operate == 'upgrade' %},new_nodes,infra_nodes_{{new_cluster_tag}}{% else %},infra_nodes_{{new_cluster_tag}}{% endif %}
+    groups: all_nodes{% if operate == 'deploy' %},new_nodes,infra_nodes_{{new_cluster_tag}}{% else %},infra_nodes_{{new_cluster_tag}}{% endif %}
     openshift_node_labels:
       role: infra
       region: infra
@@ -240,7 +240,7 @@
 - name: Add New App instances for GB to host group
   add_host:
     name: "{{ hostvars[item].fqdn}}"
-    groups: all_nodes{% if operate == 'upgrade' %},new_nodes,app_nodes_{{new_cluster_tag}}{% else %},app_nodes_{{new_cluster_tag}}{% endif %}
+    groups: all_nodes{% if operate == 'deploy' %},new_nodes,app_nodes_{{new_cluster_tag}}{% else %},app_nodes_{{new_cluster_tag}}{% endif %}
     openshift_node_labels:
       role: app
       region: app

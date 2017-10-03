@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Update groups
+      include: "../{{provider}}/tasks/generate-host-groups.yaml"
+
+- name: Deploy EFK
+  include: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/openshift-logging.yml
+  when: operate == 'deploy' 
+
+- name: Delete EFK
+  include: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/openshift-logging.yml
+  vars:
+    openshift_logging_install_logging: False
+  when: operate == 'undeploy' 
+

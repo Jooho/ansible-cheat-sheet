@@ -27,10 +27,10 @@ base_image:
 rhev:
   template: RHEL_7U3_for_OCP
   cluster: Test
-  id: "{{lookup('env', 'RHEV_ID')}}"
-  pw: "{{lookup('env', 'RHEV_PW')}}"
-  ca_file: "{{lookup('env', 'RHEV_CA_PATH')}}"
-  api_url: "{{lookup('env', 'RHEV_API_URL')}}"
+  id: "{{lookup('env', 'OVIRT_USERNAME')}}"
+  pw: "{{lookup('env', 'OVIRT_PASSWORD')}}"
+  ca_file: "{{lookup('env', 'OVIRT_CA_PATH')}}"
+  api_url: "{{lookup('env', 'OVIRT_API_URL')}}"
  
 # Subscription Info
 subs:
@@ -38,7 +38,9 @@ subs:
   pw: "{{lookup('env', 'RHSM_PW')}}"
   broker_sub_pool_id: "{{lookup('env', 'BROKER_SUB_POOL_ID')}}"
   node_sub_pool_id: "{{lookup('env', 'NODE_SUB_POOL_ID')}}"
-#  broker_sub_pool: "Employee SKU"
+#  broker_sub_pool: "{{lookup('env', BROKER_SUB_POOL')}}" 
+#  node_sub_pool:  "{{lookup('env', NODE_SUB_POOL')}}" 
+  broker_sub_pool: "Employee SKU"
 #  node_sub_pool: "Employee SKU"
 #  broker_sub_pool: "Red Hat OpenShift Container Platform Broker/Master Infrastructure"
 #  node_sub_pool: "Red Hat OpenShift Container Platform, Standard, 2-Core"

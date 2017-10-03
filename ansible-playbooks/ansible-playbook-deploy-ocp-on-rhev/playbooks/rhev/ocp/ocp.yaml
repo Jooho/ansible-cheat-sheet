@@ -35,15 +35,15 @@
   gather_facts: false
   roles:
     - role: subscription_attach
-      pool_name: "{{subs.broker_sub_pool  | default(false)}}"
-      pool_id: "{{subs.broker_sub_pool_id | default(false)}}"
+      pool_name: "{{subs.broker_sub_pool  | default('false')}}"
+      pool_id: "{{subs.broker_sub_pool_id | default('false')}}"
 
 - hosts: app_nodes
   gather_facts: false
   roles:
     - role: subscription_attach
-      pool_name: "{{subs.node_sub_pool  | default(false)}}"
-      pool_id: "{{subs.node_sub_pool_id | default(false)}}"
+      pool_name: "{{subs.node_sub_pool  | default('false')}}"
+      pool_id: "{{subs.node_sub_pool_id | default('false')}}"
 
 
 # ansible_controller_prerequisite
