@@ -142,7 +142,7 @@ def create_connection():
 
     # Create a connection with options defined in ini file:
     return sdk.Connection(
-        url=os.environ.get('OVIRT_URL'),
+        url=os.environ.get('OVIRT_API_URL'),
         username=os.environ.get('OVIRT_USERNAME'),
         password=os.environ.get('OVIRT_PASSWORD'),
         ca_file=os.environ.get('OVIRT_CA_FILE'),
