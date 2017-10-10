@@ -1,8 +1,10 @@
-Essential Information
+Credential Information
 ---------------------
-Most of this is related to credential information so it should be separated from ansible script. 
+Credential information should be separated from ansible script for security reason.
 
-This setup file should be controlled by administrator but it must be sourced before ansible script executes.
+Therefore, OS environment parameter is used for login/subs information. Moreover, this setup file should be controlled by administrator
+
+**Notice: it script  must be sourced before ansible script executes.**
 
 *setup*
 ```
