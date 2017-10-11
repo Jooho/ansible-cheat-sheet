@@ -23,9 +23,6 @@ This script help deploy OpenShift on RHEV and also provide some more features fo
 - [Set up ansible controller vm](./docs/ansible-controller-vm.md)
 - [Deploy OpenShift cluster](./docs/deploy-ocp-cluster.md)
 - [Operate OpenShift cluster](./docs/operate-ocp-cluster.md)
-=======
-- Parameters
-- Deploy OpenShift cluster
 - Scale out infra/app nodes
 - Scale down infra/app nodes
 - Blue Green Upgrade
