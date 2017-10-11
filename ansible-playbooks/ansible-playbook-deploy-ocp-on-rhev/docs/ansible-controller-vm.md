@@ -19,7 +19,9 @@ pip install ansible==2.4
 
 Ansible script for creating ansible controller vm.
 ```
-ansible-playbook -i inventory/rhev/hosts/ovirt.py playbooks/rhev/ansible-controller.yaml -vvvv -e @vars/all -e ocp_version=3.6
+ansible-playbook playbooks/rhev/ansible-controller.yaml -e @vars/all -e ocp_version=3.6
+
+cd /root/git/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev
 ```
 
 
