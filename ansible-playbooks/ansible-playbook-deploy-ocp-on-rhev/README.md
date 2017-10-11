@@ -14,7 +14,7 @@ This script help deploy OpenShift on RHEV and also provide some more features fo
 - blue green upgrade node operation(deploy/teardown)
 
 ## Docs
-- Tested Features
+- [Tested Features](./docs/tested_scripts.md)
 - [Download RHEV Cert](./docs/download-rhev-cert.md)
 - [Parameters](./docs/parameters.md)
 - [Credential Information](./docs/setup.md)
