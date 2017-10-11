@@ -61,5 +61,6 @@ ETCD can not be installed from Masters but it is not tested yet.
 
 
 
-Reference: (Credential Information(./setup.md) 
+Reference: 
+- [Credential Information](./setup.md) 
 
