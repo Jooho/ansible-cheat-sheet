@@ -1,10 +1,14 @@
 Base RHEL Image 
 ---------------
 
-There are several ways to deploy rhel vm in RHEV but this doc does not explain how to create it. It will only provide which preparation needs.
+There are several ways to deploy rhel vm in RHEV but this doc does not explain about it. It only provide that what preparation are needed for the base image.
 
 
-### Attach storage for docker ###
+### Storage for docker ###
+- For root (20G)
+- For docker (30G)
+
+**Example:**
 ```
 Size: 30
 Alias: docker
@@ -12,7 +16,7 @@ Interface: VirtIO
 Allocation Policy: Thin Provision
 ```
 
-### Register Right RHSM Pool ###
+### RedHat Subscription Manager Register ###
 
 ```
 subscription-manager register --username=XXXX  --password=XXXX
@@ -39,8 +43,8 @@ systemctl enable ovirt-guest-agent
 systemctl start ovirt-guest-agent
 ```
 
-### Add a new user and add it to sudoers ###
-*jooho is just example user*
+### New User and Configure sudoers ###
+*jooho is example user so you can change it*
 
 ```
 useradd jooho
