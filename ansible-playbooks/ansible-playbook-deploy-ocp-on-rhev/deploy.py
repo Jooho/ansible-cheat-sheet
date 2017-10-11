@@ -91,7 +91,7 @@ def launch(provider=None,
 
     # validate bg_upgrade deploy_type options
     if deploy_type == 'ansible_controller':
-         if target_node_filter is not None:
+        if target_node_filter is not None:
             print "--target_node_filter option is for ocp"
             sys.exit(1)
 
