@@ -31,7 +31,7 @@ export NODE_SUB_POOL_ID="XXXXXXX"
 
 ```
 
-** Execute following command at first before executing ansible script **
+**Execute following command at first before executing ansible script**
 ```
 source ~/setup
 ```
