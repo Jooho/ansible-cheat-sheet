@@ -13,6 +13,7 @@ Literally, ocp_params has ocp related variable like normal ocp hosts file but on
 The main variables are specified in vars/all.
 
 *RHEV VM Basic Info*
+
 | variable| default | description |
 |---------|---------|-------------|
 |prefix_vm|  jlee   | This value will be used for vm name prefix                                     |
@@ -21,6 +22,7 @@ The main variables are specified in vars/all.
 
 
 *Base Image Info*
+
 |       variable        | default | description |
 |-----------------------|---------|-------------|
 |base_image.os          |   rhel  |  OS Type    |           
@@ -29,6 +31,7 @@ The main variables are specified in vars/all.
 
 
 *OCP Info*
+
 |     variable     | default | description |
 |------------------|---------|-------------|
 |ocp_version       | 3.4     |                                                                      |
@@ -47,6 +50,7 @@ ETCD can not be installed from Masters but it is not tested yet.
 
 
 *ETC Info*
+
 |         variable        | default   | description |
 |-------------------------|-----------|-------------|
 |loglevel                 | info      | If set debug, it shows debug log for dynamic variables|
