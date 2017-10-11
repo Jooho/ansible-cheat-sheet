@@ -3,7 +3,7 @@
   pre_tasks:
     - name: Validate Subscription Pool is specified
       fail: msg="Validate Subscription Pool is specified"
-      when: subs.broker_sub_pool is not defined
+      when: not lookup('env', 'BROKER_SUB_POOL_ID') or not lookup('env', 'BROKER_SUB_POOL')
 
     - name: Create Ansible Controller VM from template
       ovirt_vms:
