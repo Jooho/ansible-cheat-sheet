@@ -56,7 +56,7 @@
          name: subscription_attach
       vars:
          pool_name: "{{subs.broker_sub_pool  | default(false)}}"
-         pool_id: "false"
+         pool_id: "{{subs.broker_sub_pool_id  | default(false)}}"
 
     - name: Prerequisite for ansible controller
       include_role:
