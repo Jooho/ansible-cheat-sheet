@@ -3,6 +3,7 @@
     need_repo_list:
        - rhel-7-server-rpms
        - rhel-7-server-ose-{{ocp_version}}-rpms
+
 - shell: subscription-manager repos --list-enabled  |grep 'Repo ID'|awk  '{print $3}'
   register: enabled_repo_list
 

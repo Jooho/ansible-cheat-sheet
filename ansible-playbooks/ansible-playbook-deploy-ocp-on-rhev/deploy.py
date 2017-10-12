@@ -118,21 +118,21 @@ def launch(provider=None,
     if deploy_type == 'ansible-controller':
         status = os.system(
              'ansible-playbook %s playbooks/%s/ansible-controller.yaml \
-             -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
-                 ocp_install=%s target=%s instances=%s" \
              --extra-vars "@vars/all" \
-             --extra-vars "@vars/ocp_params"'
-             % (verbosity, provider, provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances)
+             --extra-vars "@vars/ocp_params" \
+             -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
+                 ocp_install=%s target=%s instances=%s ocp_version=%s" '
+             % (verbosity, provider, provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances, ocp_version)
         )
     else:
         status = os.system(
             'ansible-playbook %s playbooks/config.yaml \
-            -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
-                ocp_install=%s target=%s instances=%s" \
             --extra-vars "@vars/all" \
-            --extra-vars "@vars/ocp_params"'
+            --extra-vars "@vars/ocp_params" \
+            -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
+                ocp_install=%s target=%s instances=%s ocp_version=%s"'
             % (verbosity, provider, deploy_type, operate, tag, target_node_filter,
-                ocp_install, target, instances)
+                ocp_install, target, instances, ocp_version)
         )
 
     # Exit appropriately
