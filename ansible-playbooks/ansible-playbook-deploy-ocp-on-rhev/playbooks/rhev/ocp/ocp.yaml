@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   pre_tasks:
+    - debug: var=force_rewrite
+    - debug: var=operate 
     - set_fact:
         ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
     - name: Check validation for ocp cluster

@@ -3,7 +3,7 @@
 import click
 import os
 import sys
-
+from StringIO import StringIO
 
 @click.command()
 @click.option('--provider',
@@ -35,7 +35,7 @@ import sys
               default=False,
               help='Ignore validation and force to rewrite configuration event though it exists')
 @click.option('--instances',
-              default=1,
+              default='1',
               help='Specifying how many vms will be scaling up/down')
 @click.help_option('--help', '-h')
 @click.option('-v', '--verbose', count=True)
@@ -114,25 +114,47 @@ def launch(provider=None,
         verbosity = ''
 
 
+
+    # Create variable list to overwrite
+    all_variables_str= ["provider", "deploy_type", "operate", "tag", "target_node_filter", "ocp_install", "target", "instances", "ocp_version", "force_rewrite"];
+    all_variables_real= [provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances, ocp_version, force];
+    overwrite_variables=[];
+    var_index=0
+    sio=StringIO();
+    for variable in all_variables_real:
+        if variable is not None:
+            real_value=str(variable);
+            add_value=all_variables_str[var_index]+"="+real_value;
+            overwrite_variables.append(add_value);
+          #  overwrite_variables.append(add_value);
+          #  ''.join(overwrite_variables)
+          #  print overwrite_variables;
+
+        var_index += 1
+
+    sio.write(' '.join(overwrite_variables));
+    print sio.getvalue();
+
+
+
+
 # Construct ansible command
     if deploy_type == 'ansible-controller':
         status = os.system(
              'ansible-playbook %s playbooks/%s/ansible-controller.yaml \
              --extra-vars "@vars/all" \
              --extra-vars "@vars/ocp_params" \
-             -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
-                 ocp_install=%s target=%s instances=%s ocp_version=%s force_rewrite=%s"' 
-             % (verbosity, provider, provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances, ocp_version, force)
+             -e "%s"'
+             % (verbosity, provider, sio.getvalue())
         )
     else:
         status = os.system(
             'ansible-playbook %s playbooks/config.yaml \
             --extra-vars "@vars/all" \
             --extra-vars "@vars/ocp_params" \
-            -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
-                ocp_install=%s target=%s instances=%s ocp_version=%s force_rewrite=%s"'
-            % (verbosity, provider, deploy_type, operate, tag, target_node_filter,
-                ocp_install, target, instances, ocp_version, force)
+            -e "%s"'
+            % (verbosity, sio.getvalue())
+              
         )
 
     # Exit appropriately
