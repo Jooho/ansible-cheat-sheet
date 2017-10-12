@@ -26,3 +26,6 @@ cd /root/git/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-o
 
 
 The path of ansible : **/root/git/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev**
+
+
+[![asciicast](https://asciinema.org/a/142052.png)](https://asciinema.org/a/142052)
