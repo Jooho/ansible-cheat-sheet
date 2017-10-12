@@ -1,9 +1,7 @@
 ---
 
-- name: Create RHEV VM and Set Up all Hosts for OCP Installation and Install ocp cluster
-  include: ./rhev/ocp/ocp.yaml
-  when: deploy_type == 'ocp' and operate == 'deploy'
 
+ 
 - name: Scaling up - Create RHEV VM and Set Up new Host for OCP Scaling up and Scaling up ocp cluster
   include: ./rhev/scale/scale-up.yaml
   when: deploy_type == 'scale'  and operate == 'up'
@@ -31,3 +29,7 @@
 - name: EFK
   include: ./common/logging.yaml
   when: deploy_type == 'logging' 
+
+- name: Create RHEV VM and Set Up all Hosts for OCP Installation and Install ocp cluster
+  include: ./rhev/ocp/ocp.yaml
+  when: deploy_type == 'ocp' and operate == 'deploy'
