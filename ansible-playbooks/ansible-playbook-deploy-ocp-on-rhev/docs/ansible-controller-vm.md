@@ -29,3 +29,4 @@ The path of ansible : **/root/git/ansible-cheat-sheet/ansible-playbooks/ansible-
 
 
 [![asciicast](https://asciinema.org/a/142052.png)](https://asciinema.org/a/142052)
+[![asciicast](https://asciinema.org/a/142059.png)](https://asciinema.org/a/142059)
