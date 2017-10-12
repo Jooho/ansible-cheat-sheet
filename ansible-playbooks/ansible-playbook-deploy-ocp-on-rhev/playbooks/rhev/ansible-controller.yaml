@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   pre_tasks:
+    - debug: var=ocp_version
     - name: Validate Subscription Pool is specified
       fail: msg="Validate Subscription Pool is specified"
       when: not lookup('env', 'BROKER_SUB_POOL_ID') or not lookup('env', 'BROKER_SUB_POOL')
