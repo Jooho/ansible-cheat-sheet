@@ -31,6 +31,9 @@ import sys
 @click.option('--target',
               type=click.Choice(['app', 'infra', 'master', 'node']),
               help='Target node: app/infra for scale, master/node for bg upgrade')
+@click.option('--force',
+              default=False,
+              help='Ignore validation and force to rewrite configuration event though it exists')
 @click.option('--instances',
               default=1,
               help='Specifying how many vms will be scaling up/down')
@@ -45,16 +48,13 @@ def launch(provider=None,
            target=None,
            instances=None,
            ocp_install=None,
+           force=None,
            verbose=0):
 
     # validate ocp deploy_type options
     if deploy_type == 'ocp':
         if target is not None:
             print "--target option is for scale/bg_upgrade"
-            sys.exit(1)
-
-        if instances is not None:
-            print "--instances option is for scale"
             sys.exit(1)
 
         if operate not in ['deploy', 'start', 'stop', 'teardown']:
@@ -119,20 +119,20 @@ def launch(provider=None,
         status = os.system(
              'ansible-playbook %s playbooks/%s/ansible-controller.yaml \
              -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
-                 ocp_install=%s target=%s instances=%s" \
+                 ocp_install=%s target=%s instances=%s force_rewrite=%s" \
              --extra-vars "@vars/all" \
              --extra-vars "@vars/ocp_params"'
-             % (verbosity, provider, provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances)
+             % (verbosity, provider, provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances, force)
         )
     else:
         status = os.system(
             'ansible-playbook %s playbooks/config.yaml \
             -e "provider=%s deploy_type=%s operate=%s tag=%s target_node_filter=%s \
-                ocp_install=%s target=%s instances=%s" \
+                ocp_install=%s target=%s instances=%s force_rewrite=%s" \
             --extra-vars "@vars/all" \
             --extra-vars "@vars/ocp_params"'
             % (verbosity, provider, deploy_type, operate, tag, target_node_filter,
-                ocp_install, target, instances)
+                ocp_install, target, instances, force)
         )
 
     # Exit appropriately

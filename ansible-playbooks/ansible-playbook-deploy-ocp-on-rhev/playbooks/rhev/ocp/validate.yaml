@@ -30,5 +30,5 @@
     
     - name: "[DNS] Check Duplicate DNS conf"
       fail: msg="There is same cluster dns ==> /etc/dnsmasq.d/ocp-{{tag}}.conf"
-      when: interim_dns.install == true and dns_conf_exist.stat.exists
+      when: interim_dns.install == true and dns_conf_exist.stat.exists and not force_rewrite
 

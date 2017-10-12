@@ -35,6 +35,12 @@
 #               'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct',
 #               'atomic-openshift-utils', 'atomic-openshift-excluder', 'atomic-openshift-docker-excluder']
 
+
+- name: Generate ssh key 
+  shell: ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
+  args:
+    creates: ~/.ssh/id_rsa
+
 - name: Determine if firewalld is installed
   yum:
     name: "firewalld"
