@@ -19,7 +19,6 @@ Ansible Controller VM
 
 
 *Manaual Way*
-Commands for Requirement on local system
 ```
 yum install ansible -y
 
