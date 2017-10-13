@@ -2,7 +2,7 @@ Operation - OpenShift Container Platform Cluster
 -------------------------------------------
 
 Ansible script provide the easy ways to maintains OCP cluster and RHEV VMs.
-
+By default, before stop/teardonw, it will wait sometime for evacuate all pods on the node that will be gone.
 
 *Features*
 - start single/multiple nodes or cluster
