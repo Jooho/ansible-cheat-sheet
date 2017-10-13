@@ -28,20 +28,20 @@ Architecture (1 LB x 3 Master x 3 Infa x 2 App)
 
 | Main Command Type|Practise command        |
 |--------|--------|
-| Common Command | ansible-playbook playbooks/config.yaml -M ./modules -i ./inventory/rhev/hosts/ovirt.py -e @vars/all -e @vars/ocp_params -e provider=rhev 
+| Common Command | deploy.py |
 | deploy cluster | -e deploy_type=ocp -e  operate=deploy |
-| deploy cluster | -e deploy_type=ocp -e  operate=deploy -e tag=34-0912|
-| deploy cluster | -e deploy_type=ocp -e  operate=deploy -e tag=34-0912 -e ocp_version=3.5|
-| stop single node | -e deploy_type=ocp -e operate=stop -e target_cluster_tag=34-0912 -e target_node_filter=infra_1 |
-| stop ocp cluster | -e deploy_type=ocp -e operate=stop -e target_cluster_tag=34-0912 |
-| start single node | -e deploy_type=ocp -e operate=start -e target_cluster_tag=34-0912 -e target_node_filter=infra_1 |
-| start ocp cluster | -e deploy_type=ocp -e operate=start -e target_cluster_tag=34-0912 |
-| teardown vms not installed ocp|  -e deploy_type=ocp -e  operate=teardown -e target_cluster=34-0912 -e ocp_install=false|
-| teardown vms installed ocp |  -e deploy_type=ocp -e  operate=teardown -e target_cluster=34-0912 -e ocp_install=true|
-| scale up single infra node   |-e deploy_type=scale -e operate=up -e scale_target=infra|
-| scale up multiple infra nodes   |-e deploy_type=scale -e operate=up -e scale_target=infra -e instances=2|
-| scale up single app node   |-e deploy_type=scale -e operate=up -e scale_target=app|
-| scale up single app nodes   |-e deploy_type=scale -e operate=up -e scale_target=app -e instances=2|
+| deploy cluster | -e deploy_type=ocp -e  operate=deploy -e tag=35-1012|
+| deploy cluster | -e deploy_type=ocp -e  operate=deploy -e tag=35-1012 -e ocp_version=3.5|
+| stop single node | -e deploy_type=ocp -e operate=stop -e tag=35-1012 -e target_node_filter=infra_1 |
+| stop ocp cluster | -e deploy_type=ocp -e operate=stop -e tag=35-1012 |
+| start single node | -e deploy_type=ocp -e operate=start -e target_cluster_tag=35-1012 -e target_node_filter=infra_1 |
+| start ocp cluster | -e deploy_type=ocp -e operate=start -e target_cluster_tag=35-1012 |
+| teardown vms not installed ocp|  -e deploy_type=ocp -e  operate=teardown -e target_cluster=351012 -e ocp_install=false|
+| teardown vms installed ocp |  -e deploy_type=ocp -e  operate=teardown -e target_cluster=35-1012 -e ocp_install=true|
+| scale up single infra node   |-e deploy_type=scale -e operate=up -e target=infra|
+| scale up multiple infra nodes   |-e deploy_type=scale -e operate=up -e target=infra -e instances=2|
+| scale up single app node   |-e deploy_type=scale -e operate=up -e target=app|
+| scale up single app nodes   |-e deploy_type=scale -e operate=up -e target=app -e instances=2|
 | bluegreen upgrade master | -e deploy_type=bg_upgrade -e target=master |
 | bluegreen upgrade node | -e deploy_type=bg_upgrade -e target=node  -e operate=deploy  |
 | bluegreen upgrade node | -e deploy_type=bg_upgrade -e target=node  -e operate=deploy  |
@@ -51,6 +51,6 @@ Architecture (1 LB x 3 Master x 3 Infa x 2 App)
 >$Commom_Command $Sub_Command
 
 ```
-ansible-playbook playbooks/config.yaml -M ./modules -i ./inventory/rhev/hosts/rhev.py -e @vars/all -e @vars/ocp_params -e provider=rhev -e deploy_type=ocp -e  operate=deploy
+deploy.py -e deploy_type=ocp -e operate=deploy
 ```
 
