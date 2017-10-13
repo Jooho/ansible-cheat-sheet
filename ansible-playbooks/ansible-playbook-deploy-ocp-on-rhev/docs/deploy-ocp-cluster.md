@@ -29,5 +29,9 @@ Using ansible, it will create VMs on RHEV and it will install OCP. Before execut
 ```
 source ~/setup
 
-ansible-playbook playbooks/config.yaml -M ./modules -i ./inventory/rhev/hosts/ovirt.py -e @vars/all -e @vars/ocp_params -e provider=rhev -e deploy_type=ocp -e  operate=deploy 
+./deploy.py --deploy_type=ocp --operate=deploy --force=true  
 ```
+*Video Clips*
+
+[![asciicast](https://asciinema.org/a/142266.png)](https://asciinema.org/a/142266)
+[![asciicast](https://asciinema.org/a/142298.png)](https://asciinema.org/a/142298)
