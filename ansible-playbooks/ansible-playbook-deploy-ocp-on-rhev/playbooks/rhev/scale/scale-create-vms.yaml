@@ -4,10 +4,10 @@
   block:
     - set_fact: 
         prefix: "{{infra_node_prefix}}"
-      when: scale_target == 'infra'
+      when: target == 'infra'
     - set_fact: 
         prefix: "{{app_node_prefix}}"
-      when: scale_target == 'app'
+      when: target == 'app'
 
 
 - name: Create new VMs

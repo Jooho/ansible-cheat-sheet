@@ -6,11 +6,11 @@
       include: ../tasks/generate-host-groups.yaml
 
     - set_fact:
-        last_number: "{{groups['tag_Name_'+ cluster_tag + '_' + scale_target +'_node_vms']|length|int}}"
+        last_number: "{{groups['tag_Name_'+ cluster_tag + '_' + target +'_node_vms']|length|int}}"
 
     - name: Add scale down instances to host group
       add_host:
-        name: "{{hostvars[groups['tag_Name_' + cluster_tag +'_'+ scale_target + '_node_vms'][last_number|int - item|int]].fqdn}}"
+        name: "{{hostvars[groups['tag_Name_' + cluster_tag +'_'+ target + '_node_vms'][last_number|int - item|int]].fqdn}}"
         groups: scaledown_nodes_vms
       with_sequence:
         count={{instances}}
@@ -22,13 +22,13 @@
     - name: Scale Down for Infra
       block:
         - name: Run oc command to mark scale down node as unschedulable
-          command: "oc adm cordon {{hostvars[groups['tag_Name_' + cluster_tag +'_'+ scale_target + '_node_vms'][last_number|int - item|int]].fqdn}}"
+          command: "oc adm cordon {{hostvars[groups['tag_Name_' + cluster_tag +'_'+ target + '_node_vms'][last_number|int - item|int]].fqdn}}"
           with_sequence:
             count={{instances}}
           ignore_errors: yes
      
         - name: Run oc command to remove all running pods from scale down node
-          command: "oc adm drain {{hostvars[groups['tag_Name_' + cluster_tag +'_'+ scale_target + '_node_vms'][last_number|int - item|int]].fqdn}} --force --delete-local-data=true"
+          command: "oc adm drain {{hostvars[groups['tag_Name_' + cluster_tag +'_'+ target + '_node_vms'][last_number|int - item|int]].fqdn}} --force --delete-local-data=true"
           with_sequence:
             count={{instances}}
           ignore_errors: yes
@@ -41,10 +41,16 @@
           ignore_errors: yes
      
         - name: Run oc command to remove node from cluster
-          command: "oc delete node {{hostvars[groups['tag_Name_' + cluster_tag +'_'+ scale_target + '_node_vms'][last_number|int - item|int]].fqdn}}"
+          command: "oc delete node {{hostvars[groups['tag_Name_' + cluster_tag +'_'+ target + '_node_vms'][last_number|int - item|int]].fqdn}}"
           with_sequence:
             count={{instances}}
           ignore_errors: yes
+
+        - name: Delete entries of scale downed infra nodes from  interim dns
+          include_role:
+            name: interim_dns
+          when: interim_dns.install
+
 
       delegate_to: "{{ groups.masters.0 }}"   
    
@@ -57,16 +63,16 @@
           password: "{{rhev.pw}}"
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
-        name: "tag_Name_{{cluster_tag}}_{{scale_target}}_node_vms"
+        name: "tag_Name_{{cluster_tag}}_{{target}}_node_vms"
         state: detached
         vms: 
-         - "{{groups['tag_Name_' + cluster_tag +'_'+ scale_target + '_node_vms'][last_number|int - item|int]}}"
+         - "{{groups['tag_Name_' + cluster_tag +'_'+ target + '_node_vms'][last_number|int - item|int]}}"
       with_sequence:
         count={{instances}}
 
     - name: Operate for Single Infra/App Node
       ovirt_vms:
-        name: "{{groups['tag_Name_' + cluster_tag +'_'+ scale_target + '_node_vms'][last_number|int - item|int]}}"
+        name: "{{groups['tag_Name_' + cluster_tag +'_'+ target + '_node_vms'][last_number|int - item|int]}}"
         cluster: "{{rhev.cluster}}"
         auth:
           username: "{{rhev.id}}"

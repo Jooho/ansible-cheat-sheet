@@ -124,7 +124,7 @@
         line: "address=/{{ocp_cluster_subdomain}}/{{item}}"
       with_items:
         - "{{ groups.new_infra_nodes_ip }}"
-  when: deploy_type == 'scale' and operate == 'up' and scale_target == 'infra'
+  when: deploy_type == 'scale' and operate == 'up' and target == 'infra'
 
 
 - name: Scaling down
@@ -153,7 +153,7 @@
       with_items:
         - "{{ groups.scaledown_nodes_ip }}"
 
-  when: deploy_type == 'scale' and operate == 'down' and scale_target == 'infra'
+  when: deploy_type == 'scale' and operate == 'down' and target == 'infra'
 
 #- name: Check if Masters IP exist
 #  command: grep {{item}} /etc/hosts

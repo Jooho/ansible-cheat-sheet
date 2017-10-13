@@ -151,7 +151,7 @@ def launch(provider=None,
         status = os.system(
             'ansible-playbook %s playbooks/config.yaml \
             --extra-vars "@vars/all" \
-            --extra-vars "@vars/ocp_params" \
+            --extra-vars "@vars/ocp_params" -e retry_scale=false \
             -e "%s"'
             % (verbosity, sio.getvalue())
               

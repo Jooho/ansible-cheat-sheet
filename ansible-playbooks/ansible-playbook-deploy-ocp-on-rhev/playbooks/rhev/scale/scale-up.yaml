@@ -89,11 +89,11 @@
                password: "{{rhev.pw}}"
                url: "{{rhev.api_url}}"
                ca_file: "{{rhev.ca_file}}"
-             name: "{{cluster_tag}}_{{scale_target}}_node_vms"
+             name: "{{cluster_tag}}_{{target}}_node_vms"
              state: attached
              vms: "{{ item }}"
            with_items:
-             - "{{ groups['tag_Name_new_' + cluster_tag + '_' + scale_target + '_node_vms'] }}"
+             - "{{ groups['tag_Name_new_' + cluster_tag + '_' + target + '_node_vms'] }}"
          - name: Delete New Nodes from New Node Tag after scaled out
            ovirt_tags:
              auth:
@@ -101,11 +101,11 @@
                password: "{{rhev.pw}}"
                url: "{{rhev.api_url}}"
                ca_file: "{{rhev.ca_file}}"
-             name: "new_{{cluster_tag}}_{{scale_target}}_node_vms"
+             name: "new_{{cluster_tag}}_{{target}}_node_vms"
              state: absent
              vms: "{{ item }}"
            with_items:
-             - "{{ groups['tag_Name_new_' + cluster_tag + '_' + scale_target + '_node_vms'] }}"
+             - "{{ groups['tag_Name_new_' + cluster_tag + '_' + target + '_node_vms'] }}"
   
 - hosts: localhost
   tasks:
@@ -117,5 +117,5 @@
               password: "{{rhev.pw}}"
               url: "{{rhev.api_url}}"
               ca_file: "{{rhev.ca_file}}"
-            name: "new_{{cluster_tag}}_{{scale_target}}_node_vms"
+            name: "new_{{cluster_tag}}_{{target}}_node_vms"
             state: absent
