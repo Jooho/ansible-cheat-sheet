@@ -24,6 +24,8 @@ This script help deploy OpenShift on RHEV and also provide some more features fo
 - [Dynamic inverntory host file](./docs/dynamic_inventory.md)
 - [Deploy OpenShift cluster](./docs/deploy-ocp-cluster.md)
 - [Operate OpenShift cluster](./docs/operate-ocp-cluster.md)
+- [Metrics](./docs/deploy-metrics.md)
+- [Logging](./docs/deploy-logging.md)
 - [Scale up/down infra/app nodes](./docs/scale-infra-app.md)
 - [Blue Green Upgrade](./docs/bg-upgrade.md)
   
