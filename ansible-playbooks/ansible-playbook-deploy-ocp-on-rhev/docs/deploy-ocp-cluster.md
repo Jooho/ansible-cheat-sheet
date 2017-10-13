@@ -23,7 +23,8 @@ Using ansible, it will create VMs on RHEV and it will install OCP. Before execut
  - tag: 35-1012
  - prefix_vm: jlee
  - interim_dns.install: yes
- 
+   - local host need to add this intrim dns ip into resolv.conf for access to api web console. 
+ - openshift_master_cluster_public_hostname: lb_hostname(varies)
 
 *Commands on ansible controller* 
 
