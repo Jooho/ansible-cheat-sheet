@@ -12,9 +12,10 @@ Using ansible, it will create VMs on RHEV and it will install OCP. Before execut
 
 
 *Related Docs*
-- [Download RHEV Cert](./docs/download-rhev-cert.md)
-- [Parameters](./docs/parameters.md)
-- [Credential Information](./docs/setup.md)
+- [Download RHEV Cert](./download-rhev-cert.md)
+- [Credential Information](./setup.md)
+- [Parameters](./parameters.md)
+
 
 *Demo Scenario*
  - Architecture : 3 x Master, 3 x Infra, 2 x App, LB
