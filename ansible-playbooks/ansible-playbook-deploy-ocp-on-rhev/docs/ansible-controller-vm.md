@@ -32,10 +32,11 @@ pip install ovirt-engine-sdk-python
 *Ansible Way*
 
 ```
-ansible-playbook playbooks/rhev/ansible-controller.yaml -e @vars/all -e ocp_version=3.6
+ansible-playbook playbooks/rhev/ansible-controller.yaml -e @vars/all -e ocp_version=3.5
 
 cd /root/git/ansible-cheat-sheet/ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev
 ```
+**note: ocp_version must be above 3.5 at first but it can be changable after that.**
 
 *Video Clips:*
 
