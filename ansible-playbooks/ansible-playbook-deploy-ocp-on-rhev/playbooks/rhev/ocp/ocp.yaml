@@ -19,6 +19,7 @@
     - name: Update groups
       include: ../tasks/generate-host-groups.yaml
 
+    - debug: var=groups
     - name: generate host file
       include_role:
         name: generate_hosts_file
@@ -60,7 +61,7 @@
     - debug: var=group_names
   roles: 
     - { role: openshift-prerequisites, node_type: ocp-host, when: "inventory_hostname in groups['masters'] or inventory_hostname in groups['nodes'] or inventory_hostname in groups['etcd']"  }
-    - { role: openshift-prerequisites, node_type: ocp-lb, when: "'lb' in group_names and inventory_hostname in groups['lb']" }
+    - { role: openshift-prerequisites, node_type: ocp-lb, when: "'lb' in groups and inventory_hostname in groups['lb']" }
 
 
 # Run cluster installation playbook
