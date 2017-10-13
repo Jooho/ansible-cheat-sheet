@@ -21,6 +21,7 @@ This script help deploy OpenShift on RHEV and also provide some more features fo
 - [Create base rhel image](./docs/base-rhel-image.md)
 - [Create ocp base template](./docs/base-rhel-ocp-template.md)
 - [Set up ansible controller vm](./docs/ansible-controller-vm.md)
+- [Dynamic inverntory host file](./docs/dynamic_inventory.md)
 - [Deploy OpenShift cluster](./docs/deploy-ocp-cluster.md)
 - [Operate OpenShift cluster](./docs/operate-ocp-cluster.md)
 - Scale out infra/app nodes
