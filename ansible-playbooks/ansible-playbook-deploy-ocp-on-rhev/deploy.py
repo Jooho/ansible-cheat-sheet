@@ -17,7 +17,7 @@ from StringIO import StringIO
               help='This option specifies main commands : deploying a new cluster, scaling up/down nodes, blue green upgrade',
               show_default=True)
 @click.option('--operate',
-              type=click.Choice(['deploy', 'start', 'stop', 'teardown', 'up', 'down']),
+              type=click.Choice(['deploy', 'start', 'stop', 'teardown', 'up', 'down', 'warmup']),
               help='This option specifies sub commands : deploying a new cluster, start/stop/teardown VMs, scaling up/down')
 @click.option('--tag',
               help='The tag of cluster used for targeting specific cluster operated to. It will overwrite the value from vars/all ')
@@ -34,6 +34,10 @@ from StringIO import StringIO
 @click.option('--force',
               default=False,
               help='Ignore validation and force to rewrite configuration event though it exists')
+@click.option('--new_cluster_color',
+              type=click.Choice(['green', 'blue', None]),
+              default=None,
+              help='When error happen during bg upgrade, color can be overwritten not to create new nodes.')
 @click.option('--instances',
               default='1',
               help='Specifying how many vms will be scaling up/down')
@@ -49,6 +53,7 @@ def launch(provider=None,
            instances=None,
            ocp_install=None,
            force=None,
+           new_cluster_color=None,
            verbose=0):
 
     # validate ocp deploy_type options
@@ -63,12 +68,8 @@ def launch(provider=None,
 
     # validate scale deploy_type options
     if deploy_type == 'scale':
-        if target_node_filter is not None:
+        if target is None:
             print "--target_node_filter option is for ocp"
-            sys.exit(1)
-
-        if ocp_version is not None:
-            print "--ocp_version option is for ocp/bg_upgrade"
             sys.exit(1)
 
         if operate not in ['up', 'down']:
@@ -77,16 +78,12 @@ def launch(provider=None,
 
     # validate bg_upgrade deploy_type options
     if deploy_type == 'bg_upgrade':
-        if target_node_filter is not None:
-            print "--target_node_filter option is for ocp"
+        if target is None:
+            print "target option is essential for bg_upgrade"
             sys.exit(1)
 
-        if instances is not None:
-            print "--instances option is for scale"
-            sys.exit(1)
-
-        if operate is not 'deploy':
-            print "operate (deploy) only allowed for bg_upgrade deploy_type"
+        if operate not in ['deploy', 'warmup']:
+            print "operate (deploy/warmup) only allowed for bg_upgrade deploy_type"
             sys.exit(1)
 
     # validate bg_upgrade deploy_type options
@@ -116,8 +113,8 @@ def launch(provider=None,
 
 
     # Create variable list to overwrite
-    all_variables_str= ["provider", "deploy_type", "operate", "tag", "target_node_filter", "ocp_install", "target", "instances", "ocp_version", "force_rewrite"];
-    all_variables_real= [provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances, ocp_version, force];
+    all_variables_str= ["provider", "deploy_type", "operate", "tag", "target_node_filter", "ocp_install", "target", "instances", "ocp_version", "force_rewrite", "new_cluster_color"];
+    all_variables_real= [provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances, ocp_version, force, new_cluster_color];
     overwrite_variables=[];
     var_index=0
     sio=StringIO();

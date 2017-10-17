@@ -94,6 +94,7 @@
              vms: "{{ item }}"
            with_items:
              - "{{ groups['tag_Name_new_' + cluster_tag + '_' + target + '_node_vms'] }}"
+
          - name: Delete New Nodes from New Node Tag after scaled out
            ovirt_tags:
              auth:

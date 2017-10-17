@@ -1,4 +1,5 @@
 ---
+
 - name: Watiting until fqdn is set
   block:
     - name: Gather Master VMs info
@@ -109,13 +110,13 @@
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
       with_items:
-        - "{{created_infra_node_vms_info.results}}"
+        - "{{created_gb_infra_node_vms_info.results}}"
       register: vms_info
       until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
       ignore_errors: yes
       retries: 60
       delay: 10
-      when: deploy_type == 'bg_upgrade' and target == 'node'
+      when: deploy_type == 'bg_upgrade' and target == 'node' and created_gb_infra_node_vms_info != ""
     
     
     - name: GB - Gather new GB App VMs info
@@ -127,13 +128,13 @@
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
       with_items:
-        - "{{created_app_node_vms_info.results}}"
+        - "{{created_gb_app_node_vms_info.results}}"
       register: vms_info
       until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
       ignore_errors: yes
       retries: 60
       delay: 10
-      when: deploy_type == 'bg_upgrade' and target == 'node'
+      when: deploy_type == 'bg_upgrade' and target == 'node' and created_gb_app_node_vms_info != ""
      
 
 - name: Add masters to host groups

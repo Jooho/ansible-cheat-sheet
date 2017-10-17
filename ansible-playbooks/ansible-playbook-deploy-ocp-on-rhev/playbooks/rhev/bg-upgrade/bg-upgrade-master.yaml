@@ -4,12 +4,10 @@
     - set_fact:
         ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
   tasks:
-    - include: ./validate.yaml
-    - debug: var=ansible_controller_ip
-
     - name: Update groups
       include: ../tasks/generate-host-groups.yaml
 
+- include: ./validate.yaml
 
 - hosts: masters
   tasks:

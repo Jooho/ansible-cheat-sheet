@@ -63,7 +63,7 @@
           password: "{{rhev.pw}}"
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
-        name: "tag_Name_{{cluster_tag}}_{{target}}_node_vms"
+        name: "{{cluster_tag}}_{{target}}_node_vms"
         state: detached
         vms: 
          - "{{groups['tag_Name_' + cluster_tag +'_'+ target + '_node_vms'][last_number|int - item|int]}}"

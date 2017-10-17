@@ -13,7 +13,11 @@
 
 - name: Blue Green Upgrade Node
   include: ./rhev/bg-upgrade/bg-upgrade-node.yaml
-  when: deploy_type == 'bg_upgrade' and target == 'node'
+  when: deploy_type == 'bg_upgrade' and target == 'node' and operate == 'deploy'
+
+- name: Blue Green Node Warmup
+  include: ./rhev/bg-upgrade/bg-upgrade-node-warmup.yaml
+  when: deploy_type == 'bg_upgrade' and target == 'node' and operate == 'warmup'
 
 - name: Metrics 
   include: ./common/metrics.yaml

@@ -53,15 +53,15 @@
 - name: Inall Ansible Controller Pre-Requisites
   hosts: localhost
   roles:
-     - { role: openshift-prerequisites, node_type: ansible-controller }
+     - { role: 'openshift-prerequisites', node_type: 'ansible-controller' }
 
 - name: Install OCP Host Pre-Requisites
   hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %},{% if app_node_vms is defined and app_node_vms > 0%},app_nodes{% endif %}
   pre_tasks:
     - debug: var=group_names
   roles: 
-    - { role: openshift-prerequisites, node_type: ocp-host, when: "inventory_hostname in groups['masters'] or inventory_hostname in groups['nodes'] or inventory_hostname in groups['etcd']"  }
-    - { role: openshift-prerequisites, node_type: ocp-lb, when: "'lb' in groups and inventory_hostname in groups['lb']" }
+    - { role: 'openshift-prerequisites', node_type: 'ocp-host', when: "inventory_hostname in groups['masters'] or inventory_hostname in groups['nodes'] or inventory_hostname in groups['etcd']"  }
+    - { role: 'openshift-prerequisites', node_type: 'ocp-lb', when: "'lb' in groups and inventory_hostname in groups['lb']" }
 
 
 # Run cluster installation playbook
