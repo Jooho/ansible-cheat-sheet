@@ -67,23 +67,21 @@
          consumerid: "{{ hostvars[groups['app_nodes'][ansible_play_hosts.index(inventory_hostname)]]['exist_node_consumerid'].stdout }}"
 
 # Labeling for existing nodes
-- hosts: masters
+- hosts: masters[0]
   gather_facts: false
   tasks:
     - name: Labeling for existing master nodes
       command: "oc label node {{item}} type=master "
-      run_once: yes
       ignore_errors: yes
       with_items:
          - "{{ groups['masters'] }}"
 
-- hosts: nodes
-  gather_facts: false
-  tasks:
     - name: Labeling for existing node nodes with GB color
       command: "oc label node {{item}} type=node color={{old_cluster_tag}}"
       ignore_errors: yes
       run_once: yes
+      with_items:
+         - "{{ groups['nodes'] }}"
 
 #    - name: Labeling GB color for existing node nodes
 #      command: oc label node --all color="{{old_cluster_tag}}"
