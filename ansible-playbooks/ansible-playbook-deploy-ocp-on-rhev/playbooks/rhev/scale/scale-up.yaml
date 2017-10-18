@@ -47,14 +47,12 @@
 #    - name: generate host file
 #      include_role:
 #        name: generate_hosts_file
-#
+
     - name: Install interim dns
       include_role:
         name: interim_dns
       when: interim_dns.install
 
-    - role: ssh-id-copy
-      ssh_id_copy_target: new_nodes
 
 - name: RHSM register subscription
   hosts: new_nodes
