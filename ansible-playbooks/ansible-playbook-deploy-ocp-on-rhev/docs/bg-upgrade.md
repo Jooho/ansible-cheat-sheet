@@ -25,9 +25,10 @@ There are several ways to upgrade Ocp cluster. This ansible script provide the B
        1. In order to update your S2I-based applications, you must manually trigger a new build of those applications after importing the new images using oc start-build <app-name>.
   
 6. Evacuating and Decommissioning Blue Nodes
-   1. Filter out masters.
-   2. Evacuate pods in blue nodes
-   3. Check Green node. If no issue occured, delete blue nodes. If it happens, it will roll back to blue node.
+   1. Make Green nodes scheduable
+   2. Filter out masters.
+   3. Evacuate pods in blue nodes
+   4. Check Green node. If no issue occured, delete blue nodes. If it happens, it will roll back to blue node.
 
 
 ## Detail Steps: ##
@@ -35,13 +36,13 @@ There are several ways to upgrade Ocp cluster. This ansible script provide the B
 ### Upgrade Master/ETCD ###
 
 ```
-deploy.py --deploy_type=bg_upgrade --operate=master --target=master
+deploy.py --deploy_type=bg_upgrade --operate=master --target=master --ocp_version=3.6
 ```
 
 ### Create Green Infra/App Node ###
 
 ```
-deploy.py --deploy_type=bg_upgrade --operate=node --target=node
+deploy.py --deploy_type=bg_upgrade --operate=node --target=node --ocp_version=3.6
 ```
 
 ### Verifying Green Nodes
@@ -57,7 +58,7 @@ oc adm diagnostics
 On one of masters, execute these commands to scale out router/registery and all pods will run on green node.
 
 ```
-for node in $(oc get node -l color=green) do ; oc adm manage-node ${node} --scheduable=true; done
+for node in $(oc get node -l color=green,role=infra) do ; oc adm manage-node ${node} --scheduable=true; done
 
 oc scale dc/router --replicas=6 -n default 
 oc scale dc/docker-registry --replicas=6 -n default 
@@ -90,6 +91,8 @@ Therefore, it is recommended to evaucate pods node by node.
 
 On master:
 ```
+for node in $(oc get node -l color=green,role=app) do ; oc adm manage-node ${node} --scheduable=true; done
+
 oc get node -l color=blue,type=node
 
 NAME                                 STATUS                     AGE       VERSION
