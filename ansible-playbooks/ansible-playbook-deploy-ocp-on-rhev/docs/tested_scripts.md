@@ -20,14 +20,15 @@ Architecture (1 LB x 3 Master x 3 Infa x 2 App)
 | scale up | multiple infra/app nodes |   O   |
 | scale down | single infra/app node  |   O   |
 | scale down | multiple infra/app nodes |   O   |
-| bluegreen upgrade | master servers(including etcd) | O |
-| bluegreen upgrade | create new vms and install version of infra/app nodes | O |
+| bluegreen upgrade | master servers(including etcd) | testing |
+| bluegreen upgrade | create new vms and install version of infra/app nodes | testing |
+| bluegreen warmup  | Get latest templates/images | testing |
 | metrics deploy    | deploy metrics component   | O |
 | metrics undeploy  | undeploy metrics component | O |
-| metrics upgrade   | upgrade metrics component  | O |
+| metrics upgrade   | upgrade metrics component  | testing |
 | logging deploy    | deploy logging component   | O |
 | logging undeploy  | undeploy logging component | O |
-| logging upgrade   | upgrade logging component  | O |
+| logging upgrade   | upgrade logging component  | testing |
 
 
 
