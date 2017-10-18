@@ -11,6 +11,14 @@
      openshift_metrics_hawkular_hostname: "hawkular-metrics.{{ocp_cluster_subdomain}}"
   when: operate == 'deploy' and target is not defined
 
+- name: Upgrade metrics
+  include: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/openshift-metrics.yml
+  vars:
+     openshift_hosted_metrics_deploy: true 
+     openshift_hosted_metrics_deployer_version: "v{{ocp_version}}"
+     openshift_metrics_hawkular_hostname: "hawkular-metrics.{{ocp_cluster_subdomain}}"
+  when: operate == 'upgrade' and target is not defined
+
 - name: Delete metrics
   include: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/openshift-metrics.yml
   vars:

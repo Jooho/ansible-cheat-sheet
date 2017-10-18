@@ -17,7 +17,7 @@ from StringIO import StringIO
               help='This option specifies main commands : deploying a new cluster, scaling up/down nodes, blue green upgrade',
               show_default=True)
 @click.option('--operate',
-              type=click.Choice(['deploy', 'start', 'stop', 'teardown', 'up', 'down', 'warmup']),
+              type=click.Choice(['deploy', 'start', 'stop', 'teardown', 'up', 'down', 'warmup', 'upgrade']),
               help='This option specifies sub commands : deploying a new cluster, start/stop/teardown VMs, scaling up/down')
 @click.option('--tag',
               help='The tag of cluster used for targeting specific cluster operated to. It will overwrite the value from vars/all ')
