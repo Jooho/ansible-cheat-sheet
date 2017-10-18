@@ -17,9 +17,20 @@
       meta: refresh_inventory
 
     - name: Update groups
-      include: ../tasks/generate-host-groups.yaml
+      include: ../tasks/generate-host-groups-ocp.yaml
 
-    - debug: var=groups
+    - name: Update ssh known_host
+      include_role:
+        name: ssh-id-copy
+      vars:
+        ssh_id_copy_target: cluster
+
+    - name: Inall Ansible Controller Pre-Requisites
+      include_role: 
+        name: 'openshift-prerequisites'
+      vars:  
+        node_type: 'ansible-controller'
+
     - name: generate host file
       include_role:
         name: generate_hosts_file
@@ -29,9 +40,7 @@
         name: interim_dns
       when: interim_dns.install
 
-  roles:
-    - role: ssh-id-copy
-      ssh_id_copy_target: cluster
+
 
 # RHSM register subscription
 - hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %}
@@ -48,12 +57,6 @@
       pool_name: "{{subs.node_sub_pool  | default('false')}}"
       pool_id: "{{subs.node_sub_pool_id | default('false')}}"
 
-
-# ansible_controller_prerequisite
-- name: Inall Ansible Controller Pre-Requisites
-  hosts: masters[0]
-  roles:
-     - { role: 'openshift-prerequisites', node_type: 'ansible-controller', delegate_to: localhost }
 
 - name: Install OCP Host Pre-Requisites
   hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %},{% if app_node_vms is defined and app_node_vms > 0%},app_nodes{% endif %}

@@ -134,7 +134,7 @@
       register: scaledown_nodes_ip
       with_items:
        - "{{ groups.scaledown_nodes_vms }}"
-      until: infras_ip.stdout != ''
+      until: scaledown_nodes_ip.stdout != ''
       ignore_errors: yes
       delay: 10
       retries: 100

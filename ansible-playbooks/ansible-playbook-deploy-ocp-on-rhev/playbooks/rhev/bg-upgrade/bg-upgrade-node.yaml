@@ -15,8 +15,11 @@
     - name: Refresh inventory to ensure new instaces exist in inventory
       meta: refresh_inventory
 
-    - name: Update groups
-      include: ../tasks/generate-host-groups.yaml
+    - name: Update cluster groups
+      include: ../tasks/generate-host-groups-ocp.yaml
+
+    - name: Update bg cluster groups
+      include: ../tasks/generate-host-groups-bg.yaml
 
     - name: generate host file
       include_role:

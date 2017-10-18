@@ -3,7 +3,7 @@
   gather_facts: no
   tasks:
     - name: Update groups
-      include: ../tasks/generate-host-groups.yaml
+      include: ../tasks/generate-host-groups-ocp.yaml
      
 - hosts: masters[0]
   gather_facts: no

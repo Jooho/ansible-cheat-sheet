@@ -3,8 +3,11 @@
   tasks:
      - include: ./bg-upgrade-select-color.yaml
 
-     - name: Update groups
-       include: ../tasks/generate-host-groups.yaml
+     - name: Update cluster groups
+       include: ../tasks/generate-host-groupsi-ocp.yaml
+
+     - name: Update bg cluster groups
+       include: ../tasks/generate-host-groups-bg.yaml
 
 - hosts: masters[0]
   tasks:
