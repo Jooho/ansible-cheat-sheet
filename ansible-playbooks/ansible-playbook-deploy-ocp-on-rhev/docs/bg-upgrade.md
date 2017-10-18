@@ -115,3 +115,12 @@ oc delete node --selector=color=blue
 ```
 $ oadm manage-node --selector=color=green --evacuate
 ```
+
+## After Work ##
+Still, there are some tasks to finish upgrade. 
+
+*Tasks*
+- Delete RHEV Tag for Blue Node
+- Metric Upgrade
+- Logging Upgrade
+- Rebuild Docker Image that use S2I image
