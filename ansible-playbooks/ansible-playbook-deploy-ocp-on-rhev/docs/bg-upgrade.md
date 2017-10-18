@@ -8,11 +8,7 @@ There are several ways to upgrade Ocp cluster. This ansible script provide the B
 - New Target Cluster Color: green
 
 
-
-
-
-
-**Steps**
+## Steps ##
 1. Upgrade Master/ETCD
 2. Create Green Infra/App Node
 3. Registry and Router Canary Deployments
@@ -34,8 +30,7 @@ There are several ways to upgrade Ocp cluster. This ansible script provide the B
    3. Check Green node. If no issue occured, delete blue nodes. If it happens, it will roll back to blue node.
 
 
-
-**Detail Information for each steps**
+## Detail Steps: ##
 
 ### Upgrade Master/ETCD ###
 
