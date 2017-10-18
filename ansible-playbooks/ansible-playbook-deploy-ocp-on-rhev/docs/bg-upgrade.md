@@ -7,6 +7,8 @@ There are several ways to upgrade Ocp cluster. This ansible script provide the B
 - Architecture: 3 x Masters, 3 x Infras, 2 x App 
 - New Target Cluster Color: green
 
+*Pre-requisites*
+- [Deploy OpenShift cluster](./deploy-ocp-cluster.md)
 
 ## Steps ##
 1. Upgrade Master/ETCD
