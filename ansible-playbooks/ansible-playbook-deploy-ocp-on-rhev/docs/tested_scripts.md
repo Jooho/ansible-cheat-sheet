@@ -29,7 +29,7 @@ Architecture (1 LB x 3 Master x 3 Infa x 2 App)
 | Main Command Type|Practise command        |
 |--------|--------|
 | Common Command | deploy.py |
-| deploy cluster | -e deploy_type=ocp -e  operate=deploy |
+| deploy cluster | --deploy_type=ocp --operate=deploy |
 | deploy cluster | -e deploy_type=ocp -e  operate=deploy -e tag=35-1012|
 | deploy cluster | -e deploy_type=ocp -e  operate=deploy -e tag=35-1012 -e ocp_version=3.5|
 | stop single node | -e deploy_type=ocp -e operate=stop -e tag=35-1012 -e target_node_filter=infra_1 |
