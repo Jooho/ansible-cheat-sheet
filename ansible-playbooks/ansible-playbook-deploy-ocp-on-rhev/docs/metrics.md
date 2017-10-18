@@ -1,19 +1,21 @@
 Metrics Component
 ---------------------------
 
-There are 2 ways to deploy Metrics component in this ansible script: during installion, after installation.
+*Features*
+- Deploy
+- Undeploy
+- Upgrade
 
-### Deploy Metrics ###
-#### During OCP Installation ####
+### Deploy Metrics During OCP Installation ####
 
 Edit vars/ocp_param then install OCP cluster.
 ```
-# Logging
-openshift_hosted_logging_deploy: true
+# Metrics
+openshift_hosted_metrics_deploy: true
 
 ```
 
-#### After OCP Installation ####
+### Deploy Metrics After OCP Installation ###
 ```
 ./deploy.py --deploy_type=metrics --operate=deploy
 ```
@@ -24,3 +26,9 @@ openshift_hosted_logging_deploy: true
 ./deploy.py --deploy_type=metrics --operate=undeploy
 ```
 
+
+### Upgrade Metrics ###
+
+```
+./deploy.py --deploy_type=metrics --operate=upgrade --ocp_version=3.6
+```
