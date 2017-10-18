@@ -19,7 +19,7 @@
 - [ansible-playbook-openshift-registry-ssl-expose](./ansible-playbooks/ansible-playbook-openshift-registry-ssl-expose)
 - [ansible-playbook-generate-self-signed-cert](./ansible-playbooks/ansible-playbook-generate-self-signed-cert)
 - [ansible-playbook-openldap-test-server](./ansible-playbooks/ansible-playbook-openldap-test-server)
-
+- [ansible-playbook-deploy-ocp-on-rhev](./ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev)
 
 ## Useful Docs
 - [Molecule](./docs/molecule.md)
