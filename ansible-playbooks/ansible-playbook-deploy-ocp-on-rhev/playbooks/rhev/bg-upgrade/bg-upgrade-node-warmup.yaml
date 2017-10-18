@@ -60,16 +60,16 @@
      - name: Get the latest templates for 3.6
        command: "{{item}}"
        with_items:
-         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/quickstart-templates/"
-         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/db-templates/"
-         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/infrastructure-templates/"
-         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-templates/"
-         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-streams/"
-         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/quickstart-templates/"
-         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/db-templates/"
-         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/infrastructure-templates/"
-         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-templates/"
-         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-streams/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/quickstart-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/db-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/infrastructure-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-streams/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/quickstart-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/db-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/infrastructure-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-streams/"
        ignore_errors: yes
        when: ocp_version == '3.6'
 
@@ -80,6 +80,7 @@
 
      - name: Import latest images
        command: "oc import-image -n openshift {{item}}"
+       ignore_errors: yes
        with_items:
          - "{{is_list.stdout_lines}}"
 

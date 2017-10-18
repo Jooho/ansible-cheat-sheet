@@ -25,3 +25,7 @@ ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml -
 # scaledown
 # ansible-playbook playbooks/config.yaml  -M  ./modules -vvvv --forks=12 -i inventory/rhev/hosts/a.py  -e @vars/all  -e deploy_type=stop -e target_vm=app  -e provider=rhev -e @vars/ocp_params 
 # ansible-playbook playbooks/config.yaml  -M  ./modules -vvvv --forks=12 -i inventory/rhev/hosts/a.py  -e @vars/all  -e deploy_type=scaledown -e target_vm=infra -e provider=rhev -e @vars/ocp_params
+
+
+# Teardown
+#./deploy.py --deploy_type=ocp --operate=teardown --tag=35-1012 --target_node_filter=green --ocp_install=false -vvvv

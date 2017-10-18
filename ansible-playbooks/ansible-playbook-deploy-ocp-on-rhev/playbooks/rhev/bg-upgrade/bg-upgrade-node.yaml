@@ -81,7 +81,8 @@
       command: "oc label node {{item}} type=node color={{hostvars['localhost']['old_cluster_tag']}} --overwrite"
       ignore_errors: yes
       with_items:
-         - "{{ groups['nodes'] }}"
+         - "{{ groups['infra_nodes'] }}"
+         - "{{ groups['app_nodes'] }}"
 
 #    - name: Labeling GB color for existing node nodes
 #      command: oc label node --all color="{{old_cluster_tag}}"
