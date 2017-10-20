@@ -10,7 +10,7 @@
           password: "{{rhev.pw}}"
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
-      with_items: "{{created_master_vms_info.results}}"
+      with_items: "{{created_master_node_vms_info.results}}"
       register: vms_info
       until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
       ignore_errors: yes
