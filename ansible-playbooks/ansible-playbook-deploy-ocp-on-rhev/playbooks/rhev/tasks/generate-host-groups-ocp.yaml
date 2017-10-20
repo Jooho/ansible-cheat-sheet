@@ -16,7 +16,7 @@
       ignore_errors: yes
       retries: 60
       delay: 10
-      when: (master_node_vms is defined and master_node_vms > 0 and deploy_type == 'ocp_cluster')
+      when: (master_node_vms is defined and master_node_vms > 0 and deploy_type == 'ocp')
     
     - name: Gather Infra VMs info
       ovirt_vms_facts:
@@ -28,13 +28,30 @@
           ca_file: "{{rhev.ca_file}}"
       with_items:
         - "{{created_infra_node_vms_info.results}}"
-      when: (infra_node_vms is defined and infra_node_vms > 0 and deploy_type=='ocp_cluster')
+      when: (infra_node_vms is defined and infra_node_vms > 0 and deploy_type=='ocp')
       register: vms_info
       until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
       ignore_errors: yes
       retries: 60
       delay: 10
     
+    - name: Gather App VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_app_node_vms_info.results}}"
+      when: (app_node_vms is defined and app_node_vms > 0 and deploy_type=='ocp')
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+
     - name: Gather ETCD VMs info
       ovirt_vms_facts:
         pattern: "name={{item.vm.name}}"
@@ -49,7 +66,7 @@
       ignore_errors: yes
       retries: 60
       delay: 10
-      when: etcd_node_vms is defined and etcd_node_vms > 0 and deploy_type == 'ocp_cluster'
+      when: etcd_node_vms is defined and etcd_node_vms > 0 and deploy_type == 'ocp'
     
     - name: Gather LB VM info
       ovirt_vms_facts:
@@ -60,7 +77,7 @@
           url: "{{rhev.api_url}}"
           ca_file: "{{rhev.ca_file}}"
       register: lb_vms_info
-      when: master_node_vms|int > 1 and deploy_type == 'ocp_cluster'
+      when: master_node_vms|int > 1 and deploy_type == 'ocp'
       until: lb_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
       ignore_errors: yes
       retries: 60

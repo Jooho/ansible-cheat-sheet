@@ -19,8 +19,11 @@
 
 
 - name: Uninstall the atomic-openshift-utils
-  yum : state=absent name=atomic-openshift-utils
+  yum : "state=absent name={{item}}"
   when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0
+  with_items:
+    - 'atomic-openshift-utils'
+    - 'openshift-ansible'
 
 - name: Install new version of atomic-openshift-utils 
   yum : state=latest name=atomic-openshift-utils
