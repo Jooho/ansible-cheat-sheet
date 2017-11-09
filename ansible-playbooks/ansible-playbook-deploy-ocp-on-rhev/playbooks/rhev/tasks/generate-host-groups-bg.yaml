@@ -17,7 +17,7 @@
       ignore_errors: yes
       retries: 60
       delay: 10
-      when: deploy_type == 'bg_upgrade' and target == 'node'
+      when: j_deploy_type == 'bg_upgrade' and target == 'node'
     
     
     - name: GB - Gather new GB App VMs info
@@ -35,7 +35,7 @@
       ignore_errors: yes
       retries: 60
       delay: 10
-      when: deploy_type == 'bg_upgrade' and target == 'node' 
+      when: j_deploy_type == 'bg_upgrade' and target == 'node' 
      
 
 # GB (all_nodes -> ssh-id-copy, new_nodes -> scaleup, infra/app_nodes_{{new_cluster_tag}} -> start/stop/teardown)
@@ -51,7 +51,7 @@
       color: "{{ new_cluster_tag }}"
     openshift_schedulable: false
   with_items: "{{groups['tag_Name_' + cluster_tag +'_infra_node_vms_' + new_cluster_tag]}}"
-  when: deploy_type == 'bg_upgrade' and target == 'node'
+  when: j_deploy_type == 'bg_upgrade' and target == 'node'
 
 
 - name: Add New App instances for GB to host group
@@ -66,7 +66,7 @@
       color: "{{ new_cluster_tag }}"
     openshift_schedulable: false
   with_items: "{{groups['tag_Name_' + cluster_tag +'_app_node_vms_' + new_cluster_tag]}}"
-  when: deploy_type == 'bg_upgrade' and target == 'node'
+  when: j_deploy_type == 'bg_upgrade' and target == 'node'
 
 
 

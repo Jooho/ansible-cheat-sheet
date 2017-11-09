@@ -41,10 +41,10 @@ openshift_master_identity_providers: [{'name': 'htpasswd_auth', 'login': 'true',
 
 
 # Metrics
-openshift_hosted_metrics_deploy: false
+openshift_hosted_metrics_deploy: true
 
 # Logging
-openshift_hosted_logging_deploy: false
+openshift_hosted_logging_deploy: true
 
 
 # Certificate

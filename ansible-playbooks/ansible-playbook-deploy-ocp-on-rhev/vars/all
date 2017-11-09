@@ -1,7 +1,7 @@
 # Distinguish Each Cluster
 # tag: 36
 prefix_vm: jlee
-tag: 36-1020
+tag: 36-1106
 timestamp: "{{ lookup('pipe', 'date +%m%d') }}"
 default_cluster_tag: "{{ocp_short_version}}_{{timestamp}}"
 cluster_tag: "{{tag|default(default_cluster_tag)}}"
@@ -59,9 +59,9 @@ ocp_master_cluster_hostname: "masters-{{cluster_tag}}.{{ocp_dns_domain}}"
 # infra_node_vms
 # if etcd_node_vms is not specified, etcd will be deploying on masters
 # etcd_node_vms
-master_node_vms: 3
+master_node_vms: 1
 infra_node_vms: 3
-app_node_vms: 2
+app_node_vms: 1
 master_node_prefix: master
 infra_node_prefix: infra
 app_node_prefix: app

@@ -113,7 +113,7 @@ def launch(provider=None,
 
 
     # Create variable list to overwrite
-    all_variables_str= ["provider", "deploy_type", "operate", "tag", "target_node_filter", "ocp_install", "target", "instances", "ocp_version", "force_rewrite", "new_cluster_color"];
+    all_variables_str= ["provider", "j_deploy_type", "operate", "tag", "target_node_filter", "ocp_install", "target", "instances", "ocp_version", "force_rewrite", "new_cluster_color"];
     all_variables_real= [provider, deploy_type, operate, tag, target_node_filter, ocp_install, target, instances, ocp_version, force, new_cluster_color];
     overwrite_variables=[];
     var_index=0

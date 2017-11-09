@@ -26,14 +26,14 @@
   ignore_errors: yes
   delay: 10
   retries: 100
-  when: master_node_vms is defined and master_node_vms|int > 0 and deploy_type == 'ocp'
+  when: master_node_vms is defined and master_node_vms|int > 0 and j_deploy_type == 'ocp'
 
 - name: Add IPs of Masters into Memory
   add_host:
     name: "{{item.stdout}}"
     groups: master_nodes_ip
   with_items: "{{masters_ip.results}}"
-  when: master_node_vms is defined and master_node_vms|int > 0 and deploy_type == 'ocp'
+  when: master_node_vms is defined and master_node_vms|int > 0 and j_deploy_type == 'ocp'
 
 - name: Get IPs from Infra Nodes
   shell: "host {{item}}|awk '{print $NF}'"
@@ -44,14 +44,14 @@
   ignore_errors: yes
   delay: 10
   retries: 100
-  when: infra_node_vms is defined and infra_node_vms|int > 0 and deploy_type == 'ocp'
+  when: infra_node_vms is defined and infra_node_vms|int > 0 and j_deploy_type == 'ocp'
 
 - name: Add IPs of Infra into Memory
   add_host:
     name: "{{item.stdout}}"
     groups: infra_nodes_ip
   with_items: "{{ infras_ip.results}}"
-  when: infra_node_vms is defined and infra_node_vms|int > 0 and deploy_type == 'ocp'
+  when: infra_node_vms is defined and infra_node_vms|int > 0 and j_deploy_type == 'ocp'
 
 - name: Get IPs from App Nodes for Infra (when infra nodes does not exist)
   shell: "host {{item}}|awk '{print $NF}'"
@@ -62,14 +62,14 @@
   ignore_errors: yes
   delay: 10
   retries: 100
-  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp")
+  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0 and j_deploy_type == "ocp")
   
 - name: Add IPs of App for Infra into Memory (when infra nodes does not exist)
   add_host:
     name: "{{item.stdout}}"
     groups: infra_nodes_ip
   with_items: "{{ apps_ip.results }}"
-  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp")
+  when: ((infra_node_vms is not defined) or (infra_node_vms is defined and infra_node_vms == 0)) and (app_node_vms is defined and app_node_vms|int > 0 and j_deploy_type == "ocp")
 
 - name: Get IPs from App Nodes
   shell: "host {{item}}|awk '{print $NF}'"
@@ -80,21 +80,21 @@
   ignore_errors: yes
   delay: 10
   retries: 100
-  when: app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp" 
+  when: app_node_vms is defined and app_node_vms|int > 0 and j_deploy_type == "ocp" 
   
 - name: Add IPs of App into Memory
   add_host:
     name: "{{item.stdout}}"
     groups: app_nodes_ip
   with_items: "{{ apps_ip.results }}"
-  when: app_node_vms is defined and app_node_vms|int > 0 and deploy_type == "ocp" 
+  when: app_node_vms is defined and app_node_vms|int > 0 and j_deploy_type == "ocp" 
 
 - name: Copy dnsmasq conf - forwarder.conf
   template: src=forwarder.conf.j2 dest=/etc/dnsmasq.d/forwarder.conf
 
 - name: Copy dnsmasq conf - ocp_conf
   template: src=ocp.conf.j2 dest=/etc/dnsmasq.d/ocp-{{cluster_tag}}.conf
-  when: deploy_type == "ocp"
+  when: j_deploy_type == "ocp"
 
 
 
@@ -124,7 +124,7 @@
         line: "address=/{{ocp_cluster_subdomain}}/{{item}}"
       with_items:
         - "{{ groups.new_infra_nodes_ip }}"
-  when: deploy_type == 'scale' and operate == 'up' and target == 'infra'
+  when: j_deploy_type == 'scale' and operate == 'up' and target == 'infra'
 
 
 - name: Scaling down
@@ -153,7 +153,7 @@
       with_items:
         - "{{ groups.scaledown_nodes_ip }}"
 
-  when: deploy_type == 'scale' and operate == 'down' and target == 'infra'
+  when: j_deploy_type == 'scale' and operate == 'down' and target == 'infra'
 
 #- name: Check if Masters IP exist
 #  command: grep {{item}} /etc/hosts
@@ -161,7 +161,7 @@
 #    - "{{ groups.master_nodes_ip }}"
 #  register: ip_exist_in_hosts
 #  ignore_errors: yes
-#  when: master_node_vms is defined and master_node_vms|int > 0 and deploy_type == "ocp_cluster"
+#  when: master_node_vms is defined and master_node_vms|int > 0 and j_deploy_type == "ocp_cluster"
 
 #- name: Insert Masters IP into /etc/hosts for round robin
 #  lineinfile:
@@ -169,7 +169,7 @@
 #    line: "{{item.item}} {{ocp_master_cluster_hostname}}"
 #  with_items:
 #    - "{{ ip_exist_in_hosts.results }}"
-#  when: deploy_type == "ocp_cluster" and master_node_vms is defined and master_node_vms|int > 0 and item.rc == 1 
+#  when: j_deploy_type == "ocp_cluster" and master_node_vms is defined and master_node_vms|int > 0 and item.rc == 1 
 
 - name: Restart dnsmasq
   service:
