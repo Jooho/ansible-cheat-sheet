@@ -1,0 +1,59 @@
+{
+    "clusters": [
+        {
+            "nodes": [
+                {
+                    "node": {
+                        "hostnames": {
+                            "manage": [
+                                "vm183.gsslab.rdu2.redhat.com"
+                            ],
+                            "storage": [
+                                "10.10.178.183"
+                            ]
+                        },
+                        "zone": 1
+                    },
+                    "devices": [
+                        "/dev/vdc",
+                        "/dev/vdd"
+                    ]
+                },
+                {
+                    "node": {
+                        "hostnames": {
+                            "manage": [
+                                "vm192.gsslab.rdu2.redhat.com"
+                            ],
+                            "storage": [
+                                "10.10.178.192"
+                            ]
+                        },
+                        "zone": 2
+                    },
+                    "devices": [
+                        "/dev/vdc",
+                        "/dev/vdd"
+                    ]
+                },
+                {
+                    "node": {
+                        "hostnames": {
+                            "manage": [
+                                "vm209.gsslab.rdu2.redhat.com"
+                            ],
+                            "storage": [
+                                "10.10.178.209"
+                            ]
+                        },
+                        "zone": 3
+                    },
+                    "devices": [
+                        "/dev/vdc",
+                        "/dev/vdd"
+                    ]
+                }
+            ]
+        }
+    ]
+}
