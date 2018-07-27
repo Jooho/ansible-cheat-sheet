@@ -1,0 +1,43 @@
+# List
+foods:
+  - bacon
+  - pizza
+  - steak
+
+foods_oneline: ['bacon', 'pizza', 'steak', 'blueberries']
+
+# Dictionary    
+book:
+  name: Ansible 101
+  author: Foo Bar
+  brief: Getting started with Ansible
+
+book_oneline: {name: Ansible 101, author: Foo Bar, brief:  Getting started with Ansible}
+
+# List & Dictionary (People)
+people:
+  - name: Foo Bar
+    job: Awesome Administrator
+    languages:
+      - perl
+      - python
+  - name: Learn Moar
+    job: Sr Awesome Administrator
+    languages:
+      - ansible
+      - ruby
+      - awk
+
+# Condition - True
+is_Yes: Yes
+is_yes: yes
+is_True: True
+is_true: true
+
+# Condition - False
+is_No: No
+is_no: no
+is_False: False
+is_false: false
+
+

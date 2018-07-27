@@ -1,0 +1,144 @@
+Ansible 101 - Part 1 - In the Beginning there was YAML
+------------------------------------------------------
+
+This ansible script demostarate this blog(Ansible 101 - need to update).
+
+### Files
+ - *link:./vars.yaml[vars.yml]* - Variables
+ - *link:./ansible-example-yaml-syntax.yml[ansible-example-yaml-syntax.yml]* - Main playbook
+ - *link:./ansible.cfg[ansible.cfg]* - Ansible configuration File
+ - *link:./yaml-basic-format.yml[yaml-basic-format.yml]* - Basic yaml file format example
+ - *link:./hosts[hosts]* - Default ansible hosts file
+ 
+### Demo script
+
+
+*List Variable*
+
+[bash]
+```
+# List
+foods:
+  - bacon
+  - pizza
+  - steak
+
+foods_oneline: ['bacon', 'pizza', 'steak', 'blueberries']
+```
+
+- List of favorite foods
+
+
+[bash]
+```
+$ ansible-playbook ansible-example-yaml-syntax.yml --tag list
+
+```
+
+- List of favorite foods with oneline style
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag list_oneline
+```
+
+
+*Dictionary Variable*
+
+[bash]
+```
+# Dictionary    
+book:
+  name: Ansible 101
+  author: Foo Bar
+  brief: Getting started with Ansible
+
+book_oneline: {name: Ansible 101, author: Foo Bar, brief:  Getting started with Ansible}
+```
+
+- Dictionary of a favorite book
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag dictionary
+```
+
+- Dictionary of a favorite book with oneline style
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag dictionary_oneline
+```
+
+*Combine Variable*
+[bash]
+```
+# List & Dictionary (People)
+people:
+  - name: Foo Bar
+    job: Awesome Administrator
+    languages:
+      - perl
+      - python
+  - name: Learn Moar
+    job: Sr Awesome Administrator
+    languages:
+      - ansible
+      - ruby
+      - awk
+
+
+```
+
+- Combind List and Dictionary
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag combine
+```
+
+*Test Block Variable*
+[bash]
+```
+the text is going
+to look
+exactly like this
+```
+
+- Large text block with new line
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag string_newline
+```
+
+- Large text block with single line
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag string_oneline
+```
+
+*Condition Variable*
+[bash]
+```
+# Condition - True
+is_Yes: Yes
+is_yes: yes
+is_True: True
+is_true: true
+
+# Condition - False
+is_No: No
+is_no: no
+is_False: False
+is_false: false
+
+```
+
+- Condition values for True
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag condition_true
+```
+
+- Condition values for False
+[bash]
+```
+ansible-playbook ansible-example-yaml-syntax.yml --tag condition_false
+```
+
