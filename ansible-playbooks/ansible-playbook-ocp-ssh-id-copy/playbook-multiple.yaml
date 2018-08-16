@@ -26,6 +26,6 @@
       - "{{groups['etcd']}}"
    tasks:
     - include_role:
-         name: Jooho.ocp-ssh-id-copy
+         name: Jooho.ocp_ssh_id_copy
 
 
