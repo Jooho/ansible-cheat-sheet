@@ -84,11 +84,7 @@ Tip:
 ### Example multiple nodes
 
 ```
-# hosts file has to be updated
-
-ansible-playbook -i ./hosts ./playbook-multiple.yaml
-
-or
+# hosts file has to be updated before execute below command
 
 ansible-playbook -i ./hosts ./playbook-multiple.yaml -e @vars/main.yml
 
@@ -118,12 +114,8 @@ node2.example.com   openshift_node_labels="{'region': 'infra', 'role': 'app', 'z
 
 Video Clip
 ----------
-[![asciicast](https://asciinema.org/a/144986.png)](https://asciinema.org/a/144986)
+None
 
-
-Result Image
-------------
-![alt Result](./result.png)
 
 License
 -------
