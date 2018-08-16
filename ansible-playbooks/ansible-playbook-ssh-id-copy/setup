@@ -1,0 +1,5 @@
+export TARGET_VM_ID=root
+export TARGET_VM_PW=root
+
+export SSH_PUBLIC_KEY=/root/.ssh/id_rsa.pub
+

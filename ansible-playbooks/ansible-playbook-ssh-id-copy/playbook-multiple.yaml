@@ -1,0 +1,31 @@
+---
+ 
+ - name: Copy ssh public key to multiple nodes
+   hosts: localhost
+   gather_facts: false
+   pre_tasks:
+    - name: Add masters to host groups
+      add_host:
+        name: "{{item}}"
+        groups: all_nodes, masters 
+      with_items: 
+      - "{{groups['masters']}}"
+
+    - name: Add nodes to host groups
+      add_host:
+        name: "{{item}}"
+        groups: all_nodes, nodes
+      with_items: 
+      - "{{groups['nodes']}}"
+
+    - name: Add etcd to host groups
+      add_host:
+        name: "{{item}}"
+        groups: all_nodes, etcd
+      with_items: 
+      - "{{groups['etcd']}}"
+   tasks:
+    - include_role:
+         name: Jooho.ocp-ssh-id-copy
+
+

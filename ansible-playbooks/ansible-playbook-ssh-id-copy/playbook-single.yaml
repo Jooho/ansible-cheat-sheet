@@ -1,0 +1,11 @@
+---
+ 
+ - name: Copy ssh public key to single node
+   hosts: localhost
+   gather_facts: false
+   tasks:
+    - include_role:
+         name: Jooho.ocp-ssh-id-copy
+      vars:
+         base_image: {id: root, pw: root}
+
