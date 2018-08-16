@@ -55,7 +55,7 @@ ssh_id_copy_target: test.example.com
 $ ansible-playbook -i /path/to/hosts ./playbook.yaml                           
 ~~~
 
-- **Use inline var value **
+- **Use inline var value**
 ```
 $ ansible-playbook -i /path/to/hosts  ./playbook.yaml -e '{base_image: {id: root, pw: root}}'
 ```
@@ -75,11 +75,10 @@ source ./setup  (* Update setup file)
 
 ### Example single node
 ```
-ansible-playbook -i ./hosts ./playbook-single.yaml
+ansible-playbook -i ./hosts ./playbook-single.yaml -e ssh_id_copy_target=$TARGET_HOSTNAME
 
-or 
-
-ansible-playbook -i ./hosts ./playbook-single.yaml -e '{base_image: {id: root, pw: root}}'
+Tip:
+   ansible-playbook -i ./hosts ./playbook-single.yaml -e '{base_image: {id: root, pw: root}}'
 ```
 
 ### Example multiple nodes
