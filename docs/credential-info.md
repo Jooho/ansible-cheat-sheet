@@ -13,9 +13,9 @@ Only special group, person who has permission know the credential information bu
 
 This feature encrypt a file that contains confidential information and it is decrypted when playbook is being executed. 
 
-Usage:
+**Usage:**
 
-Default commands
+*Default commands*
 ```
 ansible-vault create secret.yml
 ansible-vault edit secret.yml
@@ -25,7 +25,7 @@ ansible-vault view secret1.yml
 ansible-vault decrypt secret1.yml --output=secret1-decrypted.yml
 ```
 
-Usage with ansible playbook
+*Usage with ansible playbook*
 ```
 ansible-playbook site.yml
 ansible-playbook --ask-vault-pass site.yml
@@ -37,12 +37,12 @@ ansible-playbook --vault-password-file=vault-pass site.yml ($ANSIBLE_VAULT_PASSW
 ssh -o PreferredAuthentications=password ansible@servera.lab.example.com
 ```
 
-For speeding up to use Vault operations
+*For speeding up to use Vault operations*
 ```
  sudo yum install python-cryptography
 ```
 
-In order to encrypt plain password
+*In order to encrypt plain password*
 ```
 password: "{{ item.pw | password_hash('sha512') }}"
 ```
