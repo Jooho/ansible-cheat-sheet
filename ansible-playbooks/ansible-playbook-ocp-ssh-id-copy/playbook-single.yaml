@@ -6,6 +6,7 @@
    tasks:
     - include_role:
          name: Jooho.ocp-ssh-id-copy
-      vars:
-         base_image: {id: root, pw: root}
+# add var if needed         
+#      vars:
+#         base_image: {id: root, pw: root}
 
