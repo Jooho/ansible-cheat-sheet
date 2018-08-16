@@ -5,7 +5,7 @@
    gather_facts: false
    tasks:
     - include_role:
-         name: Jooho.ocp-ssh-id-copy
+         name: Jooho.ocp_ssh_id_copy
 # add var if needed         
 #      vars:
 #         base_image: {id: root, pw: root}
