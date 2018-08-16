@@ -1,0 +1,34 @@
+---
+
+- name: Generate hosts file
+  template: src=hosts.j2 dest=/etc/ansible/hosts_{{cluster_tag}} backup=yes
+
+- name: Copy OCP conf /tmp/.
+  template: src=ocp_hosts.j2 dest=/tmp/ocp_hosts_{{cluster_tag}}
+
+- name: Load OCP configuration
+  command: "cat /tmp/ocp_hosts_{{cluster_tag}}"
+  register: "ocp_conf"
+
+- name: Add ocp cluster parameters into hosts file
+  lineinfile:
+    path: /etc/ansible/hosts_{{cluster_tag}}
+    line: "{{ocp_conf.stdout}}"
+    insertafter: "OSEv3:vars"
+  
+- name: Overwrite default hosts file
+  copy: src=/etc/ansible/hosts_{{cluster_tag}} dest=/etc/ansible/hosts backup=yes
+
+# No need anymore but left for reference 
+#- name: Create a new VMs information
+#  template: src=new_hosts.j2 dest=/tmp/new_hosts_{{cluster_tag}} 
+#
+#- name: Load OCP configuration
+#  command: "cat /tmp/new_hosts_{{cluster_tag}}"
+#  register: "new_node_conf"
+#
+#- name: Add new VMs to hosts file
+#  blockinfile:
+#    path: "/etc/ansible/hosts_{{cluster_tag}}"
+#    block: | 
+#      "{{new_node_conf.stdout}}"

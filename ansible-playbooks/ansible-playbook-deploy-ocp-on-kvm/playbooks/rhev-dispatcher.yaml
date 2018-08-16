@@ -1,0 +1,38 @@
+---
+- name: Scaling up - Create RHEV VM and Set Up new Host for OCP Scaling up and Scaling up ocp cluster
+  include: ./rhev/scale/scale-up.yaml
+  when: j_deploy_type == 'scale'  and operate == 'up'
+
+- name: Scaling down - Remove RHEV VM and OCP node 
+  include: ./rhev/scale/scale-down.yaml
+  when: j_deploy_type == 'scale' and operate == 'down'
+
+- name: Blue Green Upgrade Master
+  include: ./rhev/bg-upgrade/bg-upgrade-master.yaml
+  when: j_deploy_type == 'bg_upgrade' and target == 'master'
+
+- name: Blue Green Upgrade Node
+  include: ./rhev/bg-upgrade/bg-upgrade-node.yaml
+  when: j_deploy_type == 'bg_upgrade' and target == 'node' and operate == 'deploy'
+
+- name: Blue Green Node Warmup
+  include: ./rhev/bg-upgrade/bg-upgrade-node-warmup.yaml
+  when: j_deploy_type == 'bg_upgrade' and target == 'node' and operate == 'warmup'
+
+- name: Metrics 
+  include: ./common/metrics.yaml
+  when: j_deploy_type == 'metrics' 
+
+- name: EFK
+  include: ./common/logging.yaml
+  when: j_deploy_type == 'logging' 
+
+- name: Create RHEV VM and Set Up all Hosts for OCP Installation and Install ocp cluster
+  include: ./rhev/ocp/ocp.yaml
+  when: j_deploy_type == 'ocp' and operate == 'deploy'
+
+- name: Operate RHEV or OCP
+  include: ./rhev/ocp/ocp-operation.yaml
+  when: (j_deploy_type == 'ocp' and operate != 'deploy') or (j_deploy_type == 'bg_upgrade' and operate != 'deploy')
+
+

@@ -1,0 +1,87 @@
+---
+- hosts: localhost
+  tasks:
+     - include: ./bg-upgrade-select-color.yaml
+
+     - name: Update cluster groups
+       include: ../tasks/generate-host-groups-ocp.yaml
+     
+     - name: Update bg cluster groups
+       include: ../tasks/generate-host-groups-bg.yaml
+
+- hosts: masters[0]
+  tasks:
+     - name: Update atomic-openshift-utils
+       command: yum update atomic-openshift-utils
+       
+     - name: Disable the old cluster nodes 
+       command: "oc adm manage-node --schedulable=false --selector=color={{(new_cluster_color == 'green')|ternary('blue','green')}}"
+    
+     - name: Enable the new cluster nodes 
+       command: "oc adm manage-node --schedulable=true --selector=color={{new_cluster_color}}"
+
+     - name: Get the latest images for 3.5
+       command: "{{item}}"
+       with_items:
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/image-streams/image-streams-rhel7.json"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/image-streams/dotnet_imagestreams.json"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/image-streams/image-streams-rhel7.json"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/image-streams/dotnet_imagestreams.json"
+       ignore_errors: yes
+       when: ocp_version == '3.5'
+
+     - name: Get the latest images for 3.6
+       command: "{{item}}"
+       with_items:
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/image-streams/image-streams-rhel7.json"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/image-streams/dotnet_imagestreams.json"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/image-streams/image-streams-rhel7.json"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/image-streams/dotnet_imagestreams.json"
+       ignore_errors: yes
+       when: ocp_version == '3.6'
+
+
+     - name: Get the latest templates for 3.5
+       command: "{{item}}"
+       with_items:
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/quickstart-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/db-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/infrastructure-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-streams/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/quickstart-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/db-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/infrastructure-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v1.5/xpaas-streams/"
+       ignore_errors: yes
+       when: ocp_version == '3.5'
+
+     - name: Get the latest templates for 3.6
+       command: "{{item}}"
+       with_items:
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/quickstart-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/db-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/infrastructure-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-templates/"
+         - "oc create -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-streams/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/quickstart-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/db-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/infrastructure-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-templates/"
+         - "oc replace -n openshift -f /usr/share/ansible/openshift-ansible/roles/openshift_examples/files/examples/v3.6/xpaas-streams/"
+       ignore_errors: yes
+       when: ocp_version == '3.6'
+
+
+     - name: ImageStream List
+       shell: oc get is -n openshift |grep -v NAME |awk '{print $1}'
+       register: is_list
+
+     - name: Import latest images
+       command: "oc import-image -n openshift {{item}}"
+       ignore_errors: yes
+       with_items:
+         - "{{is_list.stdout_lines}}"
+
+           #- name:  In order to update your S2I-based applications, you must manually trigger a new build of those applications after importing the new images using oc start-build <app-name>.

@@ -1,0 +1,5 @@
+[new_nodes]
+{% for item in groups.new_nodes -%}
+{{item}} openshift_node_labels="{{hostvars[item].openshift_node_labels|to_json|regex_replace('"','\'')}}"
+{% endfor %}
+

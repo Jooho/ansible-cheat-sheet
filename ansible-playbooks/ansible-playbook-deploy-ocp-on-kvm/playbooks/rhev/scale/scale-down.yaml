@@ -1,0 +1,99 @@
+---
+- hosts: localhost
+  gather_facts: no
+  pre_tasks:
+    - set_fact:
+        target_vm_tag: "{{'tag_Name_'+ cluster_tag + '_' + target +'_node_vms'}}"
+      when: new_cluster_color is not defined
+ 
+    - set_fact:
+        target_vm_tag: "{{'tag_Name_'+ cluster_tag + '_' + target +'_node_vms_'+ new_cluster_color}}"
+      when: new_cluster_color is defined
+  tasks:
+    - name: Update ocp groups
+      include: ../tasks/generate-host-groups-ocp.yaml
+
+    - name: Update scale groups
+      include: ../tasks/generate-host-groups-scale.yaml
+
+    - set_fact:
+        last_number: "{{groups[target_vm_tag]|length|int}}"
+
+    - name: Add scale down instances to host group
+      add_host:
+        name: "{{hostvars[groups[target_vm_tag][last_number|int - item|int]].fqdn}}"
+        groups: scaledown_nodes_vms
+      with_sequence:
+        count={{instances}}
+
+    - set_fact:
+        vm_operate: "absent"
+
+    # Scale Down OCP Node 
+    - name: Scale Down for Infra
+      block:
+        - name: Run oc command to mark scale down node as unschedulable
+          command: "oc adm cordon {{hostvars[groups[target_vm_tag][last_number|int - item|int]].fqdn}}"
+          with_sequence:
+            count={{instances}}
+          ignore_errors: yes
+     
+        - name: Run oc command to remove all running pods from scale down node
+          command: "oc adm drain {{hostvars[groups[target_vm_tag][last_number|int - item|int]].fqdn}} --force --delete-local-data=true --ignore-daemonsets=true"
+          with_sequence:
+            count={{instances}}
+          ignore_errors: yes
+     
+        - name: Wait 1m for pods to drain
+          pause:
+            minutes: 1
+          with_sequence:
+            count={{instances}}
+          ignore_errors: yes
+     
+        - name: Run oc command to remove node from cluster
+          command: "oc delete node {{hostvars[groups[target_vm_tag][last_number|int - item|int]].fqdn}}"
+          with_sequence:
+            count={{instances}}
+          ignore_errors: yes
+
+        - name: Delete entries of scale downed infra nodes from  interim dns
+          include_role:
+            name: interim_dns
+          when: interim_dns.install
+
+
+      delegate_to: "{{ groups.masters.0 }}"   
+   
+
+    # Teardown/Scale - Tag Management
+    - name: Remove scale down vm from Tag
+      ovirt_tags:
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        name: "{{cluster_tag}}_{{target}}_node_vms"
+        state: detached
+        vms: 
+         - "{{groups[target_vm_tag][last_number|int - item|int]}}"
+      with_sequence:
+        count={{instances}}
+
+    - name: Operate for Single Infra/App Node
+      ovirt_vms:
+        name: "{{groups[target_vm_tag][last_number|int - item|int]}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        state: "{{ vm_operate }}"
+        wait: True
+      with_sequence:
+        count={{instances}}
+
+
+ 

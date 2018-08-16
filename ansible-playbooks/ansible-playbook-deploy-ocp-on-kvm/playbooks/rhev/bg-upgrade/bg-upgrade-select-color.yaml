@@ -1,0 +1,26 @@
+---
+- name: Set Blue or Green
+  block:
+    - debug: msg="{{'tag_Name_' + cluster_tag + '_app_node_vms' }}"
+    - set_fact:
+        new_cluster_tag: 'green'
+        old_cluster_tag: 'blue'
+        old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms']|length|int}}"
+        old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms']|length|int}}"
+      when: (new_cluster_color is defined and new_cluster_color == 'green' and 'tag_Name_' + cluster_tag + '_app_node_vms' in groups) or
+            (new_cluster_color is not defined and 'tag_Name_' + cluster_tag + '_app_node_vms' in groups)
+    - set_fact:
+        new_cluster_tag: 'green'
+        old_cluster_tag: 'blue'
+        old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms_blue']|length|int}}"
+        old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms_blue']|length|int}}"
+      when: (new_cluster_color is defined and new_cluster_color == 'green' and 'tag_Name_' + cluster_tag + '_app_node_vms_blue' in groups) or
+            (new_cluster_color is not defined and 'tag_Name_' + cluster_tag + '_app_node_vms_blue' in groups)
+    - set_fact:
+        new_cluster_tag: 'blue'
+        old_cluster_tag: 'green'
+        old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms_green']|length|int}}"
+        old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms_green']|length|int}}"
+      when: (new_cluster_color is defined and new_cluster_color == 'blue') or
+            (new_cluster_color is not defined and 'tag_Name_' + cluster_tag + '_app_node_vms_green' in groups)
+

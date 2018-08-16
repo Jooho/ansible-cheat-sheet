@@ -1,0 +1,15 @@
+
+{% if master_node_vms is defined %}
+{% for item in groups.master_nodes_ip %}
+address=/{{ocp_master_cluster_hostname}}/{{item}}
+{% endfor %}
+{% endif %}
+{% if infra_node_vms is defined %}
+{% for item in groups.infra_nodes_ip %}
+address=/{{ocp_cluster_subdomain}}/{{item}}
+{% endfor %}
+{% else %}
+{% for item in groups.app_nodes_ip %}
+address=/{{ocp_cluster_subdomain}}/{{item}}
+{% endfor %}
+{% endif %}

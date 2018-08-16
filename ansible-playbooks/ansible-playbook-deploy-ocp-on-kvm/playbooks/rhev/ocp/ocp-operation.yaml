@@ -1,0 +1,139 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Update groups
+      include: ../tasks/generate-host-groups-ocp.yaml
+     
+- hosts: masters[0]
+  gather_facts: no
+  tasks:
+    - name: Ansible Controller Tasks
+      block:
+        - set_fact:
+            vm_operate: "stopped"
+          when: operate == 'stop'
+
+        - set_fact:
+            vm_operate: "running"
+          when: operate == 'start'
+
+        - set_fact:
+            vm_operate: "absent"
+          when: operate == 'teardown'
+
+        - set_fact:
+            vm_operate: "suspended"
+          when: operate == 'suspend'
+
+        - set_fact: 
+            target_cluster: "{{ target_cluster_tag|default(cluster_tag) }}"
+
+        - set_fact: 
+            target_nodes: "{{ target_node_filter|default('')}}"
+
+        - set_fact: 
+            ocp_installed: "{{ ocp_install |default(true)}}"
+
+        - name: Gather Nodes VMs info
+          ovirt_vms_facts:
+            pattern: "{{prefix_vm}}*{{target_cluster}}*{{target_nodes}}"
+            auth:
+              username: "{{rhev.id}}"
+              password: "{{rhev.pw}}"
+              url: "{{rhev.api_url}}"
+              ca_file: "{{rhev.ca_file}}"
+          register: vms_info
+        - debug: var=vms_info
+      delegate_to: localhost
+    
+
+    - name: Start Operation
+      ovirt_vms:
+        name: "{{item.name}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: "running"
+      with_items:
+        - "{{vms_info.ansible_facts.ovirt_vms}}"
+      when: operate == 'start'
+      register: vm_operate_process
+      async: 1800
+      poll: 0
+      delegate_to: localhost
+    
+
+    - name: Wait for operation completion
+      async_status: jid="{{ item.ansible_job_id }}"
+      register: vm_jobs
+      until: vm_jobs.finished
+      retries: 180
+      delay: 10
+      when: operate == 'start'
+      with_items: 
+        - "{{ vm_operate_process.results }}"
+      delegate_to: localhost
+
+    - name: Tear down Operation for OCP
+      block:
+        - name: Run oc command to mark scale down node as unschedulable
+          command: "oc adm cordon {{ item.fqdn }}"
+          with_items:
+            - "{{vms_info.ansible_facts.ovirt_vms}}"
+          ignore_errors: yes
+          
+        - name: Run oc command to remove all running pods from scale down node
+          command: "oc adm drain {{ item.fqdn }} --force"
+          with_items:
+            - "{{vms_info.ansible_facts.ovirt_vms}}"
+          ignore_errors: yes
+
+        - name: Wait 1m for pods to drain
+          pause:
+            minutes: 1
+          with_items:
+            - "{{vms_info}}"
+
+        - name: Run oc command to remove node from cluster
+          command: "oc delete node {{ item.fqdn }}"
+          with_items:
+            - "{{vms_info.ansible_facts.ovirt_vms}}"
+          ignore_errors: yes
+      when: operate == 'teardown' and ocp_installed|bool
+
+    - name: Stop/Tear down Operation for RHEV
+      ovirt_vms:
+        name: "{{item.name}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: "{{vm_operate}}"
+        wait: yes
+      register: vm_operate_process
+      delegate_to: localhost
+      with_items:
+        - "{{vms_info.ansible_facts.ovirt_vms}}"
+      async: 1800
+      poll: 0
+      when: operate == 'stop' or operate == 'teardown'
+    - debug: var=vm_operate 
+    - name: Wait for operation completion
+      async_status: jid="{{ item.ansible_job_id }}"
+      register: vm_jobs
+      until: vm_jobs.finished 
+      retries: 180
+      delay: 10
+      with_items: 
+         - "{{ vm_operate_process.results }}"
+      when: operate == 'stop' or operate == 'teardown'
+      ignore_errors: yes
+      delegate_to: localhost

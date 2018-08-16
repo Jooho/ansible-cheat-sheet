@@ -1,0 +1,149 @@
+---
+- set_fact:
+    need_repo_list:
+       - rhel-7-server-rpms
+       - rhel-7-server-ose-{{ocp_version}}-rpms
+       - rhel-7-server-extras-rpms
+       - rhel-7-fast-datapath-rpms
+- shell: subscription-manager repos --list-enabled  |grep 'Repo ID'|awk  '{print $3}'
+  register: enabled_repo_list
+
+- name: Disable unneeded repositories
+  command: subscription-manager repos --disable='*'
+  register: subs_disable
+  async: 1800
+  poll: 0
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
+- name: Wait for disable unneeded repositories
+  async_status: jid="{{ subs_disable.ansible_job_id }}"
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
+
+- name: Enable OpenShift repositories
+  command: subscription-manager repos --enable="{{item}}" 
+  with_items:
+    - "{{ need_repo_list }}"
+  register: subs_enable
+  async: 1800
+  poll: 0
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
+- debug: var=subs_enable
+- name: Wait for Enable OpenShift repositories
+  async_status: jid="{{ item.ansible_job_id }}"
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+  with_items:
+    - "{{ subs_enable.results }}"
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
+
+# TO-DO
+# will use redhat_repository module 
+- name: Install the required rpms
+  shell: yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct atomic-openshift-utils atomic-openshift-excluder atomic-openshift-docker-excluder
+  register: rpm_install
+  async: 1800
+  poll: 0
+
+- name: Wait for Enable OpenShift repositories
+  async_status: jid="{{ rpm_install.ansible_job_id }}"
+  register: jobs
+  until: jobs.finished
+  retries: 180
+  delay: 10
+
+
+#  package:
+#    use: yum
+#    name: "{{ item }}"
+#    state: latest
+#  with_items: ['iptables', 'iptables-services', 'NetworkManager', 'wget', 'git', 'net-tools', 'bind-utils',
+#               'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct',
+#               'atomic-openshift-utils', 'atomic-openshift-excluder', 'atomic-openshift-docker-excluder']
+
+- name: Run openshift excluder
+  command: atomic-openshift-excluder unexclude
+
+- name: Install docker
+  yum:
+    name: docker
+    state: present
+    update_cache: yes
+
+- name: Configure docker-storage-setup configuration
+  copy:
+    content: |
+      DEVS=/dev/vdb
+      VG=docker-vg
+      DATA_SIZE=95%VG
+      EXTRA_STORAGE_OPTIONS="--storage-opt dm.basesize=3G"
+    dest: /etc/sysconfig/docker-storage-setup
+
+- name: Run docker-storage-setup
+  command: docker-storage-setup
+
+- name: Start and enable docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+# If interim dns is installed, DNS nameserver should be updated
+- name: Check if iterim dns ip exist in /etc/resolv.conf
+  command: "grep {{hostvars['localhost']['ansible_controller_ip']}} /etc/resolv.conf"
+  register: interim_dns_ip_exist
+  ignore_errors: yes
+  when: interim_dns.install
+
+- name: Add interim dns ip to all nodes
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    line: "PEERDNS=no"
+  with_items:
+    - "{{ interim_dns_ip_exist }}"
+  when: interim_dns.install and item.rc == 1
+
+- name: Add interim dns ip to all nodes
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    line: "DNS1={{hostvars['localhost']['ansible_controller_ip']}}"
+  with_items:
+    - "{{ interim_dns_ip_exist }}"
+  when: interim_dns.install and item.rc == 1
+
+- name: Start NetworkManager and network
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+  with_items:
+  - NetworkManager
+  - network
+
+- name: Determine if firewalld is installed
+  yum:
+    name: "firewalld"
+    state: present
+  register: firewalld_installed
+
+- name: Stop firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: false
+  when:
+  - firewalld_installed.installed_versions | default([]) | length > 0 
+
+- name: Start iptables
+  service:
+    name: iptables
+    state: started
+    enabled: true

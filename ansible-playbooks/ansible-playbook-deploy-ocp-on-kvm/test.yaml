@@ -1,0 +1,113 @@
+    
+- hosts: localhost
+  tasks:
+     - set_fact:
+         cluster_tag: 34-0912
+         pool_id: false
+         pool_name: 'OpenShift'
+     - debug: msg="{{ [1,2,3]|zip(['a','b','c','d','e','f'])|list }}"
+
+- hosts: tag_Name_34-0912_infra_node_vms_green,tag_Name_34-0912_app_node_vms_green
+  tasks:
+    - name: Register node to rhsm and attach pool using id
+      redhat_subscription:
+         username: "{{ subs.id }}"
+         password: "{{ subs.pw }}"
+         state: absent
+#    
+#     - name: Create RHEV VM
+#       include: ./playbooks/rhev/tasks/generate-host-groups.yaml
+- hosts: tag_Name_34-0912_infra_node_vms
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.broker_sub_pool  | default('false')}}"
+      pool_id: "{{subs.broker_sub_pool_id | default('false')}}"
+
+- hosts: tag_Name_34-0912_app_node_vms
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.node_sub_pool  | default('false')}}"
+      pool_id: "{{subs.node_sub_pool_id | default('false')}}"
+
+- hosts: tag_Name_34-0912_app_node_vms,tag_Name_34-0912_infra_node_vms
+  tasks:
+     - set_fact:
+         need_repo_list:
+            - rhel-7-server-rpms
+            - rhel-7-server-ose-{{ocp_version}}-rpms
+            - rhel-7-server-extras-rpms
+            - rhel-7-fast-datapath-rpms
+     - shell: subscription-manager repos --list-enabled  |grep 'Repo ID'|awk  '{print $3}'
+       register: enabled_repo_list
+     
+     - name: Disable unneeded repositories
+       command: subscription-manager repos --disable='*'
+       when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0
+     
+     - name: Enable OpenShift repositories
+       command: subscription-manager repos --enable="{{item}}"
+       with_items:
+         - "{{ need_repo_list }}"
+       when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0
+
+
+- hosts: abc, tag_Name_34-0912_infra_node_vms
+  tasks:
+     - shell: subscription-manager identity | grep system | awk '{print $3}'
+       register: exist_infra_node_consumerid
+    
+     - set_fact:
+           infra_nodes_green: [ A, B, C ]
+           scale_target: app
+     - debug: msg="{{ansible_play_hosts.index(inventory_hostname)}}"
+
+- hosts: tag_Name_34-0912_infra_node_vms
+  tasks:
+     - debug: msg="{{ansible_play_hosts.index(inventory_hostname)}}"
+     - debug: msg="{{hostvars[groups['tag_Name_34-0912_infra_node_vms'][ansible_play_hosts.index(inventory_hostname)]]['exist_infra_node_consumerid'].stdout}}"
+
+- hosts: abc, tag_Name_34-0912_app_node_vms
+  tasks:
+     - shell: subscription-manager identity | grep system | awk '{print $3}'
+       register: exist_app_node_consumerid
+    
+     - set_fact:
+           infra_nodes_green: [ A, B, C ]
+           scale_target: app
+     - debug: msg="{{ansible_play_hosts.index(inventory_hostname)}}"
+
+- hosts: tag_Name_34-0912_app_node_vms
+  tasks:
+     - debug: msg="{{ansible_play_hosts.index(inventory_hostname)}}"
+     - debug: msg="{{hostvars[groups['tag_Name_34-0912_app_node_vms'][ansible_play_hosts.index(inventory_hostname)]]['exist_app_node_consumerid'].stdout}}"
+
+
+#     - name: Restart OpenShift Node/SDN Daemon
+#       systemd:
+#         name: "{{ item }}"
+#         state: restarted
+#       with_items:
+#          - openvswitch
+#          - atomic-openshift-node
+#       register: status_node_sdn
+#
+#     - name: Retry unitl OpenShift Node/SDN Daemon are active
+#       systemd:
+#         name: "{{ item }}"
+#         state: started
+#       with_items:
+#          - openvswitch
+#          - atomic-openshift-node
+#       register: status_node_sdn
+#       until: status_node_sdn.status.ActiveState == 'active'
+#       ignore_errors: yes
+#       retries: 60
+#       delay: 10
+# 
+#     - fail: msg="{{item.item}} fail to start up"
+#       when: item.status.ActiveState != 'active'
+#       with_items: 
+#          - "{{status_node_sdn.results}}"
+

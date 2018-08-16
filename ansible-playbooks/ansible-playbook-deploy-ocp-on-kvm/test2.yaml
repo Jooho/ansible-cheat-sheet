@@ -1,0 +1,8 @@
+- hosts: localhost
+  pre_tasks:
+    - set_fact:
+        target_vm_tag: "{{'tag_Name_'+ cluster_tag + '_' + target +'_node_vms_'+ new_cluster_color}}"
+  tasks:
+    - debug: var=target_vm_tag
+    - set_fact: 
+        last_number: "{{groups[target_vm_tag]|length|int}}"

@@ -1,0 +1,121 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - include: ./validate.yaml
+
+    - set_fact:
+        ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
+        new_vms: "{{ instances | default(1) }}"
+
+    - set_fact:
+        target_vm_tag_postfix: "node_vms"
+      when: new_cluster_color is not defined
+
+    - set_fact:
+        target_vm_tag_postfix: "{{'node_vms_'+ new_cluster_color}}"
+      when: new_cluster_color is defined
+        
+  tasks:
+    - set_fact:    
+        retry_scale: true
+      when: "'tag_Name_new' + cluster_tag + '_' +  target + '_' + target_vm_tag_postfix in groups or 'tag_Name_new' + cluster_tag + '_' + target + '_' + target_vm_tag_postfix in groups"
+
+    - set_fact:    
+        retry_scale: false
+      when: "not ('tag_Name_new' + cluster_tag + '_' + target + '_' + target_vm_tag_postfix in groups or 'tag_Name_new' + cluster_tag + '_' + target + '_' + target_vm_tag_postfix in groups)"
+
+    - name: Create New RHEV VM
+      include: ./scale-create-vms.yaml
+      when: not retry_scale|bool
+
+    - name: Refresh inventory to ensure new instaces exist in inventory
+      meta: refresh_inventory
+      when: not retry_scale|bool
+
+    - name: Update cluster groups
+      include: ../tasks/generate-host-groups-ocp.yaml
+
+    - name: Update scale groups
+      include: ../tasks/generate-host-groups-scale.yaml
+
+    - name: Update ssh known_host
+      include_role:
+        name: ssh-id-copy
+      vars:
+        ssh_id_copy_target: cluster
+
+#    - name: generate host file
+#      include_role:
+#        name: generate_hosts_file
+
+    - name: Install interim dns
+      include_role:
+        name: interim_dns
+      when: interim_dns.install
+
+
+- name: RHSM register subscription
+  hosts: new_nodes
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.broker_sub_pool |default('false')}}"
+      pool_id: "{{subs.broker_sub_pool_id|default('false')}}"
+      when: inventory_hostname in groups['broker_sub_nodes'] 
+
+    - role: subscription_attach
+      pool_name: "{{subs.node_sub_pool |default(false)}}"
+      pool_id: "{{subs.node_sub_pool_id|default(false)}}"
+      when: inventory_hostname in groups['node_sub_nodes'] 
+    
+
+- name: Install OCP Host Pre-Requisites
+  hosts: new_nodes
+  roles:
+    - role: openshift-prerequisites
+      node_type: ocp-host 
+
+- name: Scaling Out OCP Cluster
+  include: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-node/scaleup.yml
+
+- hosts: localhost
+  tasks:
+     - block:
+         - name: Add New Nodes to Node Tag after scaled out
+           ovirt_tags:
+             auth:
+               username: "{{rhev.id}}"
+               password: "{{rhev.pw}}"
+               url: "{{rhev.api_url}}"
+               ca_file: "{{rhev.ca_file}}"
+             name: "{{cluster_tag}}_{{target}}_{{target_vm_tag_postfix}}"
+             state: attached
+             vms: "{{ item }}"
+           with_items:
+             - "{{ groups['tag_Name_new_' + cluster_tag + '_' + target + '_' + target_vm_tag_postfix] }}"
+
+         - name: Delete New Nodes from New Node Tag after scaled out
+           ovirt_tags:
+             auth:
+               username: "{{rhev.id}}"
+               password: "{{rhev.pw}}"
+               url: "{{rhev.api_url}}"
+               ca_file: "{{rhev.ca_file}}"
+             name: "new_{{cluster_tag}}_{{target}}_{{target_vm_tag_postfix}}"
+             state: absent
+             vms: "{{ item }}"
+           with_items:
+             - "{{ groups['tag_Name_new_' + cluster_tag + '_' + target + '_' + target_vm_tag_postfix] }}"
+  
+- hosts: localhost
+  tasks:
+     - block:
+        - name: Remove New Tag(new_tag_Name_xxx) after scaled out
+          ovirt_tags:
+            auth:
+              username: "{{rhev.id}}"
+              password: "{{rhev.pw}}"
+              url: "{{rhev.api_url}}"
+              ca_file: "{{rhev.ca_file}}"
+            name: "new_{{cluster_tag}}_{{target}}_{{target_vm_tag_postfix}}"
+            state: absent

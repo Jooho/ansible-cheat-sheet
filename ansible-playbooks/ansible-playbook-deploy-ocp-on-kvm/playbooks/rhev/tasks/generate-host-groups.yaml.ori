@@ -1,0 +1,237 @@
+---
+- name: Gather Master VMs info
+  ovirt_vms_facts:
+    pattern: "name={{item.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  with_items: "{{created_master_vms_info.results}}"
+  register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+  when: (master_node_vms is defined and master_node_vms > 0)
+
+
+- name: Print Masters FQDN
+  debug: msg="{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+  with_items:
+  - "{{vms_info.results}}"
+  when: loglevel is defined and loglevel == "debug" and (master_node_vms is defined and master_node_vms > 0)
+
+- name: Add masters to host groups
+  add_host:
+    name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+    groups: all_nodes, masters {% if etcd_node_vms is not defined %}, etcd {% endif %}{% if j_deploy_type == 'master' or j_deploy_type == 'ocp_cluster' %}, nodes{% endif %} , broker_sub_nodes
+    openshift_node_labels:
+      'role': 'master'
+      'region': 'mgmt'
+  with_items: "{{vms_info.results}}"
+  when: (master_node_vms is defined and master_node_vms > 0)
+
+
+- name: Print ETCD List 
+  debug: var={{item}}
+  with_items: groups['etcd']
+  when: loglevel is defined and loglevel == "debug" and (master_node_vms is defined and master_node_vms > 0) and (j_deploy_type=='master' or j_deploy_type=='ocp_cluster')
+
+- name: Gather Infra VMs info
+  ovirt_vms_facts:
+    pattern: "name={{item.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  with_items:
+    - "{{created_infra_node_vms_info.results}}"
+  when: (infra_node_vms is defined and infra_node_vms > 0) and (j_deploy_type=='ocp_cluster')
+  register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined 
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+
+- name: Add infra instances to host group
+  add_host:
+    name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+    groups: all_nodes, nodes, infra_nodes, broker_sub_nodes {% if j_deploy_type == "infra" %},new_nodes {% endif %}
+    openshift_node_labels:
+      role: infra
+      region: infra
+      zone: default
+  with_items: "{{vms_info.results}}"
+  when: (infra_node_vms is defined and infra_node_vms > 0) and (j_deploy_type=='infra' or j_deploy_type=='ocp_cluster')
+
+- name: Gather App VMs info
+  ovirt_vms_facts:
+    pattern: "name={{item.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  with_items: 
+    - "{{created_app_node_vms_info.results}}"
+  register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+  when: app_node_vms is defined and app_node_vms > 0 and j_deploy_type=='ocp_cluster'
+
+
+- name: Add App instances to host group
+  add_host:
+    name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+    groups: all_nodes, nodes, app_nodes, node_sub_nodes {% if j_deploy_type == 'app' %},new_nodes {% endif %}
+    openshift_node_labels:
+      role: app
+      region: "{% if infra_node_vms is not defined %}infra  {% else %}app {% endif %}"
+      zone: default
+  with_items: "{{vms_info.results}}"
+  when: (app_node_vms is defined and app_node_vms > 0) and (j_deploy_type=='app' or j_deploy_type=='ocp_cluster')
+
+
+- name: Gather ETCD VMs info
+  ovirt_vms_facts:
+    pattern: "name={{item.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  with_items: "{{created_etcd_node_vms_info.results}}"
+  register: etcd_vms_info
+  until: etcd_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+  when: etcd_node_vms is defined and etcd_node_vms > 0 and j_deploy_type == 'ocp_cluster'
+
+
+- name: Add ETCD instances to host group
+  add_host:
+    name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+    groups: all_nodes, etcd, broker_sub_nodes
+  with_items: "{{etcd_vms_info.results}}"
+  when: etcd_node_vms is defined and etcd_node_vms > 0 and j_deploy_type=='ocp_cluster'
+
+- name: Print ETCD List 
+  debug: var={{item}}
+  with_items: groups['etcd']
+  when: loglevel is defined and loglevel == "debug"
+
+- name: Gather LB VM info
+  ovirt_vms_facts:
+    pattern: "name={{created_lb_node_vm_info.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  register: lb_vms_info
+  when: master_node_vms|int > 1 
+  until: lb_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+
+- name: Add LB instances to host group
+  add_host:
+    name: "{{lb_vms_info.ansible_facts.ovirt_vms[0].fqdn}}"
+    groups: all_nodes, lb, broker_sub_nodes
+    openshift_node_labels:
+      role: lb
+  when: master_node_vms|int > 1 
+
+
+# Scaling
+- name: Scaling - Gather New Infra VMs info
+  ovirt_vms_facts:
+    pattern: "name={{item.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  with_items:
+    - "{{created_new_node_vms_info.results}}"
+  when: (infra_node_vms is defined and infra_node_vms > 0) and (j_deploy_type=='infra') 
+  register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+
+
+- name: Add infra instances to host group
+  add_host:
+    name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+    groups: all_nodes, nodes, infra_nodes, broker_sub_nodes {% if j_deploy_type == "infra" %},new_nodes {% endif %}
+    openshift_node_labels:
+      region: infra
+      zone: default
+  with_items: "{{vms_info.results}}"
+  when: (infra_node_vms is defined and infra_node_vms > 0) and (j_deploy_type=='infra')
+
+- name: Scaling - Gather new App VMs info
+  ovirt_vms_facts:
+    pattern: "name={{item.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  with_items:
+    - "{{created_new_node_vms_info.results}}"
+  register: vms_info
+  until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+  when: app_node_vms is defined and app_node_vms > 0 and j_deploy_type=='app'
+
+
+- name: Add App instances to host group
+  add_host:
+    name: "{{item.ansible_facts.ovirt_vms[0].fqdn}}"
+    groups: all_nodes, nodes, app_nodes, node_sub_nodes {% if j_deploy_type == 'app' %},new_nodes {% endif %}
+    openshift_node_labels:
+      region: "{% if infra_node_vms is not defined %}infra  {% else %}app {% endif %}"
+      zone: default
+  with_items: "{{vms_info.results}}"
+  when: (app_node_vms is defined and app_node_vms > 0) and (j_deploy_type=='app')
+
+
+#- name: Print Node label List 
+#  debug: msg={{hostvars['dhcp182-109.gsslab.rdu2.redhat.com'].openshift_node_labels}}
+#  when: loglevel is defined and loglevel == "debug"
+
+
+#- name: Print Node label List 
+#  debug: msg={{hostvars[groups.infra_nodes.0].openshift_node_labels}}
+#  when: loglevel is defined and loglevel == "debug"
+#
+#- name: Print Node List 
+#  debug: msg={{hostvars[item].openshift_node_labels}}
+#  with_items: "{{groups.masters}}"
+#  when: loglevel is defined and loglevel == "debug"
+
+#- name: Print Node label List 
+#  debug: msg="{{hostvars[item].openshift_node_labels}}"
+#  with_items: "{{groups['nodes']}}"
+#  when: loglevel is defined and loglevel == "debug"
+
+#- name: Print ETCD label List 
+#  debug: msg="{{item}}]"
+#  with_items: "{{groups['etcd']}}"
+#  when: loglevel is defined and loglevel == "debug"
+
+#- name: Print LB label List 
+#  debug: msg="{{item}}"
+#  with_items: "{{groups['lb']}}"
+#  when: loglevel is defined and loglevel == "debug"

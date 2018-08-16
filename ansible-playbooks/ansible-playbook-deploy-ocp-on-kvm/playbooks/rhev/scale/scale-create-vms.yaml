@@ -1,0 +1,66 @@
+# Scaling
+
+- name: Set node prefix
+  block:
+    - set_fact: 
+        prefix: "{{infra_node_prefix}}"
+      when: target == 'infra'
+    - set_fact: 
+        prefix: "{{app_node_prefix}}"
+      when: target == 'app'
+    - set_fact:
+        postfix: ""
+      when: new_cluster_color is not defined
+    - set_fact:
+        postfix: "_{{new_cluster_color}}"
+      when: new_cluster_color is defined
+
+
+- name: Create new VMs
+  ovirt_vms:
+    name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{prefix}}_{{groups['tag_Name_'+ cluster_tag + '_' + prefix + '_' + target_vm_tag_postfix]|length|int + item|int}}{{postfix}}"
+    template: "{{rhev.template}}"
+    cluster: "{{rhev.cluster}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+    state: running
+    wait: True
+  with_sequence:
+    count="{{new_vms}}"
+  register: created_new_node_vms_info
+
+
+- name: Gather New VM info - Wait until fqdn set up
+  ovirt_vms_facts:
+    pattern: "name={{item.vm.name}}"
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+  register: new_vms_info
+  with_items: 
+     - "{{created_new_node_vms_info.results}}"
+  until: new_vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+  ignore_errors: yes
+  retries: 60
+  delay: 10
+
+- name: Add Tag for new VMs
+  ovirt_tags:
+    auth:
+      username: "{{rhev.id}}"
+      password: "{{rhev.pw}}"
+      url: "{{rhev.api_url}}"
+      ca_file: "{{rhev.ca_file}}"
+    name: "new_{{cluster_tag}}_{{prefix}}_{{target_vm_tag_postfix}}"
+    state: attached
+    vms: "{{ item.vm.name }}"
+  with_items:
+    - "{{ created_new_node_vms_info.results }}"
+
+

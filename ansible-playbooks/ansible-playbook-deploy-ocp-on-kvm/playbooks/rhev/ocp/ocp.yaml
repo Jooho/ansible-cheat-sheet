@@ -1,0 +1,71 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - debug: var=force_rewrite
+    - debug: var=operate 
+    - set_fact:
+        ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
+    - name: Check validation for ocp cluster
+      include: ./validate.yaml
+
+    - debug: var=ansible_controller_ip
+
+    - name: Create RHEV VM 
+      include: ./ocp-create-vms.yaml
+
+    - name: Refresh inventory to ensure new instaces exist in inventory
+      meta: refresh_inventory
+
+    - name: Update groups
+      include: ../tasks/generate-host-groups-ocp.yaml
+
+    - name: Update ssh known_host
+      include_role:
+        name: ssh-id-copy
+      vars:
+        ssh_id_copy_target: cluster
+
+    - name: Inall Ansible Controller Pre-Requisites
+      include_role: 
+        name: 'openshift-prerequisites'
+      vars:  
+        node_type: 'ansible-controller'
+
+    - name: generate host file
+      include_role:
+        name: generate_hosts_file
+
+    - name: Install interim dns 
+      include_role:
+        name: interim_dns
+      when: interim_dns.install
+
+
+
+# RHSM register subscription
+- hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %}
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.broker_sub_pool  | default('false')}}"
+      pool_id: "{{subs.broker_sub_pool_id | default('false')}}"
+
+- hosts: app_nodes
+  gather_facts: false
+  roles:
+    - role: subscription_attach
+      pool_name: "{{subs.node_sub_pool  | default('false')}}"
+      pool_id: "{{subs.node_sub_pool_id | default('false')}}"
+
+
+- name: Install OCP Host Pre-Requisites
+  hosts: masters{% if (master_node_vms|int > 1) %},lb{% endif %}{% if infra_node_vms is defined and infra_node_vms > 0%},infra_nodes{% endif %},{% if app_node_vms is defined and app_node_vms > 0%},app_nodes{% endif %}
+  pre_tasks:
+    - debug: var=group_names
+  roles: 
+    - { role: 'openshift-prerequisites', node_type: 'ocp-host', when: "inventory_hostname in groups['masters'] or inventory_hostname in groups['nodes'] or inventory_hostname in groups['etcd']"  }
+    - { role: 'openshift-prerequisites', node_type: 'ocp-lb', when: "'lb' in groups and inventory_hostname in groups['lb']" }
+
+
+# Run cluster installation playbook
+- include: /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml

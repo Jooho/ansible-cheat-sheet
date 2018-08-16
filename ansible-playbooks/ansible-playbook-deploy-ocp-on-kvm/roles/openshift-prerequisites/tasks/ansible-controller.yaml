@@ -1,0 +1,68 @@
+---
+- set_fact:
+    need_repo_list:
+       - rhel-7-server-rpms
+       - rhel-7-server-ose-{{ocp_version}}-rpms
+
+- shell: subscription-manager repos --list-enabled  |grep 'Repo ID'|awk  '{print $3}'
+  register: enabled_repo_list
+
+- name: Disable unneeded repositories
+  command: subscription-manager repos --disable='*'
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0 
+
+- name: Enable OpenShift repositories
+  command: subscription-manager repos --enable="{{item}}"
+  with_items:
+    - "{{ need_repo_list }}"
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0
+
+
+- name: Uninstall the atomic-openshift-utils
+  yum : "state=absent name={{item}}"
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0
+  with_items:
+    - 'atomic-openshift-utils'
+    - 'openshift-ansible'
+
+- name: Install new version of atomic-openshift-utils 
+  yum : state=latest name=atomic-openshift-utils
+  when: need_repo_list|difference(enabled_repo_list.stdout_lines)|length != 0
+
+  #shell: yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct atomic-openshift-utils 
+
+#  package:
+#    use: yum
+#    name: "{{ item }}"
+#    state: latest
+#  with_items: ['iptables', 'iptables-services', 'NetworkManager', 'wget', 'git', 'net-tools', 'bind-utils',
+#               'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct',
+#               'atomic-openshift-utils', 'atomic-openshift-excluder', 'atomic-openshift-docker-excluder']
+
+
+- name: Generate ssh key 
+  shell: ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
+  args:
+    creates: ~/.ssh/id_rsa
+
+- name: Determine if firewalld is installed
+  yum:
+    name: "firewalld"
+    state: present
+  register: firewalld_installed
+
+- name: Stop firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: false
+
+- name: Start iptables
+  service:
+    name: iptables
+    state: stopped
+    enabled: false
+
+- name: Diable Selinux
+  selinux:
+    state: disabled

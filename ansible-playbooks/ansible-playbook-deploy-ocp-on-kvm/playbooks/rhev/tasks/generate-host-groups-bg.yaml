@@ -1,0 +1,100 @@
+---
+
+- name: Watiting until fqdn is set
+  block:
+    - name: GB - Gather new GB Infra VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_gb_infra_node_vms_info.results}}"
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+      when: j_deploy_type == 'bg_upgrade' and target == 'node'
+    
+    
+    - name: GB - Gather new GB App VMs info
+      ovirt_vms_facts:
+        pattern: "name={{item.vm.name}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      with_items:
+        - "{{created_gb_app_node_vms_info.results}}"
+      register: vms_info
+      until: vms_info.ansible_facts.ovirt_vms[0].fqdn is defined
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+      when: j_deploy_type == 'bg_upgrade' and target == 'node' 
+     
+
+# GB (all_nodes -> ssh-id-copy, new_nodes -> scaleup, infra/app_nodes_{{new_cluster_tag}} -> start/stop/teardown)
+- name: Add New Infra instances for GB to host group 
+  add_host:
+    name: "{{ hostvars[item].fqdn}}"
+    groups: all_nodes{% if operate == 'deploy' %},new_nodes,infra_nodes_{{new_cluster_tag}}{% else %},infra_nodes_{{new_cluster_tag}}{% endif %}
+    openshift_node_labels:
+      role: infra
+      region: infra
+      zone: default
+      logging-infra-fluentd: "true"
+      color: "{{ new_cluster_tag }}"
+    openshift_schedulable: false
+  with_items: "{{groups['tag_Name_' + cluster_tag +'_infra_node_vms_' + new_cluster_tag]}}"
+  when: j_deploy_type == 'bg_upgrade' and target == 'node'
+
+
+- name: Add New App instances for GB to host group
+  add_host:
+    name: "{{ hostvars[item].fqdn}}"
+    groups: all_nodes{% if operate == 'deploy' %},new_nodes,app_nodes_{{new_cluster_tag}}{% else %},app_nodes_{{new_cluster_tag}}{% endif %}
+    openshift_node_labels:
+      role: app
+      region: app
+      zone: default
+      logging-infra-fluentd: "true"
+      color: "{{ new_cluster_tag }}"
+    openshift_schedulable: false
+  with_items: "{{groups['tag_Name_' + cluster_tag +'_app_node_vms_' + new_cluster_tag]}}"
+  when: j_deploy_type == 'bg_upgrade' and target == 'node'
+
+
+
+#- name: Print Node label List 
+#  debug: msg={{hostvars['dhcp182-109.gsslab.rdu2.redhat.com'].openshift_node_labels}}
+#  when: loglevel is defined and loglevel == "debug"
+
+
+#- name: Print Node label List 
+#  debug: msg={{hostvars[groups.infra_nodes.0].openshift_node_labels}}
+#  when: loglevel is defined and loglevel == "debug"
+#
+#- name: Print Node List 
+#  debug: msg={{hostvars[item].openshift_node_labels}}
+#  with_items: "{{groups.masters}}"
+#  when: loglevel is defined and loglevel == "debug"
+
+#- name: Print Node label List 
+#  debug: msg="{{hostvars[item].openshift_node_labels}}"
+#  with_items: "{{groups['nodes']}}"
+#  when: loglevel is defined and loglevel == "debug"
+
+#- name: Print ETCD label List 
+#  debug: msg="{{item}}]"
+#  with_items: "{{groups['etcd']}}"
+#  when: loglevel is defined and loglevel == "debug"
+
+#- name: Print LB label List 
+#  debug: msg="{{item}}"
+#  with_items: "{{groups['lb']}}"
+#  when: loglevel is defined and loglevel == "debug"

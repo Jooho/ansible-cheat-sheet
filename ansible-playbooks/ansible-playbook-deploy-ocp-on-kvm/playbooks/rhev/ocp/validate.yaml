@@ -1,0 +1,34 @@
+---
+- name: "[Validation - VM] Check VM"
+  block:
+    - name: "[VM] Check OS is RHEL Family"
+      fail: msg="ansible control should be RHEL"
+      when: ansible_os_family != "RedHat"
+ 
+    - name: Gather tag list
+      ovirt_tags_facts:
+        name: "{{tag}}_master_node_vms1"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+      register: exist_tag_list
+    - debug: var="exist_tag_list.ansible_facts.ovirt_tags|length"
+ 
+    - name: "[VM] Check Duplicate Tag"
+      fail: msg="There is same tag name on RHEV"
+      when: "exist_tag_list.ansible_facts.ovirt_tags|length != 0"
+
+
+- name: "[Validation - DNS] Check DNS related."
+  block:
+    - name: Gather DNS info
+      stat:
+        path: "/etc/dnsmasq.d/ocp-{{tag}}.conf"
+      register: dns_conf_exist
+    
+    - name: "[DNS] Check Duplicate DNS conf"
+      fail: msg="There is same cluster dns ==> /etc/dnsmasq.d/ocp-{{tag}}.conf"
+      when: interim_dns.install == true and dns_conf_exist.stat.exists and not force_rewrite
+

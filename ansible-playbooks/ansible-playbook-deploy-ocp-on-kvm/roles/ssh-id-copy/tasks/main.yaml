@@ -1,0 +1,59 @@
+#Copy Public Key
+
+- name: Set dummy groups for single node copy
+  block: 
+     - add_host: 
+         name: dummy
+         groups: all_nodes
+   
+     - add_host:
+         name: dummy
+         groups: new_nodes
+  when: ssh_id_copy_target != 'cluster' and ssh_id_copy_target != 'new_nodes'
+
+# Cluster Installation
+- name: Set up SSH public key for all nodes(Delete meta infor from known_host and add it)
+  block:
+   - name: Delete hosts from known_hosts
+     lineinfile:
+       path: ~/.ssh/known_hosts
+       state: absent
+       regexp: "{{item}}"
+     with_items:
+       - "{{groups['all_nodes']}}"
+
+   - name: For each host, ssh-copy-id my ssh public keys to the host
+     shell: "sshpass -p {{base_image.pw}} ssh-copy-id -o StrictHostKeyChecking=no -i {{ssh_public_key}} {{base_image.id}}@{{item}}; sleep 1"
+     with_items:
+       - "{{groups['all_nodes']}}"
+  when: groups['all_nodes'] is defined and ssh_id_copy_target == 'cluster'
+
+# Scaling - For New Nodes
+- name: Set up SSH public for a new node(Delete meta infor from known_host and add it)
+  block:
+   - name: Delete hosts from known_hosts
+     lineinfile:
+       path: ~/.ssh/known_hosts
+       state: absent
+       regexp: "{{item}}"
+     with_items:
+       - "{{groups['new_nodes']}}"
+
+   - name: For each host, ssh-copy-id my ssh public keys to the host
+     shell: "sshpass -p {{base_image.pw}} ssh-copy-id -o StrictHostKeyChecking=no -i {{ssh_public_key}} {{base_image.id}}@{{item}}; sleep 1"
+     with_items:
+       - "{{groups['new_nodes']}}"
+  when: ssh_id_copy_target == 'new_nodes'
+
+# Single node
+- name: Set up SSH public for a new node(Delete meta infor from known_host and add it)
+  block:
+   - name: Delete hosts from known_hosts
+     lineinfile:
+       path: ~/.ssh/known_hosts
+       state: absent
+       regexp: "{{ssh_id_copy_target}}"
+
+   - name: For each host, ssh-copy-id my ssh public keys to the host
+     shell: "sshpass -p {{base_image.pw}} ssh-copy-id -o StrictHostKeyChecking=no -i {{ssh_public_key}} {{base_image.id}}@{{ssh_id_copy_target}}; sleep 1"
+  when: ssh_id_copy_target != 'cluster' and ssh_id_copy_target != 'new_nodes'

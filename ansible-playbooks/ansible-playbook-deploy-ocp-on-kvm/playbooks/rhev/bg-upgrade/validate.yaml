@@ -1,0 +1,48 @@
+---
+- hosts: localhost
+  tasks: 
+    - debug: var=ansible_os_family
+    - fail: msg="ansible control should be RHEL"
+      when: ansible_os_family != "RedHat"
+
+    - name: Add masters to host groups
+      add_host:
+        name: "{{ hostvars[item].fqdn}}"
+        groups: all_nodes, masters {% if etcd_node_vms is not defined %}, etcd {% endif %}, nodes, broker_sub_nodes
+        openshift_node_labels:
+          'role': 'master'
+          'region': 'mgmt'
+      with_items: "{{groups['tag_Name_' + cluster_tag +'_master_node_vms']}}"
+    
+    
+    - name: Add infra instances to host group
+      add_host:
+        name: "{{ hostvars[item].fqdn}}"
+        groups: all_nodes, nodes, infra_nodes, broker_sub_nodes
+        openshift_node_labels:
+          role: infra
+          region: infra
+          zone: default
+      with_items: "{{groups['tag_Name_' + cluster_tag +'_infra_node_vms']}}"
+      when: infra_node_vms is defined and infra_node_vms > 0
+
+
+
+
+- hosts: masters[0]
+  tasks:
+    - name: Get exist ocp master cluster version
+      shell: "rpm -qa|grep atomic-openshift-3|awk -F'-' '{print $3}'|awk -F'.' '{print $1 \".\"$2}'"
+      register: ocp_master_version
+
+    - fail: msg="ocp_version have to be greater than exist cluster"
+      when: target == 'master' and ocp_master_version.stdout|float > ocp_version|float
+
+- hosts: nodes[0]
+  tasks:
+    - name: Get exist ocp node cluster version
+      shell: "rpm -qa|grep atomic-openshift-3|awk -F'-' '{print $3}'|awk -F'.' '{print $1 \".\"$2}'"
+      register: ocp_node_version
+
+    - fail: msg="ocp_version have to be greater than exist cluster"
+      when: target == 'node' and ocp_node_version.stdout|float > ocp_version|float

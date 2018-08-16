@@ -1,0 +1,4 @@
+---
+- debug: var=ansible_os_family
+- fail: msg="ansible control should be RHEL"
+  when: ansible_os_family != "RedHat"

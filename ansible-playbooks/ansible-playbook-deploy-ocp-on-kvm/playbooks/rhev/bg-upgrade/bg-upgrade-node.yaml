@@ -1,0 +1,110 @@
+---
+- hosts: localhost
+  tasks:
+    - set_fact:
+        ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
+        new_cluster_tag: green
+
+- include: ./validate.yaml
+
+- hosts: localhost
+  tasks:
+    - name: Create RHEV VM 
+      include: ./bg-upgrade-create-vms.yaml
+
+    - name: Refresh inventory to ensure new instaces exist in inventory
+      meta: refresh_inventory
+
+    - name: Update cluster groups
+      include: ../tasks/generate-host-groups-ocp.yaml
+
+    - name: Update bg cluster groups
+      include: ../tasks/generate-host-groups-bg.yaml
+
+    - name: generate host file
+      include_role:
+        name: generate_hosts_file
+
+#    - name: Install interim dns 
+#      include_role:
+#        name: interim_dns
+#      when: interim_dns.install
+  
+    - include_role: 
+        name: ssh-id-copy
+      vars:
+        ssh_id_copy_target: cluster
+
+- name: Gather Subscription consumerid from existing infra nodes
+  hosts: infra_nodes
+  tasks:
+   - shell: subscription-manager identity | grep system | awk '{print $3}'
+     register: exist_node_consumerid
+
+- name: Gather Subscription consumerid from existing app nodes
+  hosts: app_nodes
+  tasks:
+   - shell: subscription-manager identity | grep system | awk '{print $3}'
+     register: exist_node_consumerid
+
+# RHSM register subscription
+- hosts: infra_nodes_green, infra_nodes_blue
+  gather_facts: false
+  tasks:
+    - name: subscription attach
+      include_role:
+         name: subscription_attach
+      vars:
+         pool_name: 'false'
+         pool_id: 'false'
+         consumerid: "{{ hostvars[groups['infra_nodes'][ansible_play_hosts.index(inventory_hostname)]]['exist_node_consumerid'].stdout }}"
+    
+- hosts: app_nodes_green, app_nodes_blue
+  gather_facts: false
+  tasks:
+    - name: subscription attach
+      include_role:
+         name: subscription_attach
+      vars:
+         pool_name: 'false'
+         pool_id: 'false'
+         consumerid: "{{ hostvars[groups['app_nodes'][ansible_play_hosts.index(inventory_hostname)]]['exist_node_consumerid'].stdout }}"
+
+# Labeling for existing nodes
+- hosts: masters[0]
+  gather_facts: false
+  tasks:
+    - name: Labeling for existing master nodes
+      command: "oc label node {{item}} type=master "
+      ignore_errors: yes
+      with_items:
+         - "{{ groups['masters'] }}"
+
+    - name: Labeling for existing node nodes with GB color
+      command: "oc label node {{item}} type=node color={{hostvars['localhost']['old_cluster_tag']}} --overwrite"
+      ignore_errors: yes
+      with_items:
+         - "{{ groups['infra_nodes'] }}"
+         - "{{ groups['app_nodes'] }}"
+
+#    - name: Labeling GB color for existing node nodes
+#      command: oc label node --all color="{{old_cluster_tag}}"
+#      ignore_errors: yes
+#      run_once: yes
+
+# ansible_controller_prerequisite
+- name: Inall Ansible Controller Pre-Requisites
+  hosts: localhost
+  roles:
+     - { role: openshift-prerequisites, node_type: ansible-controller }
+
+
+- name: Install OCP Host Pre-Requisites
+  hosts: new_nodes
+  roles: 
+    - { role: openshift-prerequisites, node_type: ocp-host }
+
+
+# Deploy Blue Green VMs 
+- include: /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-node/scaleup.yml
+

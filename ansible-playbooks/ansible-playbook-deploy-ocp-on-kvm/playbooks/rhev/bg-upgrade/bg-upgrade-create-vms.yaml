@@ -1,0 +1,156 @@
+# Blue Green Upgrade
+- include: ./bg-upgrade-select-color.yaml
+
+# - name: Set Blue or Green 
+#  block: 
+#    - debug: msg="{{'tag_Name_' + cluster_tag + '_app_node_vms' }}"
+#    - set_fact:
+#        new_cluster_tag: 'green'
+#        old_cluster_tag: 'blue'
+#        old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms']|length|int}}"
+#        old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms']|length|int}}"
+#      when: (new_cluster_color is defined and new_cluster_color == 'green' and 'tag_Name_' + cluster_tag + '_app_node_vms' in groups) or 
+#            (new_cluster_color is not defined and 'tag_Name_' + cluster_tag + '_app_node_vms' in groups)
+#    - set_fact:
+#        new_cluster_tag: 'green'
+#        old_cluster_tag: 'blue'
+#        old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms_blue']|length|int}}"
+#        old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms_blue']|length|int}}"
+#      when: (new_cluster_color is defined and new_cluster_color == 'green' and 'tag_Name_' + cluster_tag + '_app_node_vms_blue' in groups) or
+#            (new_cluster_color is not defined and 'tag_Name_' + cluster_tag + '_app_node_vms_blue' in groups)
+#    - set_fact:
+#        new_cluster_tag: 'blue'
+#        old_cluster_tag: 'green'
+#        old_infra_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_infra_node_vms_green']|length|int}}"
+#        old_app_node_vms_count: "{{groups['tag_Name_' + cluster_tag + '_app_node_vms_green']|length|int}}"
+#      when: (new_cluster_color is defined and new_cluster_color == 'blue') or 
+#            (new_cluster_color is not defined and 'tag_Name_' + cluster_tag + '_app_node_vms_green' in groups)
+#need to delete 
+#    - set_fact:
+#        new_cluster_tag: green
+#      when: "cluster_color is defined and cluster_color == 'green'"
+#    - set_fact:
+#        new_cluster_tag: blue
+#      when: "cluster_color is defined and cluster_color == 'blue'"
+
+- debug: msg="{{old_infra_node_vms_count}}"
+- name: Deploy Blue Green Upgrade
+  block:
+    - name: Create GB Infra VMs
+      ovirt_vms:
+        name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{infra_node_prefix}}_{{item}}_{{new_cluster_tag}}"
+        template: "{{rhev.template}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: running
+        wait: True
+      with_sequence:
+        count="{{old_infra_node_vms_count}}"
+      async: 1800
+      poll: 0
+      register: created_gb_infra_node_vms_info
+    
+    - name: Create GB App VMs
+      ovirt_vms:
+        name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{app_node_prefix}}_{{item}}_{{new_cluster_tag}}"
+        template: "{{rhev.template}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: running
+        wait: True
+      with_sequence:
+        count="{{old_app_node_vms_count}}"
+      async: 1800
+      poll: 0
+      register: created_gb_app_node_vms_info
+   
+
+    - name: Wait for GB Infra VMs Creation
+      async_status: jid={{ item.ansible_job_id }}
+      register: jobs
+      until: jobs.finished
+      retries: 180
+      delay: 10
+      with_items:
+         - "{{ created_gb_infra_node_vms_info.results }}"
+    
+    - name: Wait for GB App VMs Creation
+      async_status: jid={{ item.ansible_job_id }}
+      register: jobs
+      until: jobs.finished
+      retries: 180
+      delay: 10
+      with_items:
+         - "{{ created_gb_app_node_vms_info.results }}"
+
+ 
+    - name: Create Infra VMs
+      ovirt_vms:
+        name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{infra_node_prefix}}_{{item}}_{{new_cluster_tag}}"
+        template: "{{rhev.template}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: running
+        wait: True
+      with_sequence:
+        count="{{old_infra_node_vms_count}}"
+      register: created_gb_infra_node_vms_info
+    
+    - name: Add Tag for Infra VMs
+      ovirt_tags:
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        name: "{{cluster_tag}}_infra_node_vms_{{new_cluster_tag}}"
+        state: attached
+        vms: "{{ item.vm.name }}"
+      with_items:
+        - "{{ created_gb_infra_node_vms_info.results }}"
+    
+    - name: Create App VMs
+      ovirt_vms:
+        name: "{{prefix_vm}}_{{cluster_tag}}_{{base_image.os|upper()}}{{base_image.version|upper()}}_OCP{{ocp_version|replace('.','U')}}_{{app_node_prefix}}_{{item}}_{{new_cluster_tag}}"
+        template: "{{rhev.template}}"
+        cluster: "{{rhev.cluster}}"
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        operating_system: "{{base_image.os}}_{{base_image.rhev_os_type}}"
+        state: running
+        wait: True
+      with_sequence:
+        count="{{old_app_node_vms_count}}"
+      register: created_gb_app_node_vms_info
+    
+    - name: Add Tag for App VMs
+      ovirt_tags:
+        auth:
+          username: "{{rhev.id}}"
+          password: "{{rhev.pw}}"
+          url: "{{rhev.api_url}}"
+          ca_file: "{{rhev.ca_file}}"
+        name: "{{cluster_tag}}_app_node_vms_{{new_cluster_tag}}"
+        state: attached
+        vms: "{{ item.vm.name }}"
+      with_items:
+        - "{{ created_gb_app_node_vms_info.results }}"
+    

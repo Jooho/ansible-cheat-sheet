@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+     - include: ./bg-upgrade-select-color.yaml
+
+     - name: Update cluster groups
+       include: ../tasks/generate-host-groupsi-ocp.yaml
+
+     - name: Update bg cluster groups
+       include: ../tasks/generate-host-groups-bg.yaml
+
+- hosts: masters[0]
+  tasks:
+     - name: Update atomic-openshift-utils
+       command: yum update atomic-openshift-utils
+

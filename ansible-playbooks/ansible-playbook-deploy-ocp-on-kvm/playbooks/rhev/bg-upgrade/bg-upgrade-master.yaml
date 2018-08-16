@@ -1,0 +1,160 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - set_fact:
+        ansible_controller_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
+  tasks:
+    - name: Update cluster groups
+      include: ../tasks/generate-host-groups-ocp.yaml
+
+    - name: Update bg cluster groups
+      include: ../tasks/generate-host-groups-bg.yaml
+- include: ./validate.yaml
+
+- hosts: masters
+  tasks:
+    - name: Disable old repo and enable upgrade version repo
+      command: "subscription-manager repos --enable=rhel-7-server-ose-{{ocp_version}}-rpms --disable=rhel-7-server-ose-{{ocp_version|float - 0.1}}-rpms"
+   
+    - name: Flush yum cache and repolist
+      shell: "yum clean all; yum repolist"
+  
+    - name: Unexclude locked packages
+      command: "atomic-openshift-excluder unexclude"
+
+    - name: Restart OpenShift Master Daemon
+      systemd:
+        name: "{{ item }}"
+        state: restarted
+      with_items:
+         - atomic-openshift-master
+      when: groups['tag_Name_'+ cluster_tag + '_' + 'master_node_vms']|length|int == 1
+
+    - name: ETCD Upgrade
+      yum: 
+        name: etcd
+        state: latest
+ 
+    - name: ETCD Restart
+      systemd:
+        name: etcd
+        state: restarted    
+
+    - name: Retry unitl ETCD is active
+      systemd:
+        name: "{{ item }}"
+        state: started
+      with_items:
+         - etcd
+      register: status_daemon
+      until: status_daemon.status.ActiveState == 'active'
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+
+    - fail: msg="{{item.item}} fail to start up"
+      when: item.status.ActiveState != 'active'
+      with_items:
+         - "{{status_daemon.results}}"
+
+    - name: OpenShift and Openvswitch Upgrade
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - atomic-openshift*
+        - openvswitch
+
+    - name: Restart OpenShift HA Master Daemon
+      systemd:
+        name: "{{ item }}"
+        state: restarted
+      with_items:
+         - atomic-openshift-master-controllers
+         - atomic-openshift-master-api
+      when: groups['tag_Name_'+ cluster_tag + '_' + 'master_node_vms']|length|int > 1
+
+    - name: Retry unitl OpenShift Master Daemons are active
+      systemd:
+        name: "{{ item }}"
+        state: started
+      with_items:
+         - atomic-openshift-master-controllers
+         - atomic-openshift-master-api
+      register: status_daemon
+      until: status_daemon.status.ActiveState == 'active'
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+
+    - fail: msg="{{item.item}} fail to start up"
+      when: item.status.ActiveState != 'active'
+      with_items:
+         - "{{status_daemon.results}}"
+
+    - name: Restart OpenShift Node/SDN Daemon
+      systemd:
+        name: "{{ item }}"
+        state: restarted
+      with_items:
+         - openvswitch
+         - atomic-openshift-node
+      register: status_daemon_
+
+    - name: Retry unitl OpenShift Node/SDN Daemon are active
+      systemd:
+        name: "{{ item }}"
+        state: started
+      with_items:
+         - openvswitch
+         - atomic-openshift-node
+      register: status_daemon
+      until: status_daemon.status.ActiveState == 'active'
+      ignore_errors: yes
+      retries: 60
+      delay: 10
+
+    - fail: msg="{{item.item}} fail to start up"
+      when: item.status.ActiveState != 'active'
+      with_items:
+         - "{{status_daemon.results}}"
+
+ 
+    #Just in case, delete endpoint of kubernetes
+
+    # TODO - fail option needed - customerized role should be protected : annotate openshift.io/reconcile-protect set to true. > Validation
+  
+    # automatically update
+    - block:
+       - name: Reconcile Policy Definitions
+         command: >
+           oadm policy reconcile-cluster-roles 
+             --additive-only=true 
+             --confirm
+   
+       - name: Reconcile Policy Bindings Definitions
+         command: >
+           oadm policy reconcile-cluster-role-bindings 
+              --exclude-groups=system:authenticated 
+              --exclude-groups=system:authenticated:oauth 
+              --exclude-groups=system:unauthenticated
+              --exclude-users=system:anonymous 
+              --additive-only=true 
+              --confirm
+   
+       - name: Reconcile Policy Bindings Definitions
+         command: >
+           oadm policy reconcile-cluster-role-bindings 
+              system:build-strategy-jenkinspipeline 
+              --confirm 
+              -o name
+   
+       - name: Reconcile Security Context Contraints
+         command: >
+           oadm policy reconcile-sccs 
+              --additive-only=true 
+              --confirm
+      run_once: yes
+ 
+    - name: Exclude for locking package version
+      command: "atomic-openshift-excluder exclude"
