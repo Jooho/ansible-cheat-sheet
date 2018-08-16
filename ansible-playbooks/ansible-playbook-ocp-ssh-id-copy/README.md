@@ -70,7 +70,7 @@ cd ansible-cheat-sheet/ansible-playbooks/ansible-playbook-ocp-ssh-id-copy
 
 ansible-galaxy install -f -r requirements.yaml -p ./roles
 
-source ./setup
+source ./setup  (* Update setup file)
 ```
 
 ### Example single node
