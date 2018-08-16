@@ -75,7 +75,7 @@ source ./setup  (* Update setup file)
 
 ### Example single node
 ```
-ansible-playbook -i ./hosts ./playbook-single.yaml -e ssh_id_copy_target=$TARGET_HOSTNAME
+ansible-playbook -i ./hosts ./playbook-single.yaml -e ssh_id_copy_target=10.10.124.13 -e @vars/main.yml
 
 Tip:
    ansible-playbook -i ./hosts ./playbook-single.yaml -e '{base_image: {id: root, pw: root}}'
@@ -84,6 +84,8 @@ Tip:
 ### Example multiple nodes
 
 ```
+# hosts file has to be updated
+
 ansible-playbook -i ./hosts ./playbook-multiple.yaml
 
 or
