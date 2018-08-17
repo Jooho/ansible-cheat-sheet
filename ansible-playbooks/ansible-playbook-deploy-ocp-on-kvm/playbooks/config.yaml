@@ -1,6 +1,0 @@
----
-- include: ./kvm-dispatcher.yaml
-  when: provider=='kvm'
-
-- include: ./rhev-dispatcher.yaml
-  when: provider=='rhev'
