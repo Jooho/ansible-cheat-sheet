@@ -1,0 +1,12 @@
+- hosts: localhost
+  pre_tasks:
+  - name: Add nfs server
+    add_host:
+      name: "{{ nfs_server_ip }}"
+      groups: nfs
+
+- hosts: nfs
+  tasks:
+  - import_role:
+      name: Jooho.nfs_server
+

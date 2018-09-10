@@ -1,0 +1,4 @@
+nfs_server_ip: dhcp182-21.gsslab.rdu2.redhat.com
+nfs_mount_point: /exports-nfs
+nfs_block_dev_name: vdc
+
