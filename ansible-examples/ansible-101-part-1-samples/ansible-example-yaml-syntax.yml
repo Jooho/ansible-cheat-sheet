@@ -1,0 +1,112 @@
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  vars_files: 
+    - ./vars.yml
+
+  tasks:
+    - name: "Show the yaml syntax of foods"
+      debug: var=foods
+      tags:
+        - list
+
+    - name: "Read foods variable"
+      shell: echo {{item}}
+      with_items:
+        - "{{foods}}"
+      tags:
+        - list
+        
+    - name: "Show the yaml syntax of foods"
+      debug: var=foods_oneline
+      tags:
+        - list_oneline
+
+    - name: "Read foods_oneline variable"
+      shell: echo {{item}}
+      with_items:
+        - "{{foods_oneline}}"
+      tags:
+        - list_oneline
+
+    - name: "Show the yaml syntax of books"
+      debug: var=book
+      tags:
+        - dictionary
+
+    - name: "Read book variable"
+      debug:
+        msg:
+          - "This book name is {{item.name}}"
+          - "This book author is {{item.author}}"
+          - "The summary of this book is {{item.brief}}"   
+      with_items:
+        - "{{book}}"
+      tags:
+        - dictionary
+        
+    - name: "Show the yaml syntax of book"
+      debug: var=book_oneline
+      tags:
+        - dictionary_oneline
+
+
+    - name: "Read book_oneline variable"
+      debug:
+        msg:
+          - "This book name is {{item.name}}"
+          - "This book author is {{item.author}}"
+          - "The summary of this book is {{item.brief}}"   
+      with_items:
+        - "{{book_oneline}}"
+      tags:
+        - dictionary_oneline
+
+
+          
+    - name: "Read people variable"
+      debug:
+        msg:
+          - "Person Detaili {{item.name}}"
+          - "Name: {{item.name}}"
+          - "Job:  {{item.job}}"
+          - "Languages: {{item.languages}}"
+      with_items:
+        - "{{people}}"
+      tags:
+        - combine
+
+
+
+    - name: "String with new line"
+      copy:
+        content: |
+          the text is going
+          to look
+          exactly like this
+        dest: /tmp/newlines
+      tags:
+        - string_newline
+
+    - name: "String with without new line"
+      copy:
+        content: >
+          the text is going
+          to look
+          exactly like this
+        dest: /tmp/oneline
+      tags:
+        - string_oneline
+
+
+    - name: "Ansible Conditional Values - True"
+      debug: msg="Yes/yes/True/true is the same as true"
+      when: is_Yes and is_yes and is_True and is_true
+      tags:
+        - condition_true
+
+    - name: "Ansible Conditional Values - False"
+      debug: msg="No/no/False/false is the same as false"
+      when: not (is_No and is_no and is_False and is_false)
+      tags:
+        - condition_false

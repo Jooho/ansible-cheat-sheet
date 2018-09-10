@@ -1,0 +1,14 @@
+# Me
+
+- me:
+    name: Russ Zaleski
+    employed: yes
+    job: Senior Technical Account Manager
+    age: 34
+    interests: |
+      fishing
+      kayaking
+    friends:
+      - Marc
+      - Freddy
+      - Eric

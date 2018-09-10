@@ -1,0 +1,6 @@
+ssh_public_key: "{{lookup('env', 'SSH_PUBLIC_KEY')}}"
+
+target_vm:
+  id: "{{lookup('env', 'TARGET_VM_ID')}}"
+  pw: "{{lookup('env', 'TARGET_VM_PW')}}"
+

@@ -1,0 +1,18 @@
+ssh_public_key: "{{lookup('env', 'SSH_PUBLIC_KEY')}}"
+
+target_vm:
+  id: "{{lookup('env', 'TARGET_VM_ID')}}"
+  pw: "{{lookup('env', 'TARGET_VM_PW')}}"
+
+[masters]
+master1.example.com
+
+[etcd]
+master1.example.com
+
+[nodes]
+master1.example.com openshift_node_labels="{'region': 'mgmt', 'role': 'master'}"
+node1.example.com   openshift_node_labels="{'region': 'infra', 'role': 'app', 'zone': 'default'}"
+node2.example.com   openshift_node_labels="{'region': 'infra', 'role': 'app', 'zone': 'default'}"
+```
+
