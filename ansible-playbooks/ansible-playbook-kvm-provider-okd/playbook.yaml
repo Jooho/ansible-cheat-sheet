@@ -1,0 +1,6 @@
+- name: kvm-provider-okd playbook
+  gather_facts: false
+  hosts: localhost
+  tasks:
+    - include_role:
+        name: ansible-role-kvm-provider-okd
