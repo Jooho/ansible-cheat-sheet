@@ -1,6 +1,6 @@
-- name: kvm-provider-okd playbook
+- name: kvm_provider_okd playbook
   gather_facts: false
   hosts: localhost
   tasks:
     - include_role:
-        name: ansible-role-kvm-provider-okd
+        name: Jooho.kvm_provider_okd
