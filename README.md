@@ -11,6 +11,8 @@
 - [ansible-role-openshift-custom-webconsole-logo](https://github.com/Jooho/ansible-role-openshift-custom-webconsole-logo)
 - [ansible-role-openshift-registry-ssl-expose](https://galaxy.ansible.com/Jooho/openshift-registry-ssl-expose)
 - [ansible-role-openldap-test-server](https://github.com/Jooho/ansible-role-openldap-test-server)
+- [ansible-role-kvm-provider-okd](https://github.com/Jooho/ansible-role-kvm-provider-okd)
+
 
 
 ## Ansible Playbook List
@@ -20,6 +22,8 @@
 - [ansible-playbook-generate-self-signed-cert](./ansible-playbooks/ansible-playbook-generate-self-signed-cert)
 - [ansible-playbook-openldap-test-server](./ansible-playbooks/ansible-playbook-openldap-test-server)
 - [ansible-playbook-deploy-ocp-on-rhev](./ansible-playbooks/ansible-playbook-deploy-ocp-on-rhev)
+- [ansible-playbook-kvm-provider-okd](./ansible-playbooks/ansible-playbook-kvm-provider-okd)
+
 
 ## Useful Docs
 - [Molecule](./docs/molecule.md)
