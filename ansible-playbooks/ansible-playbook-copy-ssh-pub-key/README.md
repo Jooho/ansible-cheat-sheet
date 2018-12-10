@@ -6,6 +6,7 @@ It copies ssh public key to a VM or VMs.
 
 Requirements
 ------------
+
 - sshpass
 
 Dependencies
@@ -86,8 +87,6 @@ ansible-playbook -i ./hosts ./playbook.yaml -e target_vm=10.10.124.13 -e @vars/m
 ### Example multiple nodes
 
 ```
-# hosts file has to be updated before execute below command
-
 ansible-playbook -i ./hosts ./playbook.yaml -e @vars/main.yml
 
 ```
