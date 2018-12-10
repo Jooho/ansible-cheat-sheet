@@ -1,0 +1,8 @@
+---
+ 
+ - name: Copy ssh public key to VM or VMs
+   hosts: localhost
+   gather_facts: false
+   tasks:
+    - import_role:
+         name: Jooho.copy_ssh_pub_key
