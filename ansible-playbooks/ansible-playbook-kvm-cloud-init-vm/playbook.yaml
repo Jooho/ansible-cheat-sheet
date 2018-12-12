@@ -3,8 +3,8 @@
   hosts: localhost
   tasks:
     - import_role:
-        name: ansible-role-kvm-cloud-init-vm
+        name: Jooho.kvm-cloud-init-vm
       vars:
         kvm_vm_pool_dir: /home/jooho/KVM
         vm_data_dir: /home/jooho/kvm/vms
-        vm_network_br: okd_virbr0
+        vm_network_br: okd
