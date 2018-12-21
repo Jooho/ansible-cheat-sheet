@@ -1,6 +1,27 @@
 - name: okd_generate_ansible_hosts playbook
-  gather_facts: false
+  gather_facts: false     
   hosts: localhost
+  pre_tasks:
+    - name: create test okd_param
+      copy:
+        dest: /tmp/{{ okd_param_name }}
+        content: >
+          openshift_release=3.11
+
+    - name: add group - masters
+      add_host:
+        name: master1
+        groups: masters
+        openshift_node_group_name: master-group-test
+
+    - name: add group -nodes
+      add_host:
+        name: node1
+        groups: nodes
+        openshift_node_group_name: node-group-test
   tasks:
-    - include_role:
+    - import_role:
         name: Jooho.okd_generate_ansible_hosts
+      vars:
+        okd_param_dir: /tmp
+        reformat_vars_to_hosts: false

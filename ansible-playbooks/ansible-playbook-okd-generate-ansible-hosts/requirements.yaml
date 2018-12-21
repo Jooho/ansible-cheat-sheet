@@ -1,1 +1,1 @@
-- src: Jooho.kvm_generate_ansible_hosts
+- src: Jooho.okd_generate_ansible_hosts
