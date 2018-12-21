@@ -36,7 +36,7 @@ Example Var override
 --------------------
 ```
     - import_role:
-        name: Jooho.kvm-operate
+        name: Jooho.kvm_operate
       vars:
         kvm_vm_pool_dir: /home/jooho/KVM
 ```        

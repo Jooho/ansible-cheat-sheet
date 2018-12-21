@@ -3,7 +3,7 @@
   tasks:
     - name: clone VM
       import_role:
-        name: ansible-role-kvm-operate
+        name: Jooho.kvm_operate
       vars:
         kind: vm
         operate: clone
@@ -14,7 +14,7 @@
 
     # - name: Attach 20G storage to cloned VM
     #   import_role:
-    #     name: ansible-role-kvm-operate
+    #     name: Jooho.kvm_operate
     #   vars:
     #     kind: storage
     #     operate: attach
@@ -23,7 +23,7 @@
     
     # - name: Teardown VMs with prefix_vm
     #   import_role:
-    #     name: ansible-role-kvm-operate
+    #     name: Jooho.kvm_operate
     #   vars:
     #     kind: vm
     #     prefix_vm: OKD0311
