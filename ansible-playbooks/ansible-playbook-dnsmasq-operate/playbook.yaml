@@ -1,0 +1,21 @@
+- name: dnsmasq_operate playbook
+  gather_facts: false     
+  hosts: localhost
+  tasks:
+    - name: add nameserver
+      import_role:
+        name: Jooho.dnsmasq_operate
+      vars:
+        dns_conf_name: test
+        dns_ops: add
+        new_ip: 1.1.1.1
+        new_ns_search_for: apps.example.com
+    
+    # - name: add address
+    #   import_role:
+    #     name: ansible-role-dnsmasq-operate
+    #   vars:
+    #     dns_conf_name: test
+    #     dns_ops: add
+    #     new_ip: 1.1.1.1
+    #     new_hostname: test.example.com
