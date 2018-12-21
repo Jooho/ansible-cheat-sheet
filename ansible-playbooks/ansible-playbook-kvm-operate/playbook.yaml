@@ -1,0 +1,30 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: clone VM
+      import_role:
+        name: ansible-role-kvm-operate
+      vars:
+        kind: vm
+        operate: clone
+        src_vm: CentOS_Base
+        dest_vm: OKD0311_master_1
+        vm_network_br: okd
+        dest_vm_hostname: master1.example.com
+
+    # - name: Attach 20G storage to cloned VM
+    #   import_role:
+    #     name: ansible-role-kvm-operate
+    #   vars:
+    #     kind: storage
+    #     operate: attach
+    #     target_vm: OKD0311_master_1
+    #     disk_size: 20G
+    
+    # - name: Teardown VMs with prefix_vm
+    #   import_role:
+    #     name: ansible-role-kvm-operate
+    #   vars:
+    #     kind: vm
+    #     prefix_vm: OKD0311
+    #     operate: teardown

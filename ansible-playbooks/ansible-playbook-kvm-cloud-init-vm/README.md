@@ -39,7 +39,7 @@ Example Var override
 --------------------
 ```
     - import_role:
-        name: ansible-role-kvm-cloud-init-vm
+        name: Jooho.kvm-cloud-init-vm
       vars:
         kvm_vm_pool_dir: /home/jooho/KVM
 ```        
