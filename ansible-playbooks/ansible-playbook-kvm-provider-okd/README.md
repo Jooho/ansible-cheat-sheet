@@ -1,7 +1,7 @@
 Ansible Playbook: KVM Provider for OKD
 =========
 
-This playbook help run to Jooho.kvm-provider-okd role. 
+This playbook help run to Jooho.kvm_provider_okd role. 
 
 
 Requirements
@@ -11,7 +11,7 @@ None
 Dependencies
 ------------
 
-- [Jooho.kvm-provider-okd](https://galaxy.ansible.com/Jooho/kvm-provider-okd/)
+- [Jooho.kvm_provider_okd](https://galaxy.ansible.com/Jooho/kvm_provider_okd/)
 
 Roles Variables
 --------------
