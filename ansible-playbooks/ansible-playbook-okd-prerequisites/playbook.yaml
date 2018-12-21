@@ -1,0 +1,6 @@
+- name: okd_prerequisites playbook
+  gather_facts: false
+  hosts: localhost
+  tasks:
+    - include_role:
+        name: Jooho.okd_prerequisites
