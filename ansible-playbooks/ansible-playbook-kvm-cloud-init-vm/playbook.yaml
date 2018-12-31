@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
     - import_role:
-        name: Jooho.kvm-cloud-init-vm
+        name: Jooho.kvm_cloud_init_vm
       vars:
         kvm_vm_pool_dir: /home/jooho/KVM
         vm_data_dir: /home/jooho/kvm/vms

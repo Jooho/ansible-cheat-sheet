@@ -18,6 +18,7 @@ Roles Variables
 
 | Name                     | Default value                                                                    | Requird | Description                                                |
 | ------------------------ | -------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------- |
+| kvm_install_host         | localhost                                                                        | no      | The host where KVM install                                 |
 | kvm_vm_pool_dir          | /var/lib/virt/images                                                             | no      | The path where KVM VM images are stored                    |
 | vm_data_dir              | /root/kvm/vms                                                                    | no      | The path where VM information are stored                   |
 | vm_recreate              | true                                                                             | no      | Set false, if the same vm exist                            |
@@ -27,12 +28,12 @@ Roles Variables
 | cloud_init_meta_data     | {{vm_data_dir}}/{{vm_name}}/meta-data                                            | no      | Cloud init meta data file                                  |
 | cloud_init_iso_image     | {{vm_data_dir}}/{{vm_name}}/cidata.iso                                           | no      | Cloud init booting image                                   |
 | vm_name                  | CentOS_Base                                                                      | no      |                                                            |
-| vm_local_hostname        | base.example.com                                                                             | no      | VM internal hostname(it can be the same with vm_hostname)  |
+| vm_local_hostname        | base.example.com                                                                 | no      | VM internal hostname(it can be the same with vm_hostname)  |
 | vm_hostname              | base.example.com                                                                 | no      | VM public hostname                                         |
 | vm_public_key            | {{lookup('file','~/.ssh/id_rsa.pub')}}                                           | no      | SSH public key to login to the VM(ocp/redhat,centos/(ssh)) |
 | vm_cpu                   | 2                                                                                | no      |                                                            |
 | vm_memory                | 2048                                                                             | no      |                                                            |
-| vm_network_br            | virbr0                                                                       | no      | Default bridge name that the VM will use                   |
+| vm_network_br            | virbr0                                                                           | no      | Default bridge name that the VM will use                   |
 | vm_root_disk_size        | 20G                                                                              | no      |                                                            |
 
 Example Var override
